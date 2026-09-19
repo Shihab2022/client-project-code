@@ -1,0 +1,48 @@
+/* =====================================================================
+   RTL.CSS — right-to-left adjustments for the Arabic version
+   Loaded only when the active language is RTL (lang=ar).
+   The layout already uses logical properties, so only a few
+   directional exceptions need an override here.
+   ===================================================================== */
+
+body.site--rtl {
+    direction: rtl;
+    font-family: "Segoe UI", Tahoma, "Noto Kufi Arabic", "Noto Sans Arabic", Arial, sans-serif;
+    letter-spacing: 0;
+    line-height: 1.72;
+}
+
+/* Arabic numerals stay latin inside statistics for readability */
+body.site--rtl .stats__number { font-feature-settings: "kern" 1; }
+
+/* Titles need slightly tighter leading in Arabic */
+body.site--rtl h1, body.site--rtl h2, body.site--rtl h3 { line-height: 1.32; }
+body.site--rtl h1 { letter-spacing: 0; }
+
+/* Arrow icons flip direction */
+body.site--rtl .link-arrow__icon,
+body.site--rtl .area-card__arrow,
+body.site--rtl .related-links__icon { transform: scaleX(-1); }
+body.site--rtl .link-arrow:hover .link-arrow__icon { transform: scaleX(-1) translateX(-4px); }
+
+/* Icons that imply direction inside buttons */
+body.site--rtl .btn .btn__icon { transform: none; }
+
+/* Latin brand names / numbers inside RTL text */
+body.site--rtl .brand__name,
+body.site--rtl .lang-switch,
+body.site--rtl .phone-link,
+body.site--rtl .contact-info__item a { unicode-bidi: plaintext; }
+
+/* Form placeholders keep latin phone numbers readable */
+body.site--rtl .form__input, body.site--rtl .form__textarea { unicode-bidi: plaintext; }
+
+/* Chevron rotation already handled by the base accordion styles */
+body.site--rtl .accordion__question { font-weight: 700; }
+
+/* Floating CTA labels stay short */
+body.site--rtl .floating-cta__btn--wa,
+body.site--rtl .floating-cta__btn--call { padding-inline: .9rem; }
+
+/* Step numbers remain left aligned inside the card */
+body.site--rtl .steps__num { font-weight: 700; }
