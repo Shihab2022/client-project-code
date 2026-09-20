@@ -29,13 +29,13 @@
  *   mobile_only true → drawer only (keeps the desktop row from overflowing)
  */
 $site_nav = [
-    /* The main navigation stays deliberately short: one Services tab that
-       opens the full mega menu (all services, grouped in three columns),
-       then the About, Why choose us, Service areas and Contact pages.
+    /* The main navigation is intentionally short and predictable: Home,
+       one Services tab that opens the full mega menu (all services in
+       three columns), About, Why choose us, Service areas and Contact.
        Residential / commercial / specialised are NOT separate tabs — they
        live inside the Services panel and as anchor sections of
        /services.php. */
-    ['key' => 'nav.home',     'url' => '/index.php',         'match' => ['index.php'],         'mobile_only' => true],
+    ['key' => 'nav.home',     'url' => '/index.php',         'match' => ['index.php']],
     ['key' => 'nav.services', 'url' => '/services.php',      'match' => ['services.php'],      'mega' => true],
     ['key' => 'nav.about',    'url' => '/about.php',         'match' => ['about.php']],
     ['key' => 'nav.why',      'url' => '/why-choose-us.php', 'match' => ['why-choose-us.php']],
@@ -43,14 +43,21 @@ $site_nav = [
     ['key' => 'nav.contact',  'url' => '/contact.php',       'match' => ['contact.php']],
 ];
 
-/** Footer column: quick links (about, why choose us, gallery, FAQ, contact). */
+/**
+ * Footer column: quick links.
+ *
+ * The FAQ page was merged into the home page (the FAQs are the same
+ * Q&A set), so both the FAQ and the testimonial entries point at the
+ * matching section of the home page instead of a separate URL.
+ */
 $footer_quick_links = [
+    ['key' => 'nav.home',         'url' => '/index.php'],
     ['key' => 'nav.about',        'url' => '/about.php'],
     ['key' => 'nav.why',          'url' => '/why-choose-us.php'],
+    ['key' => 'nav.areas',        'url' => '/service-areas.php'],
     ['key' => 'nav.gallery',      'url' => '/gallery.php'],
-    ['key' => 'nav.testimonials', 'url' => '/about.php#testimonials'],
-    ['key' => 'nav.faq',          'url' => '/faq.php'],
-    ['key' => 'nav.contact',      'url' => '/contact.php'],
+    ['key' => 'nav.testimonials', 'url' => '/index.php#testimonials'],
+    ['key' => 'nav.faq',          'url' => '/index.php#faqs'],
 ];
 
 /** Footer column: legal links. */

@@ -148,32 +148,125 @@ body.site--rtl .service-card__btn-details:hover .service-card__arrow { transform
 .mini-card__text { margin: 0; font-size: .88rem; flex: 1; }
 .mini-card__actions { display: flex; flex-wrap: wrap; gap: .4rem; }
 
-/* Info / feature card */
+/* Info / feature card (used by every "why choose us" block) */
 .info-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: .6rem;
     height: 100%;
-    padding: 1.3rem 1.3rem 1.4rem;
+    padding: 1.6rem 1.5rem 1.65rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background:
+        linear-gradient(180deg, rgba(0, 67, 236, .035), rgba(255, 255, 255, 0) 45%),
+        var(--white);
+    box-shadow: var(--shadow-xs);
+    overflow: hidden;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+                border-color var(--dur) var(--ease);
+}
+.info-card::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur) var(--ease);
+}
+.info-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-card-hover);
+}
+.info-card:hover::after { transform: scaleX(1); }
+.info-card__icon {
+    display: grid;
+    place-items: center;
+    width: 54px; height: 54px;
+    border-radius: 18px;
+    background: linear-gradient(140deg, var(--primary-soft), var(--white));
+    border: 1px solid var(--border);
+    color: var(--primary-deep);
+    box-shadow: var(--shadow-xs);
+    transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.info-card:hover .info-card__icon {
+    background: linear-gradient(140deg, var(--primary), var(--primary-deep));
+    color: #ffffff;
+}
+.info-card__title { margin: .35rem 0 0; font-size: 1.08rem; }
+/* Cards built from plain sentences (service pages) have no title: the
+   sentence itself becomes the readable lead line of the card. */
+.info-card__text--lead {
+    margin-top: .35rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+}
+.info-card__text { margin: 0; font-size: .93rem; flex: 1; }
+.info-card .link-arrow { margin-top: .25rem; font-size: .9rem; }
+
+/* ------------------------------------------------------ WHY CHOOSE US PAGE */
+.reason-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(.9rem, 1.8vw, 1.35rem);
+}
+.reason-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0 1.15rem;
+    align-items: start;
+    padding: 1.5rem 1.5rem 1.5rem 1.85rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--white);
     box-shadow: var(--shadow-xs);
+    overflow: hidden;
     transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
                 border-color var(--dur) var(--ease);
 }
-.info-card:hover { transform: translateY(-4px); border-color: var(--primary-soft); box-shadow: var(--shadow-md); }
-.info-card__icon {
+.reason-card::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 5px;
+    background: linear-gradient(180deg, var(--primary), var(--accent));
+    transform: scaleY(.35);
+    transform-origin: top center;
+    transition: transform var(--dur) var(--ease);
+}
+.reason-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-card-hover);
+}
+.reason-card:hover::before { transform: scaleY(1); }
+.reason-card__icon {
     display: grid;
     place-items: center;
+    grid-row: 1 / span 2;
     width: 52px; height: 52px;
     border-radius: 16px;
     background: var(--primary-soft);
     color: var(--primary-deep);
+    transition: background var(--dur) var(--ease), color var(--dur) var(--ease),
+                transform var(--dur) var(--ease);
 }
-.info-card__title { margin: .1rem 0 0; font-size: 1.05rem; }
-.info-card__text { margin: 0; font-size: .93rem; flex: 1; }
-.info-card .link-arrow { margin-top: .25rem; font-size: .9rem; }
+.reason-card:hover .reason-card__icon {
+    background: linear-gradient(140deg, var(--primary), var(--primary-deep));
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+.reason-card__title { margin: 0 0 .35rem; font-size: 1.04rem; }
+.reason-card__text { margin: 0; font-size: .93rem; color: var(--muted); }
 
 /* Aside info card */
 .aside-card {
@@ -220,30 +313,81 @@ body.site--rtl .service-card__btn-details:hover .service-card__arrow { transform
 .check-list li { display: flex; align-items: flex-start; gap: .6rem; font-size: .95rem; color: var(--ink); }
 .check-list__icon { flex: none; margin-top: .22rem; color: var(--success); }
 
-/* Numbered process steps */
-.steps { display: grid; gap: .9rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* Numbered process steps — premium card row .................................
+   Each card: gold-topped icon tile, ghosted step number, title and text.
+   A thin connector line links the cards on wide screens so the process
+   reads as one flow instead of six separate boxes. */
+.steps {
+    display: grid;
+    gap: clamp(.9rem, 1.8vw, 1.35rem);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    counter-reset: step;
+}
 .steps__item {
+    position: relative;
     display: flex;
-    gap: .85rem;
-    padding: 1.15rem 1.2rem 1.25rem;
+    flex-direction: column;
+    gap: .55rem;
+    padding: 1.5rem 1.4rem 1.5rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    background: var(--white);
+    background:
+        linear-gradient(180deg, rgba(0, 67, 236, .04), rgba(255, 255, 255, 0) 42%),
+        var(--white);
+    box-shadow: var(--shadow-xs);
+    overflow: hidden;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+                border-color var(--dur) var(--ease);
 }
+.steps__item::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease);
+}
+.steps__item:hover {
+    transform: translateY(-6px);
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-card-hover);
+}
+.steps__item:hover::before { opacity: 1; }
+
+/* Ghosted step number in the corner of every card. */
 .steps__num {
+    position: absolute;
+    inset-block-start: .55rem;
+    inset-inline-end: .9rem;
+    font-size: clamp(2.6rem, 5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1;
+    color: var(--primary);
+    opacity: .12;
+    letter-spacing: -.04em;
+}
+.steps__head { display: flex; align-items: center; gap: .6rem; }
+.steps__icon-tile {
     display: grid;
     place-items: center;
-    flex: none;
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    background: var(--primary);
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: linear-gradient(140deg, var(--primary), var(--primary-deep));
     color: #ffffff;
-    font-weight: 800;
-    font-size: .9rem;
+    box-shadow: 0 10px 22px -12px var(--primary-glow);
 }
-.steps__title { display: flex; align-items: center; gap: .45rem; margin: 0 0 .25rem; font-size: .98rem; }
-.steps__title .icon { color: var(--primary); flex: none; }
-.steps__text { margin: 0; font-size: .88rem; }
+.steps__label {
+    font-size: .74rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.steps__title { margin: 0; font-size: 1.06rem; }
+.steps__text { margin: 0; font-size: .92rem; color: var(--muted); }
 
 /* Chips (areas, quick links) */
 .chip-list { display: flex; flex-wrap: wrap; gap: .55rem; }
@@ -313,6 +457,202 @@ body.site--rtl .service-card__btn-details:hover .service-card__arrow { transform
     overflow-wrap: break-word;
 }
 .area-card__arrow { margin-inline-start: auto; color: var(--muted); flex: none; }
+
+/* ------------------------------------------ INTERACTIVE SERVICE AREA MAP
+   Inline SVG map of Kuwait (see includes/area-map.php) plus a searchable
+   district list. Pins are links, so the map is crawlable and usable
+   without JavaScript. */
+.area-map { margin-top: clamp(1rem, 2vw, 1.5rem); }
+
+.area-map__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem 1rem;
+    margin-bottom: clamp(1rem, 2vw, 1.4rem);
+}
+.area-map__search {
+    position: relative;
+    flex: 1 1 320px;
+    max-width: 540px;
+    display: flex;
+    align-items: center;
+}
+.area-map__search-icon {
+    position: absolute;
+    inset-inline-start: 1.05rem;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    pointer-events: none;
+}
+.area-map__input {
+    width: 100%;
+    min-height: 52px;
+    padding-block: .7rem;
+    padding-inline: 3rem 3.1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--white);
+    color: var(--ink);
+    font: inherit;
+    font-size: .95rem;
+    box-shadow: var(--shadow-xs);
+    transition: border-color var(--dur), box-shadow var(--dur);
+}
+.area-map__input::placeholder { color: var(--muted-light); }
+.area-map__input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-glow);
+}
+.area-map__clear {
+    position: absolute;
+    inset-inline-end: .7rem;
+    display: grid;
+    place-items: center;
+    width: 34px; height: 34px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--light-2);
+    color: var(--muted);
+    cursor: pointer;
+    transition: background var(--dur), color var(--dur);
+}
+.area-map__clear:hover { background: var(--primary-soft); color: var(--primary-deep); }
+.area-map__status { margin: 0; font-size: .88rem; font-weight: 700; color: var(--muted); }
+
+.area-map__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, .85fr);
+    gap: clamp(1rem, 2.2vw, 1.75rem);
+    align-items: start;
+}
+.area-map__body--single { grid-template-columns: 1fr; }
+
+.area-map__canvas {
+    position: relative;
+    padding: clamp(.6rem, 1.6vw, 1.25rem);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: linear-gradient(180deg, #eef3ff 0%, #f9fbff 55%, #ffffff 100%);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+.area-map__svg { display: block; width: 100%; height: auto; }
+.area-map__grid line { stroke: rgba(0, 67, 236, .07); stroke-width: 1; }
+.area-map__land { fill: #ffffff; }
+.area-map__coast {
+    fill: none;
+    stroke: var(--primary);
+    stroke-opacity: .45;
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 12px 18px rgba(0, 67, 236, .12));
+}
+
+/* Pins: a golden dot with a soft blue halo, plus a label that appears on
+   hover, focus or when the pin matches the search query. */
+.area-map__pin { cursor: pointer; text-decoration: none; }
+.area-map__pin-halo,
+.area-map__pin-dot {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease),
+                fill var(--dur) var(--ease);
+}
+.area-map__pin-halo { fill: var(--primary); opacity: .16; }
+.area-map__pin-dot { fill: var(--accent); stroke: #ffffff; stroke-width: 2.5; }
+.area-map__pin-label {
+    font-size: 27px;
+    font-weight: 700;
+    fill: var(--primary-deep);
+    opacity: 0;
+    paint-order: stroke;
+    stroke: #ffffff;
+    stroke-width: 7px;
+    stroke-linejoin: round;
+    pointer-events: none;
+    transition: opacity var(--dur) var(--ease);
+}
+.area-map__pin:hover .area-map__pin-dot,
+.area-map__pin:focus-visible .area-map__pin-dot,
+.area-map__pin.is-match .area-map__pin-dot { transform: scale(1.4); fill: var(--primary); }
+.area-map__pin:hover .area-map__pin-halo,
+.area-map__pin:focus-visible .area-map__pin-halo,
+.area-map__pin.is-match .area-map__pin-halo { transform: scale(1.2); opacity: .26; }
+.area-map__pin:hover .area-map__pin-label,
+.area-map__pin:focus-visible .area-map__pin-label,
+.area-map__pin.is-match .area-map__pin-label { opacity: 1; }
+
+/* "Other Kuwait areas" marker: dashed ring instead of a filled dot. */
+.area-map__pin--coverage .area-map__pin-dot { fill: var(--primary); }
+.area-map__pin--coverage .area-map__pin-halo {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 2.5;
+    stroke-dasharray: 5 5;
+    opacity: .55;
+}
+.area-map__pin.is-hidden,
+.area-map__list-item.is-hidden { display: none; }
+
+.area-map__hint {
+    display: flex;
+    align-items: flex-start;
+    gap: .45rem;
+    margin: .9rem .2rem 0;
+    font-size: .82rem;
+    color: var(--muted);
+}
+.area-map__hint-icon { flex: none; margin-top: .15rem; color: var(--primary); }
+.area-map__empty {
+    margin: 1rem .2rem 0;
+    padding: .85rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--accent-soft);
+    color: #7a5310;
+    font-size: .88rem;
+}
+
+.area-map__list {
+    display: grid;
+    gap: .45rem;
+    max-height: 620px;
+    overflow-y: auto;
+    padding-inline-end: .3rem;
+}
+.area-map__list-link {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .7rem .85rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    box-shadow: var(--shadow-xs);
+    transition: border-color var(--dur), background-color var(--dur), transform var(--dur);
+}
+.area-map__list-link:hover {
+    border-color: var(--border-hover);
+    background: var(--primary-tint);
+    transform: translateX(3px);
+}
+.area-map__list-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: var(--primary-soft);
+    color: var(--primary-deep);
+}
+.area-map__list-body { display: grid; min-width: 0; }
+.area-map__list-name { font-weight: 700; color: var(--ink); font-size: .95rem; }
+.area-map__list-meta { font-size: .78rem; color: var(--muted); }
+.area-map__list-arrow { margin-inline-start: auto; flex: none; color: var(--muted); }
+body.site--rtl .area-map__list-link:hover { transform: translateX(-3px); }
 
 /* Related links block */
 .related-links { margin-top: clamp(1.75rem, 3.5vw, 2.5rem); }
@@ -759,6 +1099,79 @@ body.site--rtl .service-card__btn-details:hover .service-card__arrow { transform
 
 .contact-quick { display: grid; gap: .7rem; }
 .contact-quick .btn { width: 100%; }
+
+/* -------------------------------------------- CONTACT PAGE PANELS & TILES
+   The contact page is built from two panels: the company details as a
+   tile grid (+ direct actions) and the map. Kept in one component so the
+   page has a single, consistent visual language. */
+.contact-panel {
+    display: grid;
+    gap: 1.1rem;
+    padding: clamp(1.35rem, 2.8vw, 2rem);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+}
+.contact-panel__title {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    margin: 0;
+    font-size: 1.15rem;
+}
+.contact-panel__title .icon { color: var(--primary); flex: none; }
+.contact-panel__text { margin: -.4rem 0 0; font-size: .94rem; color: var(--muted); }
+.contact-panel--map { gap: .9rem; }
+.contact-panel--map .map-embed { min-height: 100%; }
+
+.contact-tiles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .8rem;
+}
+.contact-tile {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    min-width: 0;
+    padding: 1rem 1.05rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    transition: border-color var(--dur), background-color var(--dur), transform var(--dur);
+}
+.contact-tile:hover { border-color: var(--border-hover); background: var(--primary-tint); transform: translateY(-2px); }
+.contact-tile__icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 42px; height: 42px;
+    border-radius: 13px;
+    background: var(--primary-soft);
+    color: var(--primary-deep);
+}
+.contact-tile--whatsapp .contact-tile__icon { background: var(--whatsapp-soft); color: var(--whatsapp-dark); }
+.contact-tile__body { display: grid; gap: .15rem; min-width: 0; }
+.contact-tile__label {
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.contact-tile__value {
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+}
+a.contact-tile__value:hover { color: var(--primary-deep); }
+.contact-panel__actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+.contact-panel__actions .btn { flex: 1 1 220px; }
+
+/* Coverage band on the contact page (reuses the help-band look). */
+.contact-coverage .help-band__icon { background: var(--primary-soft); color: var(--primary-deep); }
 
 .map-embed {
     position: relative;

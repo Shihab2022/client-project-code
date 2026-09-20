@@ -46,6 +46,8 @@ function icon_paths(): array
         'clock'        => '<circle cx="12" cy="12" r="8.2"/><path d="M12 7.8V12l3 2"/>',
         'calendar'     => '<rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3.5v4M16 3.5v4"/><path d="M8 14h3"/>',
         'map-pin'      => '<path d="M12 21s6.5-6 6.5-11a6.5 6.5 0 1 0-13 0C5.5 15 12 21 12 21z"/><circle cx="12" cy="10" r="2.6"/>',
+        'search'       => '<circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8L20.5 20.5"/>',
+        'layers'       => '<path d="M12 3.5l8.5 4.5-8.5 4.5L3.5 8 12 3.5z"/><path d="M20.5 12.2L12 16.7l-8.5-4.5M20.5 16.2L12 20.7l-8.5-4.5"/>',
         'mail'         => '<rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M4 7.5l8 5.5 8-5.5"/>',
         'phone'        => '<path d="M7.5 3.8l2.3 3.1-1.6 2.3a12 12 0 0 0 5.9 5.9l2.3-1.6 3.1 2.3v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.5 6a2 2 0 0 1 2-2.2h2z"/>',
         'check'        => '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
@@ -245,7 +247,14 @@ function check_list(array $items, string $class = ''): string
     return $html . '</ul>';
 }
 
-/** Numbered process steps (1..n). */
+/**
+ * Numbered process steps (1..n).
+ *
+ * Each step is rendered as a self contained card: a soft icon tile, the
+ * step number as a large ghosted figure, the title and the description.
+ * Cards are decorated purely with CSS (`.steps__item`), so the markup
+ * stays semantic (<ol><li>) for screen readers and crawlers.
+ */
 function numbered_steps(array $steps): string
 {
     $html = '<ol class="steps">';
@@ -255,25 +264,56 @@ function numbered_steps(array $steps): string
         $title = is_array($step) ? ($step['title'] ?? '') : (string) $step;
         $text  = is_array($step) ? ($step['text'] ?? '') : '';
         $icon  = is_array($step) ? ($step['icon'] ?? 'check-circle') : 'check-circle';
-        $html .= '<li class="steps__item reveal">'
-            . '<span class="steps__num" aria-hidden="true">' . $i . '</span>'
-            . '<div class="steps__body"><h3 class="steps__title">' . icon($icon, 'steps__icon', 20) . e($title) . '</h3>'
+        $html .= '<li class="steps__item reveal" style="--step-index:' . $i . '">'
+            . '<span class="steps__num" aria-hidden="true">' . str_pad((string) $i, 2, '0', STR_PAD_LEFT) . '</span>'
+            . '<div class="steps__head">'
+            . '<span class="steps__icon-tile">' . icon($icon, 'steps__icon', 22) . '</span>'
+            . '<span class="steps__label">' . e(t('common.step')) . ' ' . $i . '</span>'
+            . '</div>'
+            . '<h3 class="steps__title">' . e($title) . '</h3>'
             . ($text !== '' ? '<p class="steps__text">' . e($text) . '</p>' : '')
-            . '</div></li>';
+            . '</li>';
     }
 
     return $html . '</ol>';
 }
 
-/** Icon feature cards. */
+/**
+ * Icon feature cards ("Why choose us" blocks).
+ *
+ * Accepts either ['title' => …, 'text' => …, 'icon' => …] rows or plain
+ * strings. Several service data files describe their reasons as a simple
+ * list of sentences, and those used to render as empty cards — a string
+ * entry is therefore treated as the card text and gets an icon by position.
+ */
 function feature_cards(array $cards, string $class = 'grid-3'): string
 {
-    $html = '<div class="card-grid ' . e($class) . '">';
+    $fallbackIcons = ['users', 'tools', 'shield', 'clock', 'leaf', 'check-circle'];
+    $fallbackCount = count($fallbackIcons);
+
+    $html  = '<div class="card-grid card-grid--features ' . e($class) . '">';
+    $index = 0;
     foreach ($cards as $card) {
+        if (is_string($card)) {
+            $card = ['text' => $card];
+        }
+        if (!is_array($card)) {
+            continue;
+        }
+
+        $title = trim((string) ($card['title'] ?? ''));
+        $text  = trim((string) ($card['text'] ?? ''));
+        if ($title === '' && $text === '') {
+            continue;
+        }
+
+        $iconName = (string) ($card['icon'] ?? $fallbackIcons[$index % $fallbackCount]);
+        $index++;
+
         $html .= '<article class="info-card reveal">'
-            . '<span class="info-card__icon">' . icon($card['icon'] ?? 'sparkle', 'icon', 26) . '</span>'
-            . '<h3 class="info-card__title">' . e($card['title'] ?? '') . '</h3>'
-            . '<p class="info-card__text">' . e($card['text'] ?? '') . '</p>'
+            . '<span class="info-card__icon">' . icon($iconName, 'icon', 26) . '</span>'
+            . ($title !== '' ? '<h3 class="info-card__title">' . e($title) . '</h3>' : '')
+            . '<p class="info-card__text' . ($title === '' ? ' info-card__text--lead' : '') . '">' . e($text) . '</p>'
             . (isset($card['url'])
                 ? '<a class="link-arrow" href="' . e_url($card['url']) . '">' . e($card['link_label'] ?? t('cta.learn_more'))
                     . icon('arrow-right', 'link-arrow__icon', 18) . '</a>'

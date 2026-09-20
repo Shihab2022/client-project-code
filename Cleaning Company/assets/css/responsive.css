@@ -48,9 +48,6 @@
 
 /* ---------------------------------------------------------------- ≤479 */
 @media (max-width: 479px) {
-    .guarantee-strip { font-size: .78rem; }
-    .guarantee-strip__link span { display: none; }   /* icon-only actions */
-
     .area-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
     .area-card { padding: .8rem; gap: .5rem; }
     .area-card__icon { width: 32px; height: 32px; border-radius: 10px; }
@@ -96,10 +93,6 @@
 
 /* ---------------------------------------------------------------- ≤599 */
 @media (max-width: 599px) {
-    .guarantee-strip__actions { display: none; }
-    .guarantee-strip__inner { justify-content: center; }
-
-    .topbar__social { display: none; }
     .topbar__inner { justify-content: center; }
 
     .header-phone-pill { display: none; }        /* topbar + action bar cover it */
@@ -116,9 +109,20 @@
     .form__actions .btn { flex: 1 1 100%; }
     .check-list--two-col { grid-template-columns: 1fr; }
     .contact-info { gap: .55rem; }
+    .contact-tiles { grid-template-columns: 1fr; }
+    .reason-grid { grid-template-columns: 1fr; }
     .map-embed { min-height: 280px; }
     .service-section-head { flex-direction: column; align-items: stretch; }
     .mega__promo-text { display: none; }
+}
+
+/* ---------------------------------------------------------------- ≤899 */
+@media (max-width: 899px) {
+    /* The coverage map is stacked above its district list on tablets
+       and phones so the pins stay a comfortable size. */
+    .area-map__body { grid-template-columns: 1fr; }
+    .area-map__list { max-height: none; }
+    .area-map__search { max-width: none; }
 }
 
 /* ---------------------------------------------------------------- ≥640 */
@@ -141,14 +145,14 @@
     .lang-switch--topbar { display: none; }
     .topbar__item--hours { display: none; }
 
-    /* Phone pill + WhatsApp bubble are redundant with the guarantee strip
-       and topbar while the drawer nav is active — keep the header slim. */
+    /* Phone pill + WhatsApp bubble are redundant with the topbar while the
+       drawer nav is active — keep the header slim. */
     .header-phone-pill { display: none; }
     .header-wa-btn { display: none; }
 
     .action-bar { display: flex; }
     .floating-cta { display: none; }
-    body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+    body { padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px)); }
 
     .hero__inner, .page-hero__inner { grid-template-columns: 1fr; }
     .split, .split--wide { grid-template-columns: 1fr; }
@@ -156,7 +160,7 @@
     .contact-grid { grid-template-columns: 1fr; }
 
     .site-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.25rem; }
-    .site-footer__col--brand, .site-footer__col--contact { grid-column: 1 / -1; }
+    .site-footer__col--brand { grid-column: 1 / -1; }
     .site-footer__bottom { flex-direction: column; align-items: flex-start; }
 
     .cta-band__inner { flex-direction: column; align-items: flex-start; }
@@ -190,7 +194,7 @@
     .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .quick-contact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .site-footer__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .site-footer__col--brand, .site-footer__col--contact { grid-column: 1 / -1; }
+    .site-footer__col--brand { grid-column: 1 / -1; }
 
     .topbar__item--hours { display: inline-flex; }
     .lang-switch--topbar { display: none; }     /* header switch is enough < 1200 */
@@ -201,9 +205,8 @@
 @media (min-width: 1024px) {
     .area-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .quick-contact { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .site-footer__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .site-footer__col--contact { grid-column: auto; }
-    .site-footer__col--brand { grid-column: 1 / -1; }
+    .site-footer__grid { grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)); }
+    .site-footer__col--brand { grid-column: auto; }
 }
 
 /* ----------------------------- ≥1200 · desktop navigation + full header */
@@ -222,8 +225,8 @@
     .main-nav__link { font-size: .88rem; padding: .55rem .55rem; }
 
     .gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .site-footer__grid { grid-template-columns: 1.45fr repeat(3, minmax(0, 1fr)) 1.25fr; }
-    .site-footer__col--brand, .site-footer__col--contact { grid-column: auto; }
+    .site-footer__grid { grid-template-columns: 1.6fr repeat(3, minmax(0, 1fr)); }
+    .site-footer__col--brand { grid-column: auto; }
     .site-footer__bottom { flex-direction: row; align-items: center; }
     .site-footer__note { width: auto; }
 
@@ -269,7 +272,7 @@
 
 /* --------------------------------------------------------------- print */
 @media print {
-    .topbar, .guarantee-strip, .site-header, .drawer, .floating-cta, .action-bar,
+    .topbar, .site-header, .drawer, .floating-cta, .action-bar,
     .cta-band, .site-footer, .breadcrumbs, .filter-tabs, .quick-contact { display: none !important; }
     body { color: #000; background: #fff; }
     a { color: #000; text-decoration: underline; }

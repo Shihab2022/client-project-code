@@ -55,24 +55,6 @@ $bodyClass    = trim('site ' . (string) ($page['body_class'] ?? '') . (is_rtl() 
 <body class="<?= e($bodyClass) ?>">
 <a class="skip-link" href="#main"><?= e(t('common.skip_to_content')) ?></a>
 
-<!-- Top Golden Guarantee strip (EverClean SA inspired) -->
-<div class="guarantee-strip" aria-label="Quality Guarantee">
-    <div class="container guarantee-strip__inner">
-        <div class="guarantee-strip__badge">
-            <span class="guarantee-strip__dot" aria-hidden="true"></span>
-            <span><?= e(t('header.golden_guarantee_strip')) ?></span>
-        </div>
-        <div class="guarantee-strip__actions">
-            <a href="<?= e_url(whatsapp_url(whatsapp_quote_message())) ?>" target="_blank" rel="noopener noreferrer" class="guarantee-strip__link">
-                <?= icon('whatsapp', 'guarantee-strip__icon', 14) ?><span><?= e(t('cta.whatsapp_us')) ?></span>
-            </a>
-            <a href="<?= e_url(tel_url()) ?>" class="guarantee-strip__link guarantee-strip__link--phone">
-                <?= icon('phone', 'guarantee-strip__icon', 14) ?><span dir="ltr"><?= e(COMPANY_PHONE) ?></span>
-            </a>
-        </div>
-    </div>
-</div>
-
 <!-- Top contact bar -->
 <div class="topbar">
     <div class="container topbar__inner">
@@ -92,14 +74,6 @@ $bodyClass    = trim('site ' . (string) ($page['body_class'] ?? '') . (is_rtl() 
         </ul>
         <div class="topbar__meta">
             <?= language_switcher('lang-switch--topbar') ?>
-            <ul class="topbar__social">
-                <?php foreach ($social_profiles as $profile) : ?>
-                    <?php if (str_starts_with((string) $profile['url'], 'http')) : ?>
-                    <li><a href="<?= e_url($profile['url']) ?>" target="_blank" rel="noopener noreferrer"
-                           aria-label="<?= e($profile['label']) ?>"><?= icon($profile['icon'], 'icon', 16) ?></a></li>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </ul>
         </div>
     </div>
 </div>

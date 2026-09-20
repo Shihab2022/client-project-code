@@ -20,6 +20,8 @@ return [
         'kuwait-city' => [
             'name'            => 'Kuwait City',
             'name_ar'         => 'مدينة الكويت',
+            'lat'             => 29.3759,
+            'lng'             => 47.9774,
             'governorate'     => 'Capital Governorate',
             'governorate_ar'  => 'محافظة العاصمة',
             'image'           => '/assets/images/areas/kuwait-city.webp',
@@ -44,6 +46,8 @@ return [
         'hawally' => [
             'name'            => 'Hawally',
             'name_ar'         => 'حولي',
+            'lat'             => 29.3326,
+            'lng'             => 48.0288,
             'governorate'     => 'Hawalli Governorate',
             'governorate_ar'  => 'محافظة حولي',
             'image'           => '/assets/images/areas/hawally.webp',
@@ -67,6 +71,8 @@ return [
         'salmiya' => [
             'name'            => 'Salmiya',
             'name_ar'         => 'السالمية',
+            'lat'             => 29.3339,
+            'lng'             => 48.0766,
             'governorate'     => 'Hawalli Governorate',
             'governorate_ar'  => 'محافظة حولي',
             'image'           => '/assets/images/areas/salmiya.webp',
@@ -91,6 +97,8 @@ return [
         'farwaniya' => [
             'name'            => 'Farwaniya',
             'name_ar'         => 'الفروانية',
+            'lat'             => 29.2775,
+            'lng'             => 47.9587,
             'governorate'     => 'Farwaniya Governorate',
             'governorate_ar'  => 'محافظة الفروانية',
             'image'           => '/assets/images/areas/farwaniya.webp',
@@ -114,6 +122,8 @@ return [
         'mubarak-al-kabeer' => [
             'name'            => 'Mubarak Al-Kabeer',
             'name_ar'         => 'مبارك الكبير',
+            'lat'             => 29.2075,
+            'lng'             => 48.0962,
             'governorate'     => 'Mubarak Al-Kabeer Governorate',
             'governorate_ar'  => 'محافظة مبارك الكبير',
             'image'           => '/assets/images/areas/mubarak-al-kabeer.webp',
@@ -137,6 +147,8 @@ return [
         'ahmadi' => [
             'name'            => 'Ahmadi',
             'name_ar'         => 'الأحمدي',
+            'lat'             => 29.0769,
+            'lng'             => 48.0838,
             'governorate'     => 'Ahmadi Governorate',
             'governorate_ar'  => 'محافظة الأحمدي',
             'image'           => '/assets/images/areas/ahmadi.webp',
@@ -161,6 +173,8 @@ return [
         'jahra' => [
             'name'            => 'Jahra',
             'name_ar'         => 'الجهراء',
+            'lat'             => 29.3375,
+            'lng'             => 47.6581,
             'governorate'     => 'Jahra Governorate',
             'governorate_ar'  => 'محافظة الجهراء',
             'image'           => '/assets/images/areas/jahra.webp',
@@ -184,6 +198,8 @@ return [
         'sabah-al-salem' => [
             'name'            => 'Sabah Al Salem',
             'name_ar'         => 'صباح السالم',
+            'lat'             => 29.2700,
+            'lng'             => 48.0700,
             'governorate'     => 'Mubarak Al-Kabeer Governorate',
             'governorate_ar'  => 'محافظة مبارك الكبير',
             'image'           => '/assets/images/areas/sabah-al-salem.webp',
@@ -208,6 +224,8 @@ return [
         'fintas' => [
             'name'            => 'Fintas',
             'name_ar'         => 'الفنطاس',
+            'lat'             => 29.1739,
+            'lng'             => 48.1219,
             'governorate'     => 'Ahmadi Governorate',
             'governorate_ar'  => 'محافظة الأحمدي',
             'image'           => '/assets/images/areas/fintas.webp',
@@ -231,6 +249,8 @@ return [
         'mahboula' => [
             'name'            => 'Mahboula',
             'name_ar'         => 'المهبولة',
+            'lat'             => 29.1450,
+            'lng'             => 48.1250,
             'governorate'     => 'Ahmadi Governorate',
             'governorate_ar'  => 'محافظة الأحمدي',
             'image'           => '/assets/images/areas/mahboula.webp',
@@ -255,6 +275,8 @@ return [
         'mangaf' => [
             'name'            => 'Mangaf',
             'name_ar'         => 'المنقف',
+            'lat'             => 29.1060,
+            'lng'             => 48.1300,
             'governorate'     => 'Ahmadi Governorate',
             'governorate_ar'  => 'محافظة الأحمدي',
             'image'           => '/assets/images/areas/mangaf.webp',
@@ -278,6 +300,8 @@ return [
         'abu-al-hasaniya' => [
             'name'            => 'Abu Al Hasaniya',
             'name_ar'         => 'أبو الحصاني',
+            'lat'             => 29.0980,
+            'lng'             => 48.0850,
             'governorate'     => 'Mubarak Al-Kabeer Governorate',
             'governorate_ar'  => 'محافظة مبارك الكبير',
             'image'           => '/assets/images/areas/abu-al-hasaniya.webp',
@@ -302,6 +326,8 @@ return [
         'mishref' => [
             'name'            => 'Mishref',
             'name_ar'         => 'مشرف',
+            'lat'             => 29.2900,
+            'lng'             => 48.0730,
             'governorate'     => 'Hawalli Governorate',
             'governorate_ar'  => 'محافظة حولي',
             'image'           => '/assets/images/areas/mishref.webp',
@@ -325,6 +351,8 @@ return [
         'bayan' => [
             'name'            => 'Bayan',
             'name_ar'         => 'بيان',
+            'lat'             => 29.3000,
+            'lng'             => 48.0450,
             'governorate'     => 'Hawalli Governorate',
             'governorate_ar'  => 'محافظة حولي',
             'image'           => '/assets/images/areas/bayan.webp',
@@ -349,6 +377,8 @@ return [
         'jabriya' => [
             'name'            => 'Jabriya',
             'name_ar'         => 'الجابرية',
+            'lat'             => 29.3160,
+            'lng'             => 48.0620,
             'governorate'     => 'Hawalli Governorate',
             'governorate_ar'  => 'محافظة حولي',
             'image'           => '/assets/images/areas/jabriya.webp',
@@ -372,6 +402,8 @@ return [
         'shuwaikh' => [
             'name'            => 'Shuwaikh',
             'name_ar'         => 'الشويخ',
+            'lat'             => 29.3500,
+            'lng'             => 47.9400,
             'governorate'     => 'Capital Governorate',
             'governorate_ar'  => 'محافظة العاصمة',
             'image'           => '/assets/images/areas/shuwaikh.webp',
@@ -396,6 +428,8 @@ return [
         'other-areas' => [
             'name'            => 'Other Kuwait Areas',
             'name_ar'         => 'مناطق أخرى في الكويت',
+            'lat'             => 29.3100,
+            'lng'             => 47.4800,
             'governorate'     => 'Kuwait',
             'governorate_ar'  => 'الكويت',
             'image'           => '/assets/images/areas/other-areas.webp',

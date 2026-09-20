@@ -35,7 +35,6 @@ return [
     'header.whatsapp' => 'WhatsApp us',
     'header.hours'    => 'Working hours',
     'header.tagline'  => 'Cleaning services across Kuwait',
-    'header.golden_guarantee_strip' => '✨ Golden Quality Guarantee: 100% Satisfaction Guarantee across Kuwait | Direct WhatsApp & Phone Booking',
     'header.book_now' => 'Book Now',
 
     /* ---------------- Call to action labels ---------------- */
@@ -89,6 +88,7 @@ return [
     'common.skip_to_content' => 'Skip to main content',
     'common.home'            => 'Home',
     'common.breadcrumbs'     => 'Breadcrumb',
+    'common.step'            => 'Step',
 
     /* ---------------- Home page ---------------- */
     'home.hero_eyebrow'    => 'Cleaning company in Kuwait',
@@ -203,6 +203,16 @@ return [
     'areas.services_available' => 'Services available in :area',
     'areas.district_info'      => 'About cleaning services in :area',
 
+    /* ---------------- Interactive service area map ---------------- */
+    'areas.map_title'          => 'Map of Kuwait showing the cleaning service areas we cover',
+    'areas.map_lead'           => 'Open the map to see every district we serve. Use the search box to jump straight to your own area.',
+    'areas.map_hint'           => 'Each pin links to the district page with local information about our cleaning services.',
+    'areas.search_label'       => 'Search the service areas we cover in Kuwait',
+    'areas.search_placeholder' => 'Search your area (for example Salmiya)',
+    'areas.search_clear'       => 'Clear the search',
+    'areas.search_count'       => ':count areas shown',
+    'areas.search_empty'       => 'No district matches that search. Send us your area on WhatsApp and we will confirm whether we can reach you.',
+
     /* ---------------- Gallery ---------------- */
     'gallery.hero_eyebrow'        => 'Gallery',
     'gallery.hero_title'          => 'Cleaning work gallery',
@@ -224,12 +234,17 @@ return [
     /* ---------------- Contact page ---------------- */
     'contact.hero_eyebrow' => 'Contact us',
     'contact.hero_title'   => 'Contact our cleaning company in Kuwait',
-    'contact.hero_text'    => 'The fastest way to reach us is WhatsApp or a phone call. You can also send the form below and we will reply by e-mail.',
+    'contact.hero_text'    => 'The fastest way to reach us is WhatsApp or a direct phone call. Send us your district, the type of space and what you need cleaned, and we will answer with clear options.',
     'contact.form_title'   => 'Send us your cleaning request',
     'contact.form_text'    => 'Tell us about your space and we will come back with clear information. Your message is delivered by e-mail and is never stored in a database.',
     'contact.info_title'   => 'Contact details',
     'contact.map_title'    => 'Find us on the map',
     'contact.hours_title'  => 'Working hours',
+    'contact.options_title'=> 'Reach our team in one tap',
+    'contact.options_lead' => 'Call, WhatsApp or e-mail us during working hours. There is no booking system, no account and no waiting queue — you speak to a real person.',
+    'contact.coverage_title'=> 'Do we cover your area?',
+    'contact.coverage_text'=> 'We work across the districts listed on our service areas page. Open the coverage map, search your district and read the local information before you contact us.',
+    'contact.coverage_cta' => 'Open the coverage map',
 
     /* ---------------- Contact form ---------------- */
     'form.name'            => 'Your name',
@@ -331,9 +346,9 @@ return [
 
         /* ---------------- Contact page ---------------- */
         'contact.hero_eyebrow'        => 'Contact Us',
-        'contact.hero_title'          => 'Get in touch with ' . COMPANY_NAME,
-        'contact.hero_text'           => 'Have a question about a specific service? Need a quote for your villa, office or commercial space? Reach us on WhatsApp, by phone or through the contact form below.',
-        'contact.intro'               => 'We reply on WhatsApp and by phone during working hours. If you prefer e-mail, send a message using the form and we will get back to you as soon as possible.',
+        'contact.hero_title'          => 'Contact our cleaning company in Kuwait',
+        'contact.hero_text'           => 'The fastest way to reach us is WhatsApp or a direct phone call. Send us your district, the type of space and what you need cleaned, and we will answer with clear options.',
+        'contact.intro'               => 'We reply on WhatsApp and by phone during working hours. E-mail works just as well if you prefer it.',
         'contact.phone_label'         => 'Phone number',
         'contact.email_label'         => 'E-mail address',
         'contact.address_label'       => 'Business address',
@@ -482,11 +497,11 @@ return [
     'legal.terms_governing'       => 'These terms are governed by the laws of Kuwait. Any dispute arising out of or in connection with these terms or the services is subject to the non-exclusive jurisdiction of the Kuwaiti courts.',
     'legal.terms_changes'         => 'We may update these terms from time to time. The version shown here is the current version and its date is shown above.',
 
-    /* ---------------- Contact page ---------------- */
+    /* ---------------- Contact page (labels used by contact.php) ---------------- */
     'contact.hero_eyebrow'  => 'Contact us',
-    'contact.hero_title'    => 'Get in touch with ' . COMPANY_NAME,
-    'contact.hero_text'     => 'Have a question about a specific service? Need a quote for your villa, office or commercial space? Reach us on WhatsApp, by phone or through the contact form below.',
-    'contact.intro'         => 'We reply on WhatsApp and by phone during working hours. If you prefer e-mail, send a message using the form and we will get back to you as soon as possible.',
+    'contact.hero_title'    => 'Contact our cleaning company in Kuwait',
+    'contact.hero_text'     => 'The fastest way to reach us is WhatsApp or a direct phone call. Send us your district, the type of space and what you need cleaned, and we will answer with clear options.',
+    'contact.intro'         => 'We reply on WhatsApp and by phone during working hours. E-mail works just as well if you prefer it.',
     'contact.phone_label'   => 'Phone number',
     'contact.email_label'   => 'E-mail address',
     'contact.address_label' => 'Business address',
