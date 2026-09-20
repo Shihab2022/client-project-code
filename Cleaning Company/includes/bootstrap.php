@@ -112,6 +112,16 @@ if ($relativeScript !== '' && is_file($__root . $relativeScript)) {
         $currentPath = '/index.php';
     }
 }
+
+/* In prefixed mode, CURRENT_PATH must never carry the /en or /ar prefix:
+   when /ar/index.php is served directly (e.g. via Apache or the dev router),
+   $relativeScript contains the prefix and must be normalised. */
+if ($urlMode === 'prefixed' && $uriLang !== '') {
+    $currentPath = preg_replace('#^/(en|ar)(?=/|$)#', '', $currentPath) ?: '/index.php';
+    if ($currentPath === '/') {
+        $currentPath = '/index.php';
+    }
+}
 $GLOBALS['CURRENT_PATH'] = $currentPath;
 
 $queryForLinks = $_SERVER['QUERY_STRING'] ?? '';
@@ -136,7 +146,13 @@ if ($urlMode === 'prefixed' && REDIRECT_TO_LANG_PREFIX && $uriLang === '' && PHP
     $hasLangQuery = isset($_GET['lang']);
     $skip         = is_unprefixed_path($currentPath) || $hasLangQuery;
     if (!$skip && ($method === 'GET' || $method === 'HEAD') && empty($_POST)) {
-        $target = $basePath . '/' . DEFAULT_LANG . ($currentPath === '/index.php' ? '/' : $currentPath);
+        /* Remembered language wins: an Arabic-preferring visitor who types
+           the bare domain should land on /ar/, not be forced back to /en/. */
+        $targetLang = DEFAULT_LANG;
+        if (!empty($_COOKIE['site_lang']) && in_array((string) $_COOKIE['site_lang'], SUPPORTED_LANGS, true)) {
+            $targetLang = (string) $_COOKIE['site_lang'];
+        }
+        $target = $basePath . '/' . $targetLang . ($currentPath === '/index.php' ? '/' : $currentPath);
         if ($GLOBALS['CURRENT_QUERY'] !== '') {
             $target .= '?' . $GLOBALS['CURRENT_QUERY'];
         }

@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف المطابخ',
     'category'   => 'residential',
     'icon'       => 'kitchen',
-    'image'      => '/assets/images/services/kitchen-cleaning.webp',
+    'image'      => '/assets/images/project-image/kitchen-cleaning.avif',
     'image_alt'  => 'Kitchen cleaning service in Kuwait',
     'short'      => 'Focused kitchen cleaning that deals with grease, scale and everyday kitchen residue.',
     'meta_title' => 'Kitchen Cleaning in Kuwait | Professional Kitchen Deep Clean',

@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف العيادات والمراكز الطبية',
     'category'   => 'commercial',
     'icon'       => 'clinic',
-    'image'      => '/assets/images/services/clinic-cleaning.webp',
+    'image'      => '/assets/images/project-image/clinic-cleaning.jpg',
     'image_alt'  => 'Clinic and medical centre cleaning service in Kuwait',
     'short'      => 'Careful cleaning for clinics, dental practices and medical centres in Kuwait.',
     'meta_title' => 'Clinic Cleaning in Kuwait | Medical Centre Cleaning Services',

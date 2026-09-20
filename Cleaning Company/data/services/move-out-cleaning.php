@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف ما بعد الانتقال',
     'category'   => 'residential',
     'icon'       => 'truck',
-    'image'      => '/assets/images/services/move-out-cleaning.webp',
+    'image'      => '/assets/images/project-image/move-out-cleaning.avif',
     'image_alt'  => 'Move-out cleaning service before property handover in Kuwait',
     'short'      => 'Handover-ready cleaning so the property is returned in the condition the landlord expects.',
     'meta_title' => 'Move-Out Cleaning in Kuwait | End of Tenancy Cleaning',

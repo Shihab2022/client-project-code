@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'التنظيف بالبخار',
     'category'   => 'specialised',
     'icon'       => 'steam',
-    'image'      => '/assets/images/services/steam-cleaning.webp',
+    'image'      => '/assets/images/project-image/steam-cleaning.avif',
     'image_alt'  => 'Steam cleaning service in Kuwait using a professional steam machine',
     'short'      => 'Low-moisture steam cleaning for surfaces that should not be soaked with water.',
     'meta_title' => 'Steam Cleaning in Kuwait | Professional Steam Cleaning Service',

@@ -15,12 +15,12 @@ function schema_local_business(): array
         '@context'    => 'https://schema.org',
         '@type'       => ['CleaningService', 'LocalBusiness'],
         '@id'         => abs_url('/') . '#organization',
-        'name'        => COMPANY_NAME,
+        'name'        => company_name(),
         'legalName'   => COMPANY_LEGAL_NAME,
         'url'         => rtrim(SITE_URL, '/') . url('/'),
         'telephone'   => COMPANY_PHONE_E164,
         'email'       => COMPANY_EMAIL,
-        'description' => COMPANY_NAME . ' provides residential, commercial and specialised cleaning services in Kuwait.',
+        'description' => company_name() . ' provides residential, commercial and specialised cleaning services in Kuwait.',
         'address'     => array_filter([
             '@type'           => 'PostalAddress',
             'streetAddress'   => COMPANY_ADDRESS,
@@ -97,7 +97,7 @@ function schema_website(): array
         '@type'      => 'WebSite',
         '@id'        => rtrim(SITE_URL, '/') . '#website',
         'url'        => rtrim(SITE_URL, '/') . url('/'),
-        'name'       => COMPANY_NAME,
+        'name'       => company_name(),
         'inLanguage' => lang(),
         'publisher'  => ['@id' => abs_url('/') . '#organization'],
     ];

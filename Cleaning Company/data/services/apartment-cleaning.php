@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف الشقق',
     'category'   => 'residential',
     'icon'       => 'building',
-    'image'      => '/assets/images/services/apartment-cleaning.webp',
+    'image'      => '/assets/images/project-image/apartment-cleaning.avif',
     'image_alt'  => 'Apartment cleaning service in Kuwait',
     'short'      => 'Efficient cleaning for apartments and flats where space, time and access all matter.',
     'meta_title' => 'Apartment Cleaning in Kuwait | Flat Cleaning Service',

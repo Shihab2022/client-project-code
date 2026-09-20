@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف المقاهي',
     'category'   => 'commercial',
     'icon'       => 'cafe',
-    'image'      => '/assets/images/services/cafe-cleaning.webp',
+    'image'      => '/assets/images/project-image/cafe-cleaning.jpg',
     'image_alt'  => 'Cafe cleaning service in Kuwait',
     'short'      => 'Cleaning for cafes and coffee shops, built around your daily opening routine.',
     'meta_title' => 'Cafe Cleaning in Kuwait | Coffee Shop Cleaning Services',

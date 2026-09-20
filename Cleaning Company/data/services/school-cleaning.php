@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف المدارس والحضانات',
     'category'   => 'commercial',
     'icon'       => 'school',
-    'image'      => '/assets/images/services/school-cleaning.webp',
+    'image'      => '/assets/images/project-image/school-cleaning.avif',
     'image_alt'  => 'School and nursery cleaning service in Kuwait',
     'short'      => 'Scheduled cleaning for schools, nurseries and training centres, working around class times.',
     'meta_title' => 'School Cleaning in Kuwait | Nursery & Training Centre Cleaning',

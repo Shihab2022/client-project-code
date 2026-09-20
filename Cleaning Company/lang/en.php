@@ -56,6 +56,7 @@ return [
     'cta.ask_about'         => 'Ask About This Service',
     'cta.discuss'           => 'Discuss Your Cleaning Requirements',
     'cta.view_all_services' => 'View All Services',
+    'cta.view_all_in_category' => 'See all in this category',
     'cta.view_all_areas'    => 'View All Areas We Serve',
     'cta.view_gallery'      => 'View Our Gallery',
     'cta.send_message'      => 'Send Message',
@@ -367,6 +368,42 @@ return [
         'stats.professionals'          => 'Trained professionals',
         'stats.areas_covered'          => 'Kuwait areas covered',
 
+        /* ---------------- About page copy ---------------- */
+        'about.story_p1'        => COMPANY_NAME . ' is a cleaning company serving homes and businesses across Kuwait. We built the company around a simple idea: a cleaning visit has to be planned, written down, checked and then handed back to you properly explained. Every job starts with a short conversation on WhatsApp or by phone, continues with a written task list, and ends with a quality check before the team leaves.',
+        'about.story_p2'        => 'Our teams are trained on surface-specific methods and on the safe use of cleaning chemicals, so marble, glass, upholstery and bathroom fittings are each treated the way their material requires. We work in English and Arabic, and every customer deals directly with a person from our team instead of an automated booking system.',
+        'about.values_lead'     => 'These values decide how our teams behave inside your property and how we handle a problem when something goes wrong.',
+        'about.value_1_title'   => 'Quality',
+        'about.value_1_text'    => 'The job is finished against the written task list, not against a subjective impression of clean.',
+        'about.value_2_title'   => 'Reliability',
+        'about.value_2_text'    => 'Confirmed arrival windows, honest answers about availability and no unexplained delays.',
+        'about.value_3_title'   => 'Respect',
+        'about.value_3_text'    => 'Teams work carefully around furniture, privacy and the routines of the household or business.',
+        'about.value_4_title'   => 'Safety',
+        'about.value_4_text'    => 'Products matched to each surface, used at the recommended dilution and rinsed where needed.',
+        'about.value_5_title'   => 'Customer satisfaction',
+        'about.value_5_text'    => 'If something was missed you tell us and we come back to complete it.',
+        'about.value_6_title'   => 'Professionalism',
+        'about.value_6_text'    => 'Briefed teams with a team leader who is accountable for the visit.',
+        'about.team_point_1'    => 'Trained on surface-specific cleaning methods',
+        'about.team_point_2'    => 'Briefed on the safe use of cleaning chemicals',
+        'about.team_point_3'    => 'Supervised by a team leader on every visit',
+        'about.team_point_4'    => 'Working in English and Arabic',
+        'about.why_lead'        => 'Every point below describes a way of working, not a marketing promise.',
+
+        /* ---------------- Services overview page ---------------- */
+        'services.intro_title'  => 'Three service families, one team',
+        'services.intro_text'   => 'We organise our work in three families so it is easy to find what you need: cleaning for homes, cleaning for businesses and specialist work that needs its own machines and methods. Open any service to see the scope, the process, the surfaces we handle and the areas of Kuwait we cover.',
+        'services.point_1'      => '30 cleaning services in three families',
+        'services.point_2'      => 'Every service has its own detailed page',
+        'services.point_3'      => 'Available across the districts listed on our areas page',
+        'services.jump_title'   => 'Jump to a category',
+        'services.help_title'   => 'Not sure which service you need?',
+        'services.help_text'    => 'Describe your space on WhatsApp — the type of property, its size and what is bothering you — and we will tell you which service fits and what it costs.',
+
+        /* ---------------- Why choose us page ---------------- */
+        'why.lead'              => 'Cleaning is judged on the details: the edges, the corners and the materials that must not be damaged. Each point below explains how a job is actually carried out.',
+        'why.process_lead'      => 'Every visit follows the same six steps, so you always know what happens next.',
+
     /* ---------------- WhatsApp messages ---------------- */
     'wa.quote_message'       => 'Hello, I would like to request a cleaning service quotation in Kuwait. Please provide more information.',
     'wa.service_message'     => 'Hello, I am interested in your :service service in Kuwait. Please provide more information.',
@@ -387,7 +424,7 @@ return [
 
     /* ---------------- Footer ---------------- */
     'footer.about_text' => 'Residential, commercial and specialised cleaning services across Kuwait. Contact us on WhatsApp or by phone for a clear answer from a real person.',
-    'footer.company'    => 'Company',
+    'footer.quick_links'=> 'Quick Links',
     'footer.services'   => 'Services',
     'footer.areas'      => 'Service areas',
     'footer.contact'    => 'Contact',

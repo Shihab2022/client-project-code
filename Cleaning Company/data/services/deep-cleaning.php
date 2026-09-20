@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'التنظيف العميق للمنازل',
     'category'   => 'residential',
     'icon'       => 'spray',
-    'image'      => '/assets/images/services/deep-cleaning.webp',
+    'image'      => '/assets/images/project-image/deep-cleaning.jpg',
     'image_alt'  => 'Deep cleaning service for a house in Kuwait',
     'short'      => 'A detailed top-to-bottom clean for homes that need more than routine maintenance.',
     'meta_title' => 'Deep Cleaning in Kuwait | House Deep Cleaning Service',

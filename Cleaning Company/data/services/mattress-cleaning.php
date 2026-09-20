@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف المراتب',
     'category'   => 'residential',
     'icon'       => 'mattress',
-    'image'      => '/assets/images/services/mattress-cleaning.webp',
+    'image'      => '/assets/images/project-image/mattress-cleaning.avif',
     'image_alt'  => 'Mattress cleaning service in Kuwait',
     'short'      => 'Surface cleaning and extraction for mattresses, removing dust, marks and stale odour.',
     'meta_title' => 'Mattress Cleaning in Kuwait | Professional Mattress Care',

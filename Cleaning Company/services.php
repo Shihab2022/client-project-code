@@ -1,6 +1,8 @@
 <?php
 /**
- * SERVICES OVERVIEW — all services grouped by category with internal links.
+ * SERVICES OVERVIEW — the single page for all 30 services.
+ * One Services tab in the navigation; Residential / Commercial /
+ * Specialised live here as anchor sections instead of separate pages.
  */
 
 require __DIR__ . '/includes/bootstrap.php';
@@ -26,13 +28,43 @@ $hero = [
     'title'    => t('services.hero_title'),
     'text'     => t('services.hero_text'),
     'whatsapp' => whatsapp_quote_message(),
-    'points'   => ['30 cleaning services in three categories', 'Every service has its own detailed page', 'Available across the districts listed on our areas page'],
+    'points'   => [
+        t('services.point_1'),
+        t('services.point_2'),
+        t('services.point_3'),
+    ],
 ];
 require __DIR__ . '/includes/page-hero.php';
+?>
 
-foreach (service_categories() as $categoryKey => $category) :
+<?php /* Category quick-jump + short intro about the three service families */ ?>
+<section class="section section--tight" aria-labelledby="services-intro-title">
+    <div class="container">
+        <?= section_head([
+            'eyebrow' => t('nav.services'),
+            'title'   => t('services.intro_title'),
+            'lead'    => t('services.intro_text'),
+            'level'   => 2,
+        ]) ?>
+        <nav class="category-jump" aria-label="<?= e(t('services.jump_title')) ?>">
+            <ul class="category-jump__list">
+                <?php foreach (service_categories() as $categoryKey => $category) : ?>
+                    <li>
+                        <a class="category-jump__link" href="#<?= e($categoryKey) ?>">
+                            <?= icon($category['icon'] ?? 'sparkle', 'icon', 18) ?>
+                            <span><?= e(lx($category, 'name', ucfirst($categoryKey))) ?></span>
+                            <span class="category-jump__count"><?= e((string) count(services_by_category((string) $categoryKey))) ?></span>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </nav>
+    </div>
+</section>
+
+<?php foreach (service_categories() as $categoryKey => $category) :
     ?>
-<section class="section<?= $categoryKey !== 'residential' ? ' section--muted' : '' ?>" id="<?= e($categoryKey) ?>" aria-labelledby="cat-<?= e($categoryKey) ?>-title">
+<section class="section<?= $categoryKey !== 'residential' ? ' section--muted' : '' ?> category-section" id="<?= e($categoryKey) ?>" aria-labelledby="cat-<?= e($categoryKey) ?>-title">
     <div class="container">
         <div class="service-section-head">
             <?= section_head([
@@ -41,7 +73,6 @@ foreach (service_categories() as $categoryKey => $category) :
                 'lead'    => lx($category, 'description', ''),
                 'level'   => 2,
             ]) ?>
-            <?= btn(['label' => t('cta.view_all_services'), 'href' => url((string) $category['url']), 'variant' => 'ghost', 'icon' => 'arrow-right', 'icon_pos' => 'right', 'class' => 'btn--sm']) ?>
         </div>
         <div class="card-grid grid-3">
             <?php foreach (services_by_category($categoryKey) as $serviceSlug => $serviceRow) : ?>
@@ -51,6 +82,23 @@ foreach (service_categories() as $categoryKey => $category) :
     </div>
 </section>
 <?php endforeach; ?>
+
+<?php /* Help box: many visitors do not know which service they need */ ?>
+<section class="section section--tight" aria-labelledby="services-help-title">
+    <div class="container">
+        <div class="help-band reveal">
+            <span class="help-band__icon"><?= icon('whatsapp', 'icon', 26) ?></span>
+            <div class="help-band__body">
+                <h2 class="help-band__title" id="services-help-title"><?= e(t('services.help_title')) ?></h2>
+                <p class="help-band__text"><?= e(t('services.help_text')) ?></p>
+            </div>
+            <div class="help-band__actions">
+                <?= wa_button(whatsapp_quote_message(), t('cta.whatsapp_us'), 'whatsapp') ?>
+                <?= call_button(t('cta.call_now'), 'outline') ?>
+            </div>
+        </div>
+    </div>
+</section>
 
 <section class="section" aria-labelledby="services-process-title">
     <div class="container">

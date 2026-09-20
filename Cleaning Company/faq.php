@@ -16,7 +16,7 @@ $page = [
     'title'       => 'FAQs — Cleaning Services in Kuwait | ' . COMPANY_NAME,
     'description' => 'Frequently asked questions about residential, commercial and specialised cleaning services in Kuwait. Find answers about our process, products, areas, scheduling and contact options.',
     'keywords'    => 'cleaning FAQ Kuwait, cleaning questions Kuwait, villa cleaning FAQ Kuwait, office cleaning FAQ Kuwait, deep cleaning FAQ Kuwait',
-    'image'       => '/assets/images/services/deep-cleaning.webp',
+    'image'       => '/assets/images/project-image/deep-cleaning.jpg',
     'image_alt'   => 'Cleaning FAQ page in Kuwait',
     'body_class'  => 'page-faq',
     'breadcrumbs' => [
@@ -39,7 +39,7 @@ $hero = [
     'eyebrow'   => t('faq.hero_eyebrow'),
     'title'     => t('faq.hero_title'),
     'text'      => t('faq.hero_text'),
-    'image'     => '/assets/images/services/deep-cleaning.webp',
+    'image'     => '/assets/images/project-image/deep-cleaning.jpg',
     'image_alt' => 'Cleaning FAQ page in Kuwait',
     'whatsapp'  => whatsapp_quote_message(),
 ];

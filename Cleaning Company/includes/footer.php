@@ -37,10 +37,10 @@ require __DIR__ . '/../data/site.php';
                 </ul>
             </div>
 
-            <nav class="site-footer__col" aria-label="<?= e(t('footer.company')) ?>">
-                <h2 class="site-footer__title"><?= e(t('footer.company')) ?></h2>
+            <nav class="site-footer__col" aria-label="<?= e(t('footer.quick_links')) ?>">
+                <h2 class="site-footer__title"><?= e(t('footer.quick_links')) ?></h2>
                 <ul class="site-footer__list">
-                    <?php foreach ($footer_company_links as $link) : ?>
+                    <?php foreach ($footer_quick_links as $link) : ?>
                         <li><a href="<?= e_url(url($link['url'])) ?>"><?= e(t($link['key'])) ?></a></li>
                     <?php endforeach; ?>
                 </ul>

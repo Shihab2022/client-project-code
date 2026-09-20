@@ -1,7 +1,7 @@
 <?php
 /**
  * =====================================================================
- *  INNER PAGE HERO  (reusable: breadcrumbs + H1 + intro + CTAs + image)
+ *  INNER PAGE HERO  (reusable: H1 + intro + CTAs + image)
  * =====================================================================
  *  Options:
  *    $hero['eyebrow']        Small label above the H1
@@ -11,7 +11,6 @@
  *    $hero['image_alt']      ALT text for that image
  *    $hero['points']         Array of short bullet points (optional)
  *    $hero['whatsapp']       Contextual WhatsApp message
- *    $hero['show_breadcrumbs'] Force breadcrumbs on/off (default: when set)
  * =====================================================================
  */
 

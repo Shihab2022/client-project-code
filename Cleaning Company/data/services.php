@@ -73,7 +73,7 @@ return [
             'name_ar'    => 'تنظيف المنازل',
             'short_name' => 'Residential',
             'icon'       => 'home',
-            'url'        => '/residential-cleaning.php',
+            'url'        => '/services.php#residential',
             'description'=> 'Villa, apartment, sofa, carpet, kitchen, bathroom and deep cleaning for homes across Kuwait.',
         ],
         'commercial' => [
@@ -81,7 +81,7 @@ return [
             'name_ar'    => 'تنظيف الشركات',
             'short_name' => 'Commercial',
             'icon'       => 'building',
-            'url'        => '/commercial-cleaning.php',
+            'url'        => '/services.php#commercial',
             'description'=> 'Offices, shops, restaurants, clinics, schools and other business premises cleaned around your working hours.',
         ],
         'specialised' => [
@@ -89,7 +89,7 @@ return [
             'name_ar'    => 'الخدمات المتخصصة',
             'short_name' => 'Specialised',
             'icon'       => 'tools',
-            'url'        => '/specialized-cleaning.php',
+            'url'        => '/services.php#specialised',
             'description'=> 'Deep, steam, facade, glass, floor and post-construction cleaning that needs professional equipment.',
         ],
     ],

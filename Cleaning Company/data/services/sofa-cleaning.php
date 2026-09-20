@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف الكنب',
     'category'   => 'residential',
     'icon'       => 'sofa',
-    'image'      => '/assets/images/services/sofa-cleaning.webp',
+    'image'      => '/assets/images/project-image/sofa-cleaning.avif',
     'image_alt'  => 'Sofa cleaning service in Kuwait using extraction equipment',
     'short'      => 'Fabric and leather sofa cleaning on site using extraction and controlled moisture.',
     'meta_title' => 'Sofa Cleaning in Kuwait | Upholstery Cleaning Service',

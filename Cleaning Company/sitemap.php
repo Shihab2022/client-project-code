@@ -49,11 +49,8 @@ $entry = static function (string $en, string $ar, string $lastmod, string $prior
 /* ------------------------------------------------------- url list --- */
 $urls = [
     ['/',                              '1.0'],
-    ['/about.php',                     '0.8'],
     ['/services.php',                  '0.9'],
-    ['/residential-cleaning.php',      '0.9'],
-    ['/commercial-cleaning.php',       '0.9'],
-    ['/specialized-cleaning.php',      '0.9'],
+    ['/about.php',                     '0.8'],
     ['/why-choose-us.php',             '0.7'],
     ['/service-areas.php',             '0.8'],
     ['/gallery.php',                   '0.7'],

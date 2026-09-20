@@ -52,24 +52,16 @@ function nav_is_active(array $item): bool
     return false;
 }
 
-/** Category name for a top level nav entry. */
-function nav_category_for(string $file): string
-{
-    return match ($file) {
-        'residential-cleaning.php' => 'residential',
-        'commercial-cleaning.php'  => 'commercial',
-        default                    => 'specialised',
-    };
-}
-
-/** Category of a nav entry: explicit "category" key first, then the legacy URL map. */
+/**
+ * Category of a nav entry.
+ *
+ * Categories are no longer separate tabs: they only exist as extra anchors
+ * inside the single Services entry, so the category is always read from the
+ * explicit "category" key of the entry itself.
+ */
 function nav_entry_category(array $item): string
 {
-    if (!empty($item['category'])) {
-        return (string) $item['category'];
-    }
-
-    return nav_category_for((string) ($item['match'][0] ?? ''));
+    return (string) ($item['category'] ?? '');
 }
 
 /** True when the entry opens a panel (sub menu) on desktop. */
@@ -89,7 +81,13 @@ function nav_area_slugs(int $limit = 8): array
     return $slugs;
 }
 
-/** One column of the mega menu (a service category). */
+/**
+ * One column of the Services mega menu (a service category).
+ *
+ * The column title is a plain heading — categories are no longer separate
+ * pages or tabs. The footer link of each column jumps to the matching
+ * category anchor inside the single services overview page.
+ */
 function nav_category_column(string $category): string
 {
     $meta = service_categories()[$category] ?? [];
@@ -98,16 +96,18 @@ function nav_category_column(string $category): string
     }
 
     $html = '<div class="mega__column">'
-        . '<a class="mega__column-title" href="' . e_url((string) $meta['url']) . '">'
+        . '<p class="mega__column-title">'
         . icon($meta['icon'] ?? 'sparkle', 'mega__column-icon', 20)
         . '<span>' . e(lx($meta, 'name', ucfirst($category))) . '</span>'
-        . '</a><ul class="mega__list">';
+        . '</p><ul class="mega__list">';
 
     foreach (services_by_category($category) as $slug => $row) {
         $html .= '<li><a href="' . e_url(service_url($slug)) . '">' . e(lx($row, 'name', $slug)) . '</a></li>';
     }
 
-    return $html . '</ul></div>';
+    return $html
+        . '</ul><a class="mega__column-all" href="' . e_url(url('/services.php') . '#' . $category) . '">'
+        . e(t('cta.view_all_in_category')) . '</a></div>';
 }
 
 /** Desktop navigation with mega menu and single level dropdowns. */
@@ -255,6 +255,10 @@ function nav_mobile_groups(array $item): array
                 $links[] = ['label' => lx($row, 'name', $slug), 'url' => service_url($slug)];
             }
             if ($links) {
+                $links[] = [
+                    'label' => t('cta.view_all_in_category'),
+                    'url'   => url('/services.php') . '#' . $categoryKey,
+                ];
                 $groups[] = [
                     'title' => lx($categoryMeta, 'name', ucfirst((string) $categoryKey)),
                     'links' => $links,
@@ -312,9 +316,10 @@ function language_switcher(string $class = ''): string
     return $html;
 }
 
-/** Brand logo: original SVG mark + COMPANY_NAME from config. */
+/** Brand logo: original SVG mark + company name (language aware). */
 function brand_logo(string $class = ''): string
 {
+    $name = company_name();
     $mark = '<svg class="brand__mark" width="44" height="44" viewBox="0 0 48 48" aria-hidden="true" focusable="false">'
         . '<defs><linearGradient id="brandGradient" x1="0" y1="0" x2="48" y2="48">'
         . '<stop offset="0%" stop-color="#0043ec"/><stop offset="100%" stop-color="#07152f"/></linearGradient></defs>'
@@ -324,8 +329,8 @@ function brand_logo(string $class = ''): string
         . '</svg>';
 
     return '<a class="brand ' . e($class) . '" href="' . e_url(url('/')) . '"'
-        . ' aria-label="' . e(COMPANY_NAME) . ' – ' . e(t('nav.home')) . '">'
+        . ' aria-label="' . e($name) . ' – ' . e(t('nav.home')) . '">'
         . $mark
-        . '<span class="brand__text"><span class="brand__name">' . e(COMPANY_NAME) . '</span>'
-        . '<span class="brand__tagline">' . e(t('header.tagline')) . '</span></span></a>';
+        . '<span class="brand__text"><span class="brand__name">' . e($name) . '</span>'
+        . '<span class="brand__tagline">' . e(company_tagline()) . '</span></span></a>';
 }

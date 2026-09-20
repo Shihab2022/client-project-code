@@ -18,9 +18,8 @@ $page = [
     'description' => 'Professional residential and commercial cleaning services in Kuwait. Villas, apartments, offices, sofas, carpets and deep cleaning. Contact ' . COMPANY_NAME . ' on WhatsApp or by phone.',
     'keywords'    => 'cleaning company in Kuwait, cleaning services Kuwait, house cleaning Kuwait, villa cleaning Kuwait, apartment cleaning Kuwait, office cleaning Kuwait',
     'image'       => '/assets/images/og-cover.webp',
-    'image_alt'   => 'Professional cleaning team in Kuwait',
+    'image_alt'   => alt_text('Professional cleaning team in Kuwait', 'فريق تنظيف محترف في الكويت'),
     'body_class'  => 'page-home',
-    'scripts'     => ['/assets/js/services.js'],
 ];
 
 require __DIR__ . '/includes/header.php';
@@ -62,13 +61,11 @@ $homeWaMessage = t('wa.quote_message');
         <div class="hero__aside">
             <div class="hero__media-wrapper reveal">
                 <div class="hero__media">
-                    <?= img_tag([
-                        'src'        => '/assets/images/hero-cleaning.webp',
-                        'alt'        => 'Professional cleaning team working in a villa in Kuwait',
-                        'responsive' => true,
-                        'eager'      => true,
-                        'sizes'      => '(max-width: 899px) 92vw, 560px',
-                    ]) ?>
+                    <video class="hero__video" autoplay muted loop playsinline preload="auto"
+                           poster="<?= e_url(media('/assets/images/hero-cleaning.webp')) ?>"
+                           aria-hidden="true" tabindex="-1">
+                        <source src="<?= e_url(media('/assets/images/project-image/banner-video.mp4')) ?>" type="video/mp4">
+                    </video>
                 </div>
 
                 <!-- Floating EverClean style trust badges -->
@@ -142,31 +139,31 @@ $homeWaMessage = t('wa.quote_message');
                     <div class="about-gallery-item about-gallery-item--1">
                         <?= img_tag([
                             'src'        => '/assets/images/about-team.webp',
-                            'alt'        => 'Professional cleaning team in Kuwait',
+                            'alt'        => alt_text('Professional cleaning team in Kuwait', 'فريق تنظيف محترف في الكويت'),
                             'responsive' => true,
                             'sizes'      => '(max-width: 899px) 46vw, 320px',
                         ]) ?>
                     </div>
                     <div class="about-gallery-item about-gallery-item--2">
                         <?= img_tag([
-                            'src'        => '/assets/images/services/villa-cleaning.webp',
-                            'alt'        => 'Villa cleaning service in Kuwait',
+                            'src'        => '/assets/images/project-image/villa-cleaning.avif',
+                            'alt'        => alt_text('Villa cleaning service in Kuwait', 'خدمة تنظيف الفلل في الكويت'),
                             'responsive' => true,
                             'sizes'      => '(max-width: 899px) 46vw, 320px',
                         ]) ?>
                     </div>
                     <div class="about-gallery-item about-gallery-item--3">
                         <?= img_tag([
-                            'src'        => '/assets/images/services/sofa-cleaning.webp',
-                            'alt'        => 'Steam sofa cleaning in Kuwait',
+                            'src'        => '/assets/images/project-image/sofa-cleaning.avif',
+                            'alt'        => alt_text('Steam sofa cleaning in Kuwait', 'تنظيف الكنب بالبخار في الكويت'),
                             'responsive' => true,
                             'sizes'      => '(max-width: 899px) 46vw, 320px',
                         ]) ?>
                     </div>
                     <div class="about-gallery-item about-gallery-item--4">
                         <?= img_tag([
-                            'src'        => '/assets/images/services/kitchen-cleaning.webp',
-                            'alt'        => 'Kitchen deep cleaning and degreasing in Kuwait',
+                            'src'        => '/assets/images/project-image/kitchen-cleaning.avif',
+                            'alt'        => alt_text('Kitchen deep cleaning and degreasing in Kuwait', 'تنظيف مطبخ عميق وإزالة دهون في الكويت'),
                             'responsive' => true,
                             'sizes'      => '(max-width: 899px) 46vw, 320px',
                         ]) ?>
@@ -177,8 +174,14 @@ $homeWaMessage = t('wa.quote_message');
     </div>
 </section>
 
-<?php /* 4. SERVICES GRID (filterable) */ ?>
-<section class="section section--muted" id="services" data-services-grid aria-labelledby="home-services-title">
+<?php /* 4. SERVICES (one section, no category tabs — categories live in the nav) */
+$featuredSlugs = [
+    'villa-cleaning', 'apartment-cleaning', 'deep-cleaning',
+    'sofa-cleaning', 'kitchen-cleaning', 'move-out-cleaning',
+    'office-cleaning', 'shop-cleaning', 'post-construction-cleaning',
+];
+?>
+<section class="section section--muted" id="services" aria-labelledby="home-services-title">
     <div class="container">
         <div class="service-section-head">
             <?= section_head([
@@ -187,17 +190,12 @@ $homeWaMessage = t('wa.quote_message');
                 'lead'    => t('home.services_lead'),
                 'level'   => 2,
             ]) ?>
-            <div class="filter-tabs" role="tablist" aria-label="<?= e(t('home.services_eyebrow')) ?>">
-                <button type="button" class="filter-tabs__btn is-active" data-filter="all" aria-selected="true"><?= e(t('home.filter_all')) ?></button>
-                <button type="button" class="filter-tabs__btn" data-filter="residential" aria-selected="false"><?= e(t('category.residential')) ?></button>
-                <button type="button" class="filter-tabs__btn" data-filter="commercial" aria-selected="false"><?= e(t('category.commercial')) ?></button>
-                <button type="button" class="filter-tabs__btn" data-filter="specialised" aria-selected="false"><?= e(t('category.specialised')) ?></button>
-            </div>
+            <?= btn(['label' => t('cta.view_all_services'), 'href' => url('/services.php'), 'variant' => 'primary', 'icon' => 'arrow-right', 'icon_pos' => 'right', 'class' => 'btn--sm']) ?>
         </div>
 
-        <div class="card-grid grid-3" data-filter-target="[data-services-grid]">
-            <?php foreach (services() as $serviceSlug => $serviceRow) : ?>
-                <?php echo service_card($serviceSlug); ?>
+        <div class="card-grid grid-3">
+            <?php foreach ($featuredSlugs as $featuredSlug) : ?>
+                <?php echo service_card($featuredSlug); ?>
             <?php endforeach; ?>
         </div>
 

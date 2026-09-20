@@ -28,6 +28,54 @@ function text_direction(): string
 }
 
 /**
+ * Company name in the active language (falls back to COMPANY_NAME).
+ * Uses COMPANY_NAME_AR when the visitor is reading Arabic.
+ */
+function company_name(): string
+{
+    if (lang() !== DEFAULT_LANG && defined('COMPANY_NAME_AR')) {
+        $ar = (string) constant('COMPANY_NAME_AR');
+        if ($ar !== '') {
+            return $ar;
+        }
+    }
+
+    return COMPANY_NAME;
+}
+
+/**
+ * Company tagline in the active language.
+ */
+function company_tagline(): string
+{
+    if (lang() !== DEFAULT_LANG && defined('COMPANY_TAGLINE_AR')) {
+        $ar = (string) constant('COMPANY_TAGLINE_AR');
+        if ($ar !== '') {
+            return $ar;
+        }
+    }
+
+    if (defined('COMPANY_TAGLINE') && COMPANY_TAGLINE !== '') {
+        return COMPANY_TAGLINE;
+    }
+
+    return t('header.tagline');
+}
+
+/**
+ * Language aware image ALT text.
+ * alt_text('Cleaning team in Kuwait', 'فريق تنظيف في الكويت')
+ */
+function alt_text(string $en, string $ar = ''): string
+{
+    if (lang() === 'ar' && $ar !== '') {
+        return $ar;
+    }
+
+    return $en;
+}
+
+/**
  * Translate a key from /lang/{lang}.php with graceful fallback to English.
  * Usage: t('nav.services')  |  t('cta.whatsapp_about', ['service' => 'Villa Cleaning'])
  */
@@ -85,6 +133,147 @@ function lx(array $row, string $key, string $fallback = ''): string
     }
 
     return $fallback;
+}
+
+/**
+ * Pick the right LIST (array) value from a bilingual data row.
+ * Companion of lx() for array fields such as 'includes', 'features', 'faq'.
+ * The Arabic overlay stores lists as `<key>_ar`, so:
+ * lxa(['features' => [...], 'features_ar' => [...]], 'features')
+ */
+function lxa(array $row, string $key, array $fallback = []): array
+{
+    if (lang() !== DEFAULT_LANG) {
+        $localized = $row[$key . '_' . lang()] ?? null;
+        if (is_array($localized) && $localized !== []) {
+            return $localized;
+        }
+    }
+    $value = $row[$key] ?? null;
+
+    return is_array($value) ? $value : $fallback;
+}
+
+/* ---------------------------------------------------------------------
+ | Arabic content overlay
+ |
+ | All Arabic content for the data-driven sections (services, areas,
+ | FAQs, gallery, testimonials, trust points, process steps …) lives in
+ | ONE file: /data/ar-content.php. When the site runs in Arabic, data()
+ | merges each entry into the matching row as `<field>_ar` keys, so the
+ | standard lx()/lxa() helpers pick it up everywhere without any change
+ | to the English source files.
+ * -------------------------------------------------------------------*/
+
+/** The Arabic overlay file (loaded once per request). */
+function ar_overlay(): array
+{
+    static $overlay = null;
+    if ($overlay === null) {
+        $file    = __DIR__ . '/../data/ar-content.php';
+        $overlay = is_file($file) ? (array) require $file : [];
+    }
+
+    return $overlay;
+}
+
+/** Merge one overlay entry into a data row as `<field>_ar` keys. */
+function merge_overlay_row(array &$row, array $overlayRow): void
+{
+    foreach ($overlayRow as $key => $value) {
+        if ($value === null || $value === '' || $value === []) {
+            continue;
+        }
+        $row[$key . '_ar'] = $value;
+    }
+}
+
+/** Apply /data/ar-content.php to a /data array (no-op outside Arabic). */
+function apply_ar_overlay(string $name, array $data): array
+{
+    if (lang() !== 'ar') {
+        return $data;
+    }
+
+    $overlay = ar_overlay();
+    if (!$overlay) {
+        return $data;
+    }
+
+    switch ($name) {
+        case 'services':
+            foreach ((array) ($overlay['services'] ?? []) as $slug => $row) {
+                if (isset($data['services'][$slug]) && is_array($row)) {
+                    merge_overlay_row($data['services'][$slug], $row);
+                }
+            }
+            foreach ((array) ($overlay['categories'] ?? []) as $catKey => $row) {
+                if (isset($data['categories'][$catKey]) && is_array($row)) {
+                    merge_overlay_row($data['categories'][$catKey], $row);
+                }
+            }
+            foreach ((array) ($overlay['default_process'] ?? []) as $i => $row) {
+                if (isset($data['default_process'][$i]) && is_array($row)) {
+                    merge_overlay_row($data['default_process'][$i], $row);
+                }
+            }
+            foreach ((array) ($overlay['default_why'] ?? []) as $i => $row) {
+                if (isset($data['default_why'][$i]) && is_array($row)) {
+                    merge_overlay_row($data['default_why'][$i], $row);
+                }
+            }
+            break;
+
+        case 'areas':
+            foreach ((array) ($overlay['areas'] ?? []) as $slug => $row) {
+                if (isset($data['areas'][$slug]) && is_array($row)) {
+                    merge_overlay_row($data['areas'][$slug], $row);
+                }
+            }
+            break;
+
+        case 'faqs':
+            foreach ((array) ($overlay['faqs'] ?? []) as $groupKey => $items) {
+                if (isset($data['groups'][$groupKey]) && is_array($items) && $items !== []) {
+                    $data['groups'][$groupKey]['items_ar'] = $items;
+                }
+            }
+            break;
+
+        case 'testimonials':
+            foreach ((array) ($overlay['testimonials'] ?? []) as $i => $row) {
+                if (isset($data['testimonials'][$i]) && is_array($row)) {
+                    merge_overlay_row($data['testimonials'][$i], $row);
+                }
+            }
+            break;
+
+        case 'trust-points':
+            foreach ((array) ($overlay['trust_points'] ?? []) as $i => $row) {
+                if (isset($data['points'][$i]) && is_array($row)) {
+                    merge_overlay_row($data['points'][$i], $row);
+                }
+            }
+            break;
+
+        case 'gallery':
+            foreach ((array) ($overlay['gallery_items'] ?? []) as $i => $row) {
+                if (isset($data['items'][$i]) && is_array($row)) {
+                    merge_overlay_row($data['items'][$i], $row);
+                }
+            }
+            break;
+
+        case 'before-after':
+            foreach ((array) ($overlay['before_after'] ?? []) as $i => $row) {
+                if (isset($data['items'][$i]) && is_array($row)) {
+                    merge_overlay_row($data['items'][$i], $row);
+                }
+            }
+            break;
+    }
+
+    return $data;
 }
 
 /* ---------------------------------------------------------------------
@@ -147,7 +336,7 @@ function path_with_lang(string $path): string
 function url(string $path = '/'): string
 {
     if ($path === '/' || $path === '') {
-        return base_path() . path_with_lang('/index.php');
+        return base_path() . path_with_lang('/');
     }
 
     return base_path() . path_with_lang($path);
@@ -165,6 +354,17 @@ function lang_switch_url(string $code): string
     $current = $GLOBALS['CURRENT_PATH'] ?? '/index.php';
     $query   = $GLOBALS['CURRENT_QUERY'] ?? '';
     $mode    = $GLOBALS['URL_MODE'] ?? 'prefixed';
+
+    /* Normalise: strip any language prefix that leaked into CURRENT_PATH
+       (happens when /en/index.php or /ar/index.php are served directly). */
+    if ($mode === 'prefixed') {
+        $current = preg_replace('#^/(en|ar)(?=/|$)#', '', $current);
+        if ($current === '' || $current === null) {
+            $current = '/index.php';
+        } elseif ($current === '/') {
+            $current = '/index.php';
+        }
+    }
 
     if ($mode === 'prefixed') {
         $target = base_path() . '/' . $code . ($current === '/index.php' ? '/' : $current);
@@ -292,13 +492,14 @@ function has_real_whatsapp(): bool
  | F. Content data accessors (everything lives in /data – no database)
  * -------------------------------------------------------------------*/
 
-/** Load and cache a /data file. */
+/** Load and cache a /data file (Arabic overlay applied when lang = ar). */
 function data(string $name): array
 {
     static $cache = [];
     if (!isset($cache[$name])) {
-        $file      = __DIR__ . '/../data/' . $name . '.php';
+        $file = __DIR__ . '/../data/' . $name . '.php';
         $cache[$name] = is_file($file) ? (array) require $file : [];
+        $cache[$name] = apply_ar_overlay($name, $cache[$name]);
     }
 
     return $cache[$name];

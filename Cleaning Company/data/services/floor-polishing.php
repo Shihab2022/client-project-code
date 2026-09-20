@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف وتلميع الأرضيات',
     'category'   => 'specialised',
     'icon'       => 'floor',
-    'image'      => '/assets/images/services/floor-polishing.webp',
+    'image'      => '/assets/images/project-image/floor-polishing.jpg',
     'image_alt'  => 'Floor cleaning and polishing service in Kuwait for marble and tile floors',
     'short'      => 'Machine floor cleaning and polishing for marble, porcelain, tile and coated floors.',
     'meta_title' => 'Floor Cleaning & Polishing in Kuwait | Marble & Tile Floor Care',

@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف الفنادق والشقق الفندقية',
     'category'   => 'commercial',
     'icon'       => 'hotel',
-    'image'      => '/assets/images/services/hotel-cleaning.webp',
+    'image'      => '/assets/images/project-image/hotel-cleaning.avif',
     'image_alt'  => 'Hotel cleaning service in Kuwait for guest rooms and public areas',
     'short'      => 'Guest room, corridor and public area cleaning for hotels and serviced apartments.',
     'meta_title' => 'Hotel Cleaning in Kuwait | Guest Room & Public Area Cleaning',

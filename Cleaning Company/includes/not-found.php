@@ -25,9 +25,9 @@ if (!function_exists('not_found')) {
             <div class="notfound__links">
                 <h2 class="notfound__subtitle"><?= e(t('common.quick_links')) ?></h2>
                 <ul class="chip-list">
-                    <li><a class="chip" href="<?= e_url(url('/residential-cleaning.php')) ?>"><?= e(t('nav.residential')) ?></a></li>
-                    <li><a class="chip" href="<?= e_url(url('/commercial-cleaning.php')) ?>"><?= e(t('nav.commercial')) ?></a></li>
-                    <li><a class="chip" href="<?= e_url(url('/specialized-cleaning.php')) ?>"><?= e(t('nav.specialised')) ?></a></li>
+                    <li><a class="chip" href="<?= e_url(url('/services.php')) ?>"><?= e(t('nav.services')) ?></a></li>
+                    <li><a class="chip" href="<?= e_url(url('/about.php')) ?>"><?= e(t('nav.about')) ?></a></li>
+                    <li><a class="chip" href="<?= e_url(url('/why-choose-us.php')) ?>"><?= e(t('nav.why')) ?></a></li>
                     <li><a class="chip" href="<?= e_url(url('/service-areas.php')) ?>"><?= e(t('nav.areas')) ?></a></li>
                     <li><a class="chip" href="<?= e_url(url('/gallery.php')) ?>"><?= e(t('nav.gallery')) ?></a></li>
                     <li><a class="chip" href="<?= e_url(url('/faq.php')) ?>"><?= e(t('nav.faq')) ?></a></li>

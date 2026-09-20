@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف الحمامات',
     'category'   => 'residential',
     'icon'       => 'bath',
-    'image'      => '/assets/images/services/bathroom-cleaning.webp',
+    'image'      => '/assets/images/project-image/bathroom-cleaning.avif',
     'image_alt'  => 'Bathroom cleaning service in Kuwait, tiles and fittings cleaned',
     'short'      => 'Detailed bathroom cleaning for tiles, grout, glass screens, fittings and fixtures.',
     'meta_title' => 'Bathroom Cleaning in Kuwait | Professional Bathroom Clean',

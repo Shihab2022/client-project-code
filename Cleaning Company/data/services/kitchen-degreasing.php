@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'إزالة الدهون من المطابخ',
     'category'   => 'specialised',
     'icon'       => 'spray',
-    'image'      => '/assets/images/services/kitchen-degreasing.webp',
+    'image'      => '/assets/images/project-image/kitchen-degreasing.avif',
     'image_alt'  => 'Kitchen degreasing service in Kuwait for grease-heavy surfaces',
     'short'      => 'Focused removal of cooking grease from kitchens and commercial cooking areas.',
     'meta_title' => 'Kitchen Degreasing in Kuwait | Deep Grease Removal Service',

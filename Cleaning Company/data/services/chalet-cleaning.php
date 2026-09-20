@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف الشاليهات',
     'category'   => 'residential',
     'icon'       => 'sun',
-    'image'      => '/assets/images/services/chalet-cleaning.webp',
+    'image'      => '/assets/images/project-image/chalet-cleaning.avif',
     'image_alt'  => 'Chalet cleaning service in Kuwait',
     'short'      => 'Pre-arrival and post-visit cleaning for chalets, rest houses and weekend properties.',
     'meta_title' => 'Chalet Cleaning in Kuwait | Rest House & Weekend Property Cleaning',

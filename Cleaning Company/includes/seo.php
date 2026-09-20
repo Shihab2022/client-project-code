@@ -121,7 +121,7 @@ function seo_head(array $page): string
 
     /* Open Graph */
     $html .= '<meta property="og:type" content="' . e((string) ($page['og_type'] ?? 'website')) . '">' . "\n";
-    $html .= '<meta property="og:site_name" content="' . e(COMPANY_NAME) . '">' . "\n";
+    $html .= '<meta property="og:site_name" content="' . e(company_name()) . '">' . "\n";
     $html .= '<meta property="og:title" content="' . e($title) . '">' . "\n";
     $html .= '<meta property="og:description" content="' . e($description) . '">' . "\n";
     $html .= '<meta property="og:url" content="' . e_url($canonical) . '">' . "\n";

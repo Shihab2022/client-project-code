@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف المطاعم',
     'category'   => 'commercial',
     'icon'       => 'restaurant',
-    'image'      => '/assets/images/services/restaurant-cleaning.webp',
+    'image'      => '/assets/images/project-image/restaurant-cleaning.avif',
     'image_alt'  => 'Restaurant cleaning service in Kuwait',
     'short'      => 'Front-of-house and back-of-house cleaning for restaurants in Kuwait.',
     'meta_title' => 'Restaurant Cleaning in Kuwait | Commercial Kitchen & Dining Cleaning',

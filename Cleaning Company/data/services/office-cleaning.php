@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف المكاتب',
     'category'   => 'commercial',
     'icon'       => 'office',
-    'image'      => '/assets/images/services/office-cleaning.webp',
+    'image'      => '/assets/images/project-image/office-cleaning.avif',
     'image_alt'  => 'Office cleaning service in Kuwait after working hours',
     'short'      => 'Daily, weekly or scheduled office cleaning that keeps workplaces presentable and healthy.',
     'meta_title' => 'Office Cleaning in Kuwait | Commercial Office Cleaning Services',

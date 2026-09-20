@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف ما قبل الانتقال للسكن',
     'category'   => 'residential',
     'icon'       => 'truck',
-    'image'      => '/assets/images/services/move-in-cleaning.webp',
+    'image'      => '/assets/images/project-image/move-in-cleaning.avif',
     'image_alt'  => 'Move-in cleaning service for a new home in Kuwait',
     'short'      => 'A complete clean of an empty property before your furniture and family arrive.',
     'meta_title' => 'Move-In Cleaning in Kuwait | Clean Before You Move In',

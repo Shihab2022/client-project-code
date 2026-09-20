@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف المحلات التجارية',
     'category'   => 'commercial',
     'icon'       => 'shop',
-    'image'      => '/assets/images/services/shop-cleaning.webp',
+    'image'      => '/assets/images/project-image/shop-cleaning.jpg',
     'image_alt'  => 'Shop and retail cleaning service in Kuwait',
     'short'      => 'Retail cleaning that keeps shopfloors, displays and glass looking ready for customers.',
     'meta_title' => 'Shop Cleaning in Kuwait | Retail Store Cleaning Services',

@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف ما بعد التشطيب',
     'category'   => 'specialised',
     'icon'       => 'tools',
-    'image'      => '/assets/images/services/post-construction-cleaning.webp',
+    'image'      => '/assets/images/project-image/post-construction-cleaning.avif',
     'image_alt'  => 'Post-construction cleaning service in Kuwait after renovation work',
     'short'      => 'Removal of construction dust, residue and protection film after fit-out or renovation.',
     'meta_title' => 'Post-Construction Cleaning in Kuwait | After Renovation Cleaning',

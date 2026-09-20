@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف السجاد',
     'category'   => 'residential',
     'icon'       => 'carpet',
-    'image'      => '/assets/images/services/carpet-cleaning.webp',
+    'image'      => '/assets/images/project-image/carpet-cleaning.avif',
     'image_alt'  => 'Carpet cleaning service in Kuwait with extraction equipment',
     'short'      => 'Deep carpet and rug cleaning that lifts embedded dust and marks without soaking the floor.',
     'meta_title' => 'Carpet Cleaning in Kuwait | Rug Cleaning Service',

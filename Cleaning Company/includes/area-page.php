@@ -54,7 +54,6 @@ $page = [
 ];
 
 require __DIR__ . '/header.php';
-require __DIR__ . '/breadcrumbs.php';
 
 $hero = [
     'eyebrow'   => t('areas.governorate') . ': ' . $governorate,
@@ -164,9 +163,8 @@ if (!empty($area['about'])) : ?>
             <?= btn(['label' => t('cta.view_all_areas'), 'href' => url('/service-areas.php'), 'variant' => 'ghost', 'icon' => 'arrow-right', 'icon_pos' => 'right']) ?>
         </p>
         <?= related_links([
-            t('nav.residential')  => url('/residential-cleaning.php'),
-            t('nav.commercial')   => url('/commercial-cleaning.php'),
-            t('nav.specialised')  => url('/specialized-cleaning.php'),
+            t('nav.services')     => url('/services.php'),
+            t('nav.about')        => url('/about.php'),
             t('nav.why')          => url('/why-choose-us.php'),
             t('nav.contact')      => url('/contact.php'),
         ], t('common.quick_links')) ?>

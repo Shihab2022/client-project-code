@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'التعقيم والتطهير',
     'category'   => 'specialised',
     'icon'       => 'shield',
-    'image'      => '/assets/images/services/disinfection-cleaning.webp',
+    'image'      => '/assets/images/project-image/disinfection-cleaning.avif',
     'image_alt'  => 'Disinfection and sanitization service in Kuwait',
     'short'      => 'Surface disinfection for homes and businesses using agreed products and contact times.',
     'meta_title' => 'Disinfection & Sanitization in Kuwait | Surface Disinfection Service',

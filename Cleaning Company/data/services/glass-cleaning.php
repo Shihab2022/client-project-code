@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف الواجهات الزجاجية',
     'category'   => 'specialised',
     'icon'       => 'glass',
-    'image'      => '/assets/images/services/glass-cleaning.webp',
+    'image'      => '/assets/images/project-image/glass-cleaning.avif',
     'image_alt'  => 'Glass and partition cleaning service in Kuwait',
     'short'      => 'Professional glass cleaning for large panes, partitions and balustrades.',
     'meta_title' => 'Glass Cleaning in Kuwait | Large Glass & Partition Cleaning',

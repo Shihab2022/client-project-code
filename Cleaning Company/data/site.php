@@ -29,30 +29,28 @@
  *   mobile_only true → drawer only (keeps the desktop row from overflowing)
  */
 $site_nav = [
-    ['key' => 'nav.home',        'url' => '/index.php',  'match' => ['index.php'], 'mobile_only' => true],
-    ['key' => 'nav.services',    'url' => '/services.php', 'match' => ['services.php'], 'mega' => true],
-    ['key' => 'nav.residential', 'url' => '/residential-cleaning.php', 'match' => ['residential-cleaning.php'], 'category' => 'residential'],
-    ['key' => 'nav.commercial',  'url' => '/commercial-cleaning.php',  'match' => ['commercial-cleaning.php'],  'category' => 'commercial'],
-    ['key' => 'nav.specialised', 'url' => '/specialized-cleaning.php', 'match' => ['specialized-cleaning.php'], 'category' => 'specialised'],
-    ['key' => 'nav.areas',       'url' => '/service-areas.php', 'match' => ['service-areas.php'], 'areas' => true],
-    ['key' => 'nav.company',     'url' => '/about.php', 'match' => ['about.php'], 'children' => [
-        ['key' => 'nav.about',        'url' => '/about.php'],
-        ['key' => 'nav.why',          'url' => '/why-choose-us.php'],
-        ['key' => 'nav.gallery',      'url' => '/gallery.php'],
-        ['key' => 'nav.testimonials', 'url' => '/about.php#testimonials'],
-        ['key' => 'nav.faq',          'url' => '/faq.php'],
-    ]],
-    ['key' => 'nav.contact',     'url' => '/contact.php', 'match' => ['contact.php']],
+    /* The main navigation stays deliberately short: one Services tab that
+       opens the full mega menu (all services, grouped in three columns),
+       then the About, Why choose us, Service areas and Contact pages.
+       Residential / commercial / specialised are NOT separate tabs — they
+       live inside the Services panel and as anchor sections of
+       /services.php. */
+    ['key' => 'nav.home',     'url' => '/index.php',         'match' => ['index.php'],         'mobile_only' => true],
+    ['key' => 'nav.services', 'url' => '/services.php',      'match' => ['services.php'],      'mega' => true],
+    ['key' => 'nav.about',    'url' => '/about.php',         'match' => ['about.php']],
+    ['key' => 'nav.why',      'url' => '/why-choose-us.php', 'match' => ['why-choose-us.php']],
+    ['key' => 'nav.areas',    'url' => '/service-areas.php', 'match' => ['service-areas.php'], 'areas' => true],
+    ['key' => 'nav.contact',  'url' => '/contact.php',       'match' => ['contact.php']],
 ];
 
-/** Footer column: company links. */
-$footer_company_links = [
-    ['key' => 'nav.about',      'url' => '/about.php'],
-    ['key' => 'nav.why',        'url' => '/why-choose-us.php'],
-    ['key' => 'nav.gallery',    'url' => '/gallery.php'],
+/** Footer column: quick links (about, why choose us, gallery, FAQ, contact). */
+$footer_quick_links = [
+    ['key' => 'nav.about',        'url' => '/about.php'],
+    ['key' => 'nav.why',          'url' => '/why-choose-us.php'],
+    ['key' => 'nav.gallery',      'url' => '/gallery.php'],
     ['key' => 'nav.testimonials', 'url' => '/about.php#testimonials'],
-    ['key' => 'nav.faq',        'url' => '/faq.php'],
-    ['key' => 'nav.contact',    'url' => '/contact.php'],
+    ['key' => 'nav.faq',          'url' => '/faq.php'],
+    ['key' => 'nav.contact',      'url' => '/contact.php'],
 ];
 
 /** Footer column: legal links. */

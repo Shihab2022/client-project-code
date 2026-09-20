@@ -7,7 +7,7 @@
  *  Every service page in /services/ just sets $serviceSlug and includes
  *  this file, so content stays unique while the layout stays consistent.
  *
- *  Sections: breadcrumbs · hero · problems · solution · what's included ·
+ *  Sections: hero · problems · solution · what's included ·
  *  process · why choose us · good to know · before/after · area coverage ·
  *  FAQ · related services · final CTA
  * =====================================================================
@@ -81,7 +81,6 @@ $page = [
 ];
 
 require __DIR__ . '/header.php';
-require __DIR__ . '/breadcrumbs.php';
 
 /* Hero content for this service */
 $hero = [

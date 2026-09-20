@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف صالات العرض',
     'category'   => 'commercial',
     'icon'       => 'showroom',
-    'image'      => '/assets/images/services/showroom-cleaning.webp',
+    'image'      => '/assets/images/project-image/showroom-cleaning.avif',
     'image_alt'  => 'Showroom cleaning service in Kuwait',
     'short'      => 'Detailed cleaning for car showrooms, furniture stores and display spaces.',
     'meta_title' => 'Showroom Cleaning in Kuwait | Display & Retail Space Cleaning',

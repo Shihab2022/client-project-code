@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف الزجاج والنوافذ',
     'category'   => 'residential',
     'icon'       => 'window',
-    'image'      => '/assets/images/services/window-cleaning.webp',
+    'image'      => '/assets/images/project-image/window-cleaning.avif',
     'image_alt'  => 'Window and glass cleaning service in Kuwait',
     'short'      => 'Streak-free window and glass cleaning for homes, offices and shopfronts in Kuwait.',
     'meta_title' => 'Window Cleaning in Kuwait | Interior & Exterior Glass Cleaning',

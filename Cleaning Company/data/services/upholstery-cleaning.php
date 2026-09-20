@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف المفروشات والأثاث المنجد',
     'category'   => 'specialised',
     'icon'       => 'sofa',
-    'image'      => '/assets/images/services/upholstery-cleaning.webp',
+    'image'      => '/assets/images/project-image/upholstery-cleaning.avif',
     'image_alt'  => 'Upholstery cleaning in Kuwait for chairs and soft furnishings',
     'short'      => 'Fabric cleaning for chairs, headboards, benches, office seating and soft furnishings.',
     'meta_title' => 'Upholstery Cleaning in Kuwait | Chair & Fabric Furniture Cleaning',

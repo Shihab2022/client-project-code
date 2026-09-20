@@ -61,10 +61,10 @@ require __DIR__ . '/includes/page-hero.php';
             <?= call_button(t('cta.call_now'), 'outline') ?>
         </div>
         <?= related_links([
-            t('nav.residential') => url('/residential-cleaning.php'),
-            t('nav.commercial')  => url('/commercial-cleaning.php'),
-            t('nav.specialised') => url('/specialized-cleaning.php'),
-            t('nav.contact')     => url('/contact.php'),
+            t('nav.services') => url('/services.php'),
+            t('nav.about')    => url('/about.php'),
+            t('nav.why')      => url('/why-choose-us.php'),
+            t('nav.contact')  => url('/contact.php'),
         ], t('common.related_pages')) ?>
     </div>
 </section>

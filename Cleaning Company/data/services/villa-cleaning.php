@@ -8,7 +8,7 @@ return [
     'name_ar'    => 'تنظيف الفلل',
     'category'   => 'residential',
     'icon'       => 'home',
-    'image'      => '/assets/images/services/villa-cleaning.webp',
+    'image'      => '/assets/images/project-image/villa-cleaning.avif',
     'image_alt'  => 'Professional villa cleaning service in Kuwait',
     'short'      => 'Deep and detailed cleaning solutions for villas and large residential properties.',
     'meta_title' => 'Villa Cleaning in Kuwait | Professional Villa Cleaning Service',

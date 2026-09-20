@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف المباني التجارية',
     'category'   => 'commercial',
     'icon'       => 'building',
-    'image'      => '/assets/images/services/commercial-building-cleaning.webp',
+    'image'      => '/assets/images/project-image/commercial-building-cleaning.avif',
     'image_alt'  => 'Commercial building cleaning service in Kuwait',
     'short'      => 'Common area and whole-building cleaning for towers, arcades and business premises.',
     'meta_title' => 'Commercial Building Cleaning in Kuwait | Common Area Cleaning',

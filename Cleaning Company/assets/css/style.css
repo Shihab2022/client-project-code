@@ -763,12 +763,26 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
     display: inline-flex;
     align-items: center;
     gap: .5rem;
-    margin-bottom: .55rem;
+    margin: 0 0 .55rem;
     font-size: .92rem;
     font-weight: 800;
     color: var(--primary-deep);
 }
 .mega__column-icon { color: var(--primary); flex: none; }
+.mega__column-all {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    margin-top: .5rem;
+    padding: .34rem .55rem;
+    border-radius: var(--radius-xs);
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.mega__column-all:hover { color: var(--primary-deep); background: var(--primary-tint); }
 .mega__list { display: grid; gap: .05rem; }
 .mega__list a {
     display: block;
@@ -1050,7 +1064,8 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
     aspect-ratio: 4 / 3;
     background: #e6edfd;
 }
-.hero__media img { width: 100%; height: 100%; object-fit: cover; }
+.hero__media img,
+.hero__media video { width: 100%; height: 100%; object-fit: cover; }
 
 /* Floating EverClean style badges */
 .hero__float-badge {

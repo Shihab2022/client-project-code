@@ -1,35 +1,14 @@
 <?php
 /**
  * =====================================================================
- *  BREADCRUMBS  (visible trail + BreadcrumbList structured data)
+ *  BREADCRUMBS  -  intentionally rendered as nothing
  * =====================================================================
- *  Renders nothing on the home page. The same array that is printed here
- *  is passed to includes/schema.php through $page['breadcrumbs'].
+ *  The visible breadcrumb trail ("Home / Services / ...") was removed
+ *  by request. The same $page['breadcrumbs'] array is still read by
+ *  includes/schema.php to emit the BreadcrumbList structured data that
+ *  search engines use, so SEO is unaffected.
+ *
+ *  This include is kept as a safe no-op so templates may still `require`
+ *  it without any output being printed.
  * =====================================================================
  */
-
-if (!function_exists('t')) {
-    require_once __DIR__ . '/bootstrap.php';
-}
-
-$crumbs = (array) ($page['breadcrumbs'] ?? []);
-if ($crumbs) :
-    $lastKey = array_key_last($crumbs);
-    ?>
-<nav class="breadcrumbs" aria-label="<?= e(t('common.breadcrumbs', ['fallback' => 'Breadcrumb'])) ?>">
-    <div class="container">
-        <ol class="breadcrumbs__list">
-            <?php foreach ($crumbs as $label => $href) : ?>
-                <li class="breadcrumbs__item">
-                    <?php if ($href !== '' && $label !== $lastKey) : ?>
-                        <a href="<?= e_url(str_starts_with((string) $href, 'http') ? (string) $href : base_path() . (string) $href) ?>"><?= e((string) $label) ?></a>
-                    <?php else : ?>
-                        <span aria-current="page"><?= e((string) $label) ?></span>
-                    <?php endif; ?>
-                </li>
-            <?php endforeach; ?>
-        </ol>
-    </div>
-</nav>
-    <?php
-endif;

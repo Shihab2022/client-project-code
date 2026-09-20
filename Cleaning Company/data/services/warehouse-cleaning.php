@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف المخازن والمستودعات',
     'category'   => 'commercial',
     'icon'       => 'warehouse',
-    'image'      => '/assets/images/services/warehouse-cleaning.webp',
+    'image'      => '/assets/images/project-image/warehouse-cleaning.jpg',
     'image_alt'  => 'Warehouse and storage facility cleaning service in Kuwait',
     'short'      => 'Large-area cleaning for warehouses, storage units and industrial premises.',
     'meta_title' => 'Warehouse Cleaning in Kuwait | Industrial & Storage Cleaning',

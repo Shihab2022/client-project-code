@@ -170,7 +170,7 @@ function email_button(?string $label = null, string $variant = 'ghost', array $e
 
 /**
  * Responsive, CLS-safe <img>.
- * img_tag(['src' => '/assets/images/services/villa-cleaning.webp', 'alt' => '...',
+ * img_tag(['src' => '/assets/images/project-image/villa-cleaning.avif', 'alt' => '...',
  *          'sizes' => '(max-width: 767px) 92vw, 420px', 'eager' => false])
  */
 function img_tag(array $options): string
@@ -421,6 +421,13 @@ function testimonial_card(array $item): string
 }
 
 /** Service card used on the home page, category pages and related blocks (EverClean SA inspired). */
+/**
+ * Service card used on the home page, the services overview and the
+ * related-service blocks.
+ *
+ * Deliberately kept to two actions only — “More details” and “WhatsApp” —
+ * so the card stays readable instead of turning into a row of buttons.
+ */
 function service_card(string $slug, array $options = []): string
 {
     $service = service($slug);
@@ -431,11 +438,14 @@ function service_card(string $slug, array $options = []): string
     $image         = $service['image'] ?? '/assets/images/placeholder.webp';
     $category      = (string) ($service['category'] ?? 'residential');
     $categoryLabel = lx(service_categories()[$category] ?? [], 'short_name', ucfirst($category));
-    $hookQuote     = service_quote_hook($slug, lang());
-    $featureText   = lx($service, 'short', '');
+    $summary       = lx($service, 'short', '');
     $waMsg         = whatsapp_service_message($name);
 
-    return '<article class="service-card reveal' . (!empty($options['class']) ? ' ' . e($options['class']) : '') . '"'
+    /* Three “what is included” points keep the card informative without
+       turning it into a wall of text. */
+    $highlights = array_slice((array) lxa($service, 'includes', []), 0, 3);
+
+    $html = '<article class="service-card reveal' . (!empty($options['class']) ? ' ' . e($options['class']) : '') . '"'
         . ' data-category="' . e($category) . '">'
         . '<a class="service-card__media" href="' . e_url(service_url($slug)) . '" tabindex="-1" aria-hidden="true">'
         . img_tag([
@@ -448,30 +458,33 @@ function service_card(string $slug, array $options = []): string
         . '<span class="service-card__tag">' . e($categoryLabel) . '</span>'
         . '</a>'
         . '<div class="service-card__body">'
-        . '<h3 class="service-card__title"><a href="' . e_url(service_url($slug)) . '">' . e($name) . '</a></h3>'
-        . '<div class="service-card__quote">'
-        . '<span class="service-card__quote-mark">“</span>'
-        . '<span class="service-card__quote-text">' . e($hookQuote) . '</span>'
-        . '<span class="service-card__quote-mark">”</span>'
-        . '</div>'
-        . '<div class="service-card__feature">'
-        . '<span class="service-card__feature-icon">' . icon('star', 'icon', 13) . '</span>'
-        . '<p class="service-card__feature-text">' . e($featureText) . '</p>'
-        . '</div>'
-        . '<div class="service-card__footer">'
-        . '<div class="service-card__more-wrap">'
-        . '<a class="service-card__more" href="' . e_url(service_url($slug)) . '">'
-        . e(t('cta.more_details')) . ' <span class="service-card__more-arrow">' . (is_rtl() ? '←' : '→') . '</span>'
+        . '<h3 class="service-card__title"><a href="' . e_url(service_url($slug)) . '">' . e($name) . '</a></h3>';
+
+    if ($summary !== '') {
+        $html .= '<p class="service-card__text">' . e($summary) . '</p>';
+    }
+
+    if ($highlights) {
+        $html .= '<ul class="service-card__list">';
+        foreach ($highlights as $point) {
+            $html .= '<li>' . icon('check', 'service-card__list-icon', 15) . '<span>' . e($point) . '</span></li>';
+        }
+        $html .= '</ul>';
+    }
+
+    $html .= '<div class="service-card__actions">'
+        . '<a class="btn btn--primary btn--sm service-card__btn-details" href="' . e_url(service_url($slug)) . '">'
+        . '<span class="btn__label">' . e(t('cta.more_details')) . '</span>'
+        . icon('arrow-right', 'btn__icon service-card__arrow', 16)
         . '</a>'
-        . '</div>'
-        . '<div class="service-card__btn-row">'
-        . '<a class="service-card__btn-book" href="' . e_url(service_url($slug)) . '">' . e(t('cta.book_now')) . '</a>'
-        . '<a class="service-card__btn-wa" href="' . e_url(whatsapp_url($waMsg)) . '" target="_blank" rel="noopener noreferrer">'
-        . icon('whatsapp', 'btn__icon', 16) . '<span>' . e(t('cta.inquire')) . '</span>'
+        . '<a class="btn btn--whatsapp btn--sm service-card__btn-wa" href="' . e_url(whatsapp_url($waMsg)) . '"'
+        . ' target="_blank" rel="noopener noreferrer">'
+        . icon('whatsapp', 'btn__icon', 16)
+        . '<span class="btn__label">' . e(t('cta.whatsapp_us')) . '</span>'
         . '</a>'
-        . '</div>'
-        . '</div>'
-        . '</div></article>';
+        . '</div>';
+
+    return $html . '</div></article>';
 }
 
 /** Quick contact cards ("Get in touch" — EverClean SA inspired). */

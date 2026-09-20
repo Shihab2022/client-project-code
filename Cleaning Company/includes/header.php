@@ -34,6 +34,8 @@ $bodyClass    = trim('site ' . (string) ($page['body_class'] ?? '') . (is_rtl() 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#0e7c86">
+    <meta name="application-name" content="<?= e(COMPANY_SHORT_NAME) ?>">
+    <meta name="apple-mobile-web-app-title" content="<?= e(COMPANY_SHORT_NAME) ?>">
     <script>document.documentElement.classList.remove('no-js');</script>
     <?= seo_head($page) ?>
     <link rel="icon" href="<?= e_url(media('/assets/images/favicon.svg')) ?>" type="image/svg+xml">

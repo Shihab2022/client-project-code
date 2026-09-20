@@ -7,7 +7,7 @@ return [
     'name_ar'    => 'تنظيف واجهات المباني',
     'category'   => 'specialised',
     'icon'       => 'facade',
-    'image'      => '/assets/images/services/facade-cleaning.webp',
+    'image'      => '/assets/images/project-image/facade-cleaning.avif',
     'image_alt'  => 'Building facade cleaning service in Kuwait',
     'short'      => 'Exterior facade and building surface cleaning for villas, buildings and commercial premises.',
     'meta_title' => 'Facade Cleaning in Kuwait | Building Exterior Cleaning Service',
