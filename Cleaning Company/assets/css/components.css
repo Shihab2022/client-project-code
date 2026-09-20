@@ -220,6 +220,7 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--white);
+    min-width: 0;
     transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease),
                 box-shadow var(--dur) var(--ease);
 }
@@ -238,9 +239,22 @@
     background: var(--primary-soft);
     color: var(--primary-deep);
 }
-.area-card__name { display: block; font-weight: 700; color: var(--ink); font-size: .96rem; }
+.area-card__name {
+    display: block;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: .96rem;
+    min-width: 0;
+    overflow-wrap: break-word;
+}
 .area-card:hover .area-card__name { color: var(--primary-deep); }
-.area-card__meta { display: block; font-size: .78rem; color: var(--muted); }
+.area-card__meta {
+    display: block;
+    font-size: .78rem;
+    color: var(--muted);
+    min-width: 0;
+    overflow-wrap: break-word;
+}
 .area-card__arrow { margin-inline-start: auto; color: var(--muted); flex: none; }
 
 /* Related links block */
@@ -788,3 +802,70 @@
     color: #ffffff;
     box-shadow: var(--shadow-sm);
 }
+
+/* ------------------------------------------- QUICK CONTACT (EverClean SA) */
+/* "Get in touch" cards: direct call, WhatsApp, e-mail and opening hours.  */
+.quick-contact {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(.9rem, 1.8vw, 1.35rem);
+}
+.quick-card {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    min-width: 0;
+    padding: 1.15rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--white);
+    box-shadow: var(--shadow-xs);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+                border-color var(--dur) var(--ease);
+}
+a.quick-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-soft);
+    box-shadow: var(--shadow-md);
+}
+.quick-card__icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+.quick-card--wa .quick-card__icon {
+    background: var(--whatsapp-soft);
+    color: #128c7e;
+}
+.quick-card--hours .quick-card__icon {
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+}
+.quick-card__body { display: grid; gap: .15rem; min-width: 0; }
+.quick-card__label {
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.quick-card__value {
+    font-size: .98rem;
+    font-weight: 800;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+    line-height: 1.35;
+}
+a.quick-card:hover .quick-card__value { color: var(--primary-deep); }
+.quick-card__arrow {
+    margin-inline-start: auto;
+    color: var(--muted);
+    flex: none;
+    transition: transform var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a.quick-card:hover .quick-card__arrow { color: var(--primary); transform: translateX(3px); }
+body.site--rtl a.quick-card:hover .quick-card__arrow { transform: scaleX(-1); }

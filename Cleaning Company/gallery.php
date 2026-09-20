@@ -6,13 +6,8 @@
 require __DIR__ . '/includes/bootstrap.php';
 
 $galleryItems = gallery_items();
-$categories    = [];
-foreach ($galleryItems as $item) {
-    $cat = $item['category'] ?? 'other';
-    if (!isset($categories[$cat])) {
-        $categories[$cat] = ['key' => $cat, 'label' => $cat === 'other' ? t('gallery.filter_title') : lx($item, 'category', $cat)];
-    }
-}
+$galleryData = data('gallery');
+$categories  = (array) ($galleryData['categories'] ?? []);
 
 $page = [
     'slug'        => 'gallery',
@@ -20,9 +15,10 @@ $page = [
     'title'       => 'Cleaning Gallery — Before & After Results in Kuwait | ' . COMPANY_NAME,
     'description' => 'Browse real cleaning results across Kuwait: villa, apartment, office, shop, sofa, carpet and specialised cleaning photos, with before and after comparisons.',
     'keywords'    => 'cleaning gallery Kuwait, before and after cleaning Kuwait, villa cleaning photos Kuwait, office cleaning photos Kuwait, carpet cleaning photos Kuwait',
-    'image'       => '/assets/images/gallery-cover.webp',
+    'image'       => '/assets/images/gallery/villa-cleaning-01.webp',
     'image_alt'   => 'Cleaning results gallery in Kuwait',
     'body_class'  => 'page-gallery',
+    'scripts'     => ['/assets/js/gallery.js'],
     'breadcrumbs' => [
         t('common.home') => url('/'),
         t('nav.gallery') => '',
@@ -35,7 +31,7 @@ $hero = [
     'eyebrow'   => t('gallery.hero_eyebrow'),
     'title'     => t('gallery.hero_title'),
     'text'      => t('gallery.hero_text'),
-    'image'     => '/assets/images/gallery-cover.webp',
+    'image'     => '/assets/images/gallery/villa-cleaning-01.webp',
     'image_alt' => 'Cleaning results gallery in Kuwait',
     'whatsapp'  => whatsapp_quote_message(),
 ];
@@ -53,7 +49,7 @@ $activeCat = $_GET['cat'] ?? 'all';
             <?php foreach ($categories as $cat => $info): ?>
                 <?php if ($cat === 'all') continue; ?>
                 <button type="button" class="gallery-filter__btn <?= $activeCat === $cat ? 'is-active' : '' ?>" data-gallery-filter="<?= e($cat) ?>" role="tab" aria-selected="<?= $activeCat === $cat ? 'true' : 'false' ?>">
-                    <?= e($info['label']) ?>
+                    <?= e(is_array($info) ? ($info['label'] ?? $cat) : (string) $info) ?>
                 </button>
             <?php endforeach; ?>
         </div>
@@ -66,31 +62,27 @@ $activeCat = $_GET['cat'] ?? 'all';
             'title' => t('gallery.grid_title'),
             'level' => 2,
         ]) ?>
-        <div class="gallery-grid" data-gallery-grid>
+        <div class="gallery-grid" data-gallery>
             <?php if (!$galleryItems): ?>
                 <p class="gallery-empty"><?= e(t('gallery.grid_empty')) ?></p>
             <?php endif; ?>
             <?php foreach ($galleryItems as $item): ?>
                 <?php
                 $cat = $item['category'] ?? 'other';
-                if ($activeCat !== 'all' && $cat !== $activeCat) {
-                    continue;
-                }
                 ?>
-                <div class="gallery-item reveal" data-gallery-item data-category="<?= e($cat) ?>">
-                    <button type="button" class="gallery-item__btn" data-gallery-open
+                <div class="gallery-item reveal" data-category="<?= e($cat) ?>"<?= $activeCat !== 'all' && $cat !== $activeCat ? ' hidden' : '' ?>>
+                    <button type="button" class="gallery-item__btn"
                             aria-label="<?= e($item['alt'] ?? t('gallery.grid_title')) ?>">
                         <?= img_tag([
-                            'src'        => $item['src'] ?? '/assets/images/placeholder.webp',
+                            'src'        => $item['image'] ?? '/assets/images/placeholder.webp',
                             'alt'        => $item['alt'] ?? t('gallery.grid_title'),
                             'width'      => 600,
                             'height'     => 400,
-                            'loading'    => 'lazy',
                             'class'      => 'gallery-item__img',
                         ]) ?>
-                        <span class="gallery-item__overlay"><?= icon('expand', 'icon', 24) ?></span>
+                        <span class="gallery-item__overlay"><?= icon('arrow-up-right', 'icon', 24) ?></span>
                     </button>
-                    <p class="gallery-item__caption"><?= e(lx($item, 'name', '')) ?></p>
+                    <p class="gallery-item__caption"><?= e($item['caption'] ?? '') ?></p>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -104,21 +96,21 @@ $activeCat = $_GET['cat'] ?? 'all';
     </div>
 </section>
 
-<div class="gallery-lightbox" id="gallery-lightbox" data-gallery-lightbox hidden role="dialog" aria-modal="true" aria-label="<?= e(t('gallery.lightbox_title')) ?>">
-    <div class="gallery-lightbox__backdrop" data-gallery-close></div>
+<div class="gallery-lightbox" id="gallery-lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="<?= e(t('gallery.lightbox_title')) ?>">
+    <div class="gallery-lightbox__backdrop" data-lightbox-close></div>
     <div class="gallery-lightbox__panel">
-        <button type="button" class="gallery-lightbox__close" data-gallery-close aria-label="<?= e(t('gallery.lightbox_close')) ?>">
+        <button type="button" class="gallery-lightbox__close" data-lightbox-close aria-label="<?= e(t('gallery.lightbox_close')) ?>">
             <?= icon('close', 'icon', 24) ?>
         </button>
         <div class="gallery-lightbox__stage" data-gallery-stage>
-            <img class="gallery-lightbox__img" data-gallery-img src="" alt="">
-            <p class="gallery-lightbox__caption" data-gallery-caption></p>
+            <img class="gallery-lightbox__img" src="" alt="">
+            <p class="gallery-lightbox__caption" data-lightbox-caption></p>
         </div>
         <div class="gallery-lightbox__nav">
-            <button type="button" class="gallery-lightbox__prev" data-gallery-prev aria-label="Previous image">
+            <button type="button" class="gallery-lightbox__prev" data-lightbox-prev aria-label="Previous image">
                 <?= icon('chevron-left', 'icon', 24) ?>
             </button>
-            <button type="button" class="gallery-lightbox__next" data-gallery-next aria-label="Next image">
+            <button type="button" class="gallery-lightbox__next" data-lightbox-next aria-label="Next image">
                 <?= icon('chevron-right', 'icon', 24) ?>
             </button>
         </div>

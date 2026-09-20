@@ -1,133 +1,276 @@
 /* =====================================================================
-   RESPONSIVE.CSS — mobile-first adjustments from 320px to 1920px+
-   Breakpoints: 640 / 768 / 900 / 1024 / 1200 / 1440+
+   RESPONSIVE.CSS — every breakpoint of the site, mobile-first
+   Tiers: ≤359 · ≤479 · ≥480 · ≤599 · ≥600 · ≤639 · ≥640 · ≤1199 (drawer)
+          ≥1200 (desktop nav) · ≥1440 · ≥1800 · touch · print
+   Grid columns use minmax(0, …) so cards shrink instead of forcing the
+   page wider than the viewport.
    ===================================================================== */
 
-/* ---------- small phones and up (base already fluid) ---------- */
-@media (max-width: 479px) {
+/* ---------------------------------------------------------------- ≤359 */
+@media (max-width: 359px) {
     body { font-size: 16px; }
 
+    .brand { gap: .5rem; }
+    .brand__mark { width: 36px; height: 36px; }
+    .brand__name { font-size: .9rem; max-width: 128px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .site-header__inner { gap: .4rem; }
+    .site-header__actions { gap: .35rem; }
+    .header-wa-btn { display: none; }          /* bottom action bar covers it */
+    .lang-switch__btn { padding: .5rem .55rem; }
+    .lang-switch__label { display: none; }
+    .lang-switch__icon { width: 18px; height: 18px; }
+    .nav-toggle { width: 40px; height: 40px; }
+
     .topbar { font-size: .8rem; }
+    .topbar__inner { align-items: flex-start; }
+    .topbar__list { gap: .35rem .8rem; }
+    .topbar__item--whatsapp { display: none; }
     .topbar__item--hours span { display: inline; }
 
-    .brand__tagline { display: none; }
+    .steps { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card-grid.grid-3, .card-grid.grid-4 { grid-template-columns: 1fr; }
+    .quick-contact { grid-template-columns: 1fr; }
+    .check-list--two-col { grid-template-columns: 1fr; }
+    .form__row { grid-template-columns: 1fr; }
+    .form__actions .btn { flex: 1 1 100%; }
 
     .hero__actions .btn, .page-hero__actions .btn,
-    .notfound__actions .btn, .cta-band__actions .btn {
-        flex: 1 1 100%;
-    }
+    .notfound__actions .btn, .cta-band__actions .btn { flex: 1 1 100%; }
 
-    .steps { grid-template-columns: 1fr; }
-    .area-grid { grid-template-columns: 1fr 1fr; }
-    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .map-embed { min-height: 250px; }
+    .lightbox__caption { font-size: .8rem; padding-inline: 3.4rem; }
+
+    .hero__float-badge-text { white-space: normal; max-width: 190px; line-height: 1.35; }
+    .hero__card-title { font-size: .98rem; }
+}
+
+/* ---------------------------------------------------------------- ≤479 */
+@media (max-width: 479px) {
+    .guarantee-strip { font-size: .78rem; }
+    .guarantee-strip__link span { display: none; }   /* icon-only actions */
+
+    .area-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+    .area-card { padding: .8rem; gap: .5rem; }
+    .area-card__icon { width: 32px; height: 32px; border-radius: 10px; }
+    .area-card__name { font-size: .86rem; }
+    .area-card__meta { font-size: .72rem; }
+    .area-card__arrow { display: none; }
+
+    .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .testimonial-row { grid-template-columns: 1fr; }
-    .stats { grid-template-columns: 1fr 1fr; }
-
+    .steps { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .quick-contact { grid-template-columns: 1fr; }
     .card-grid.grid-3, .card-grid.grid-4 { grid-template-columns: 1fr; }
+    .filter-tabs { gap: .45rem; }
+    .filter-tabs__btn { padding: .5rem .85rem; font-size: .84rem; }
 
-    .check-list--two-col { grid-template-columns: 1fr; }
+    .hero__float-badge { padding: .5rem .8rem; gap: .4rem; border-radius: 12px; }
+    .hero__float-badge-icon { font-size: 1rem; }
+    .hero__float-badge-text { font-size: .76rem; }
+    .hero__float-badge--top { top: .6rem; inset-inline-start: .6rem; }
+    .hero__float-badge--bottom { bottom: .6rem; inset-inline-end: .6rem; }
 
-    .map-embed { min-height: 260px; }
+    .brand__name { max-width: 140px; }
+    .brand__mark { width: 38px; height: 38px; }
+    .site-header__inner { gap: .3rem; }
+
+    .about-gallery-item--1, .about-gallery-item--4 { transform: none; }
+
+    .hero__actions .btn, .page-hero__actions .btn,
+    .notfound__actions .btn, .cta-band__actions .btn { flex: 1 1 100%; }
+
+    .site-footer__bottom { flex-direction: column; align-items: flex-start; }
+    .site-footer__note { width: 100%; }
 }
 
-/* ---------- >= 480px : two-column grids become comfortable ---------- */
+/* ---------------------------------------------------------------- ≥480 */
 @media (min-width: 480px) {
-    .card-grid.grid-3, .card-grid.grid-4 { grid-template-columns: repeat(2, 1fr); }
-    .stats { grid-template-columns: repeat(2, 1fr); }
+    .card-grid.grid-3, .card-grid.grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .quick-contact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-/* ---------- >= 640px : tablets portrait ---------- */
+/* ---------------------------------------------------------------- ≤599 */
+@media (max-width: 599px) {
+    .guarantee-strip__actions { display: none; }
+    .guarantee-strip__inner { justify-content: center; }
+
+    .topbar__social { display: none; }
+    .topbar__inner { justify-content: center; }
+
+    .header-phone-pill { display: none; }        /* topbar + action bar cover it */
+    .header-wa-btn { display: none; }            /* bottom action bar covers it */
+    .brand__tagline { display: none; }           /* tagline is wide; name is enough */
+
+    .hero__media { aspect-ratio: 16 / 10; }
+    .about-showcase__grid { gap: 1.5rem; }
+}
+
+/* ---------------------------------------------------------------- ≤639 */
+@media (max-width: 639px) {
+    .form__row { grid-template-columns: 1fr; }
+    .form__actions .btn { flex: 1 1 100%; }
+    .check-list--two-col { grid-template-columns: 1fr; }
+    .contact-info { gap: .55rem; }
+    .map-embed { min-height: 280px; }
+    .service-section-head { flex-direction: column; align-items: stretch; }
+    .mega__promo-text { display: none; }
+}
+
+/* ---------------------------------------------------------------- ≥640 */
 @media (min-width: 640px) {
-    .area-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .testimonial-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .area-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .form__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .check-list--two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lang-switch__label { display: inline; }
+    .header-phone-pill__sub { display: none; }
 }
 
-/* ---------- max-width 899px : mobile navigation, stacked layouts ---------- */
-@media (max-width: 899px) {
+/* ---------------------------------------- ≤1199 · drawer navigation tier */
+@media (max-width: 1199px) {
     .main-nav { display: none; }
-
     .nav-toggle { display: grid; place-items: center; }
 
-    .site-header__wa { display: none; }
-
+    /* Language switch lives in the header here; the topbar keeps phone/WhatsApp. */
+    .lang-switch--topbar { display: none; }
     .topbar__item--hours { display: none; }
-    .topbar__meta .lang-switch--topbar { display: none; }
+
+    /* Phone pill + WhatsApp bubble are redundant with the guarantee strip
+       and topbar while the drawer nav is active — keep the header slim. */
+    .header-phone-pill { display: none; }
+    .header-wa-btn { display: none; }
 
     .action-bar { display: flex; }
     .floating-cta { display: none; }
-
-    body { padding-bottom: 76px; }   /* room for the sticky action bar */
+    body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
 
     .hero__inner, .page-hero__inner { grid-template-columns: 1fr; }
-    .hero__aside { order: -1; }
     .split, .split--wide { grid-template-columns: 1fr; }
-
+    .about-showcase__grid { grid-template-columns: 1fr; }
     .contact-grid { grid-template-columns: 1fr; }
 
-    .site-footer__grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1.75rem 1.25rem;
-    }
+    .site-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.25rem; }
     .site-footer__col--brand, .site-footer__col--contact { grid-column: 1 / -1; }
     .site-footer__bottom { flex-direction: column; align-items: flex-start; }
 
     .cta-band__inner { flex-direction: column; align-items: flex-start; }
 
-    .form__row { grid-template-columns: 1fr; }
     .form__actions .btn { flex: 1 1 100%; }
 
-    .mega, .dropdown { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: 0; padding: 0; }
+    /* Menus behave like normal flow content inside the drawer. */
+    .mega, .dropdown {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: 0;
+        padding: 0;
+    }
+    .mega { width: auto; }
+    .mega__inner { grid-template-columns: 1fr; gap: 1.1rem; }
+    .mega__promo { align-items: stretch; }
 }
 
-/* ---------- >= 900px : desktop navigation ---------- */
+/* ---------------------------------------------------------------- ≥900 */
 @media (min-width: 900px) {
     .drawer { display: none; }
 
-    .card-grid.grid-3 { grid-template-columns: repeat(3, 1fr); }
-    .card-grid.grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .card-grid.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .card-grid.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .area-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .quick-contact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .site-footer__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .site-footer__col--brand, .site-footer__col--contact { grid-column: 1 / -1; }
+
+    .topbar__item--hours { display: inline-flex; }
+    .lang-switch--topbar { display: none; }     /* header switch is enough < 1200 */
+    .header-wa-btn { display: inline-grid; }
 }
 
-/* ---------- >= 1024px ---------- */
+/* --------------------------------------------------------------- ≥1024 */
 @media (min-width: 1024px) {
     .area-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-
-    .main-nav__link { font-size: .95rem; padding: .6rem .78rem; }
+    .quick-contact { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .site-footer__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .site-footer__col--contact { grid-column: auto; }
+    .site-footer__col--brand { grid-column: 1 / -1; }
 }
 
-/* ---------- >= 1200px ---------- */
+/* ----------------------------- ≥1200 · desktop navigation + full header */
 @media (min-width: 1200px) {
-    :root { --gutter: 2rem; }
+    .main-nav { display: block; }
+    .nav-toggle { display: none; }
+    .drawer { display: none; }
+
+    /* Phone stays in the guarantee strip + topbar on mid desktop widths;
+       the pill only appears once there is genuine room for it (≥1440). */
+    .header-phone-pill { display: none; }
+    .header-wa-btn { display: none; }
+
+    .site-header__inner { gap: 1rem; }
+    .main-nav { flex: 1 1 auto; }
+    .main-nav__link { font-size: .88rem; padding: .55rem .55rem; }
+
     .gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .site-footer__grid { grid-template-columns: 1.45fr repeat(3, minmax(0, 1fr)) 1.25fr; }
+    .site-footer__col--brand, .site-footer__col--contact { grid-column: auto; }
+    .site-footer__bottom { flex-direction: row; align-items: center; }
+    .site-footer__note { width: auto; }
+
+    .hero__inner { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); }
+    .hero__media { aspect-ratio: 4 / 3; }
+    .about-showcase__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+    .split { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
+    .split--wide { grid-template-columns: minmax(0, 1.25fr) minmax(0, .85fr); }
+    .contact-grid { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+    .page-hero__inner { grid-template-columns: minmax(0, 1.35fr) minmax(0, .8fr); }
+    .cta-band__inner { flex-direction: row; align-items: center; }
 }
 
-/* ---------- >= 1440px : large desktop ---------- */
+/* --------------------------------------------------------------- ≥1440 */
 @media (min-width: 1440px) {
-    :root { --container: 1280px; --section-y: 7rem; }
+    :root { --container: 1320px; --section-y: 7rem; }
     body { font-size: 17.5px; }
+
+    .brand__tagline { display: block; }
+
+    .main-nav__link { font-size: .92rem; padding: .6rem .62rem; }
+    .main-nav__list { gap: .1rem; }
 }
 
-/* ---------- >= 1920px ---------- */
-@media (min-width: 1920px) {
+/* --------------------------------------------------------------- ≥1600 */
+@media (min-width: 1600px) {
+    .header-phone-pill { display: inline-flex; padding: .38rem .45rem .38rem .95rem; }
+    .header-phone-pill__sub { display: inline-block; }
+}
+
+/* --------------------------------------------------------------- ≥1800 */
+@media (min-width: 1800px) {
     :root { --container: 1400px; }
     .hero__media img, .page-hero__media img { max-height: 620px; }
 }
 
-/* ---------- touch targets on coarse pointers ---------- */
+/* ------------------------------------------------ touch targets (coarse) */
 @media (pointer: coarse) {
     .btn, .chip, .filter-tabs__btn, .drawer__link, .drawer__toggle { min-height: 48px; }
-    .main-nav__link { padding: .75rem .85rem; }
+    .main-nav__link { padding: .75rem .8rem; }
+    .lang-switch__btn { min-height: 44px; }
 }
 
-/* ---------- print ---------- */
+/* --------------------------------------------------------------- print */
 @media print {
-    .topbar, .site-header, .drawer, .floating-cta, .action-bar,
-    .cta-band, .site-footer, .breadcrumbs, .filter-tabs { display: none !important; }
+    .topbar, .guarantee-strip, .site-header, .drawer, .floating-cta, .action-bar,
+    .cta-band, .site-footer, .breadcrumbs, .filter-tabs, .quick-contact { display: none !important; }
     body { color: #000; background: #fff; }
     a { color: #000; text-decoration: underline; }
 }

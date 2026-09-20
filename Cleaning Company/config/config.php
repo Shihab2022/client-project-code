@@ -32,9 +32,9 @@ if (!defined('COMPANY_FOUNDED_YEAR'))    define('COMPANY_FOUNDED_YEAR', '');
 /* ---------------------------------------------------------------------
  | 2. CONTACT DETAILS
  * -------------------------------------------------------------------*/
-if (!defined('COMPANY_PHONE'))           define('COMPANY_PHONE', 'YOUR KUWAITI PHONE (+965 XXXX XXXX)');
-if (!defined('COMPANY_PHONE_E164'))      define('COMPANY_PHONE_E164', '+965XXXXXXXX');
-if (!defined('COMPANY_WHATSAPP'))        define('COMPANY_WHATSAPP', '965XXXXXXXX');
+if (!defined('COMPANY_PHONE'))           define('COMPANY_PHONE', '+965 9787 6711');
+if (!defined('COMPANY_PHONE_E164'))      define('COMPANY_PHONE_E164', '+96597876711');
+if (!defined('COMPANY_WHATSAPP'))        define('COMPANY_WHATSAPP', '96597876711');
 if (!defined('COMPANY_EMAIL'))           define('COMPANY_EMAIL', 'info@example.com');
 if (!defined('COMPANY_ADDRESS'))         define('COMPANY_ADDRESS', 'Your street, Block X, Kuwait City, Kuwait');
 if (!defined('COMPANY_CITY'))            define('COMPANY_CITY', 'Kuwait City');

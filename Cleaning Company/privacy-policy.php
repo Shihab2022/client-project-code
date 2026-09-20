@@ -19,7 +19,7 @@ $page = [
     'title'       => ($legal['title'] ?? 'Privacy Policy') . ' | ' . COMPANY_NAME,
     'description' => 'Privacy policy for ' . COMPANY_NAME . ' cleaning services in Kuwait. Explains what contact form information we collect, how emails are handled, cookies, analytics, WhatsApp links, Google Maps and your rights. No database is used.',
     'keywords'    => 'privacy policy cleaning company Kuwait, privacy policy Kuwait cleaning',
-    'image'       => '/assets/images/privacy-cover.webp',
+    'image'       => '/assets/images/og-cover.webp',
     'image_alt'   => COMPANY_NAME . ' privacy policy',
     'body_class'  => 'page-legal',
     'robots'      => 'index, follow',
@@ -35,7 +35,7 @@ $hero = [
     'eyebrow'   => $h1,
     'title'     => $h1,
     'text'      => $intro,
-    'image'     => '/assets/images/privacy-cover.webp',
+    'image'     => '/assets/images/og-cover.webp',
     'image_alt' => COMPANY_NAME . ' privacy policy',
     'whatsapp'  => whatsapp_quote_message(),
 ];

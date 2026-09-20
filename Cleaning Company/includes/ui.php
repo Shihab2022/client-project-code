@@ -350,19 +350,69 @@ function star_rating(int $rating): string
     return $html . '<span class="rating__value">' . e(number_format((float) $rating, 1)) . '/5</span></p>';
 }
 
+/** Contextual quote hook for EverClean style service card highlights. */
+function service_quote_hook(string $slug, string $lang): string
+{
+    $hooks = [
+        'en' => [
+            'villa-cleaning'              => 'Get rid of annoying traces and stubborn dust before moving in.',
+            'apartment-cleaning'          => 'A fresh, spotless home with guaranteed highest hygiene standards.',
+            'deep-cleaning'               => 'Reach every hidden corner and sterilize every surface thoroughly.',
+            'sofa-cleaning'               => 'Say goodbye to stains and waiting days for your sofa to dry.',
+            'carpet-cleaning'             => 'Deep steam extraction that revives fabrics and eliminates allergens.',
+            'kitchen-cleaning'            => 'The heart of your home, returned 100% grease-free and sanitized.',
+            'bathroom-cleaning'           => 'Limescale removal, tile shine, and medical-grade sterilization.',
+            'window-cleaning'             => 'Crystal clear glass that enhances the natural light in your space.',
+            'office-cleaning'             => 'A clean work environment that boosts productivity and impressions.',
+            'commercial-building-cleaning'=> 'Maintain the prestige and property value of your facility.',
+            'steam-cleaning'              => 'High-temperature steam that kills bacteria without harsh chemicals.',
+            'chalet-cleaning'             => 'Your weekend gathering place deserves special care and ready comfort.',
+            'post-construction-cleaning'  => 'Eliminate all paint residues, cement dust, and post-work debris.',
+            'floor-polishing'             => 'Restore the radiant mirror shine of your marble and tile floors.',
+        ],
+        'ar' => [
+            'villa-cleaning'              => 'تخلص من آثار الأتربة والغبار المزعجة قبل السكن.',
+            'apartment-cleaning'          => 'استلم شقتك برائحة منعشة ونظافة استثنائية متكاملة.',
+            'deep-cleaning'               => 'نصل لأدق التفاصيل والزوايا المخفية لتعقيم يدوم طويلاً.',
+            'sofa-cleaning'               => 'وداعاً للانتظار لأيام حتى يجف الكنب بعد الغسيل.',
+            'carpet-cleaning'             => 'تنظيف عميق يعيد رونق السجاد ويزيل أصعب البقع والروائح.',
+            'kitchen-cleaning'            => 'المطبخ قلب المنزل، نعيده إليك كالجديد وصحياً 100%.',
+            'bathroom-cleaning'           => 'إزالة الترسبات الكلسية وتطهير شامل يضمن أعلى درجات التعقيم.',
+            'window-cleaning'             => 'وداعاً للزجاج الباهت، استمتع بإطلالة ناصعة ومشرقة.',
+            'office-cleaning'             => 'بيئة عمل نظيفة تعزز الإنتاجية وتعكس احترافية شركتك.',
+            'commercial-building-cleaning'=> 'الحفاظ على المظهر الراقي وقيمة المبنى والمنشأة.',
+            'steam-cleaning'              => 'بخار فائق الحرارة يقضي على الجراثيم بأعلى معايير الأمان.',
+            'chalet-cleaning'             => 'مكان جمعاتكم يستحق عناية خاصة واستعداداً تاماً.',
+            'post-construction-cleaning'  => 'إزالة بقايا الدهان والإسمنت وغبار التشطيبات بدقة متناهية.',
+            'floor-polishing'             => 'استعادة البريق واللمعان الأصلي للرخام والأرضيات.',
+        ],
+    ];
+
+    return $hooks[$lang][$slug] ?? ($lang === 'ar' ? 'عناية متخصصة بأعلى معايير الجودة لراحتك وسلامتك.' : 'Specialized care with the highest standards for your comfort.');
+}
+
 /** One testimonial card (placeholders stay visibly marked). */
 function testimonial_card(array $item): string
 {
     $location = (string) ($item['location'] ?? '');
+    $rating   = (int) ($item['rating'] ?? 5);
+    $initial  = mb_substr($item['name'] ?? 'C', 0, 1);
+
     $html = '<figure class="testimonial reveal">'
-        . '<span class="testimonial__quote" aria-hidden="true">' . icon('quote', 'icon', 28) . '</span>'
-        . star_rating((int) ($item['rating'] ?? 5))
+        . '<div class="testimonial__top">'
+        . star_rating($rating)
+        . '<span class="testimonial__verified">' . icon('shield', 'icon', 14) . '<span>' . (lang() === 'ar' ? 'عميل موثق' : 'Verified Client') . '</span></span>'
+        . '</div>'
+        . '<span class="testimonial__quote" aria-hidden="true">' . icon('quote', 'icon', 26) . '</span>'
         . '<blockquote class="testimonial__text">' . e($item['text'] ?? '') . '</blockquote>'
         . '<figcaption class="testimonial__meta">'
+        . '<span class="testimonial__avatar" aria-hidden="true">' . e($initial) . '</span>'
+        . '<div class="testimonial__person">'
         . '<span class="testimonial__name">' . e($item['name'] ?? '') . '</span>';
     if ($location !== '') {
-        $html .= '<span class="testimonial__location">' . icon('map-pin', 'icon', 14) . e($location) . '</span>';
+        $html .= '<span class="testimonial__location">' . icon('map-pin', 'icon', 13) . e($location) . '</span>';
     }
+    $html .= '</div>';
     if (!empty($item['placeholder'])) {
         $html .= '<span class="badge badge--muted">' . e(t('note.sample_badge')) . '</span>';
     }
@@ -370,17 +420,20 @@ function testimonial_card(array $item): string
     return $html . '</figcaption></figure>';
 }
 
-/** Service card used on the home page, category pages and related blocks. */
+/** Service card used on the home page, category pages and related blocks (EverClean SA inspired). */
 function service_card(string $slug, array $options = []): string
 {
     $service = service($slug);
     if (!$service) {
         return '';
     }
-    $name     = lx($service, 'name', $slug);
-    $image    = $service['image'] ?? '/assets/images/placeholder.webp';
-    $category = (string) ($service['category'] ?? 'residential');
+    $name          = lx($service, 'name', $slug);
+    $image         = $service['image'] ?? '/assets/images/placeholder.webp';
+    $category      = (string) ($service['category'] ?? 'residential');
     $categoryLabel = lx(service_categories()[$category] ?? [], 'short_name', ucfirst($category));
+    $hookQuote     = service_quote_hook($slug, lang());
+    $featureText   = lx($service, 'short', '');
+    $waMsg         = whatsapp_service_message($name);
 
     return '<article class="service-card reveal' . (!empty($options['class']) ? ' ' . e($options['class']) : '') . '"'
         . ' data-category="' . e($category) . '">'
@@ -396,11 +449,91 @@ function service_card(string $slug, array $options = []): string
         . '</a>'
         . '<div class="service-card__body">'
         . '<h3 class="service-card__title"><a href="' . e_url(service_url($slug)) . '">' . e($name) . '</a></h3>'
-        . '<p class="service-card__text">' . e(lx($service, 'short', '')) . '</p>'
-        . '<div class="service-card__actions">'
-        . btn(['label' => t('cta.view_service'), 'href' => service_url($slug), 'variant' => 'ghost', 'icon' => 'arrow-right', 'icon_pos' => 'right'])
-        . wa_button(whatsapp_service_message($name), t('cta.whatsapp_us'), 'whatsapp', ['class' => 'btn--sm'])
-        . '</div></div></article>';
+        . '<div class="service-card__quote">'
+        . '<span class="service-card__quote-mark">“</span>'
+        . '<span class="service-card__quote-text">' . e($hookQuote) . '</span>'
+        . '<span class="service-card__quote-mark">”</span>'
+        . '</div>'
+        . '<div class="service-card__feature">'
+        . '<span class="service-card__feature-icon">' . icon('star', 'icon', 13) . '</span>'
+        . '<p class="service-card__feature-text">' . e($featureText) . '</p>'
+        . '</div>'
+        . '<div class="service-card__footer">'
+        . '<div class="service-card__more-wrap">'
+        . '<a class="service-card__more" href="' . e_url(service_url($slug)) . '">'
+        . e(t('cta.more_details')) . ' <span class="service-card__more-arrow">' . (is_rtl() ? '←' : '→') . '</span>'
+        . '</a>'
+        . '</div>'
+        . '<div class="service-card__btn-row">'
+        . '<a class="service-card__btn-book" href="' . e_url(service_url($slug)) . '">' . e(t('cta.book_now')) . '</a>'
+        . '<a class="service-card__btn-wa" href="' . e_url(whatsapp_url($waMsg)) . '" target="_blank" rel="noopener noreferrer">'
+        . icon('whatsapp', 'btn__icon', 16) . '<span>' . e(t('cta.inquire')) . '</span>'
+        . '</a>'
+        . '</div>'
+        . '</div>'
+        . '</div></article>';
+}
+
+/** Quick contact cards ("Get in touch" — EverClean SA inspired). */
+function quick_contact_cards(): string
+{
+    $items = [
+        [
+            'variant'  => 'call',
+            'icon'     => 'phone',
+            'label'    => t('home.quick_call_label'),
+            'value'    => COMPANY_PHONE,
+            'href'     => tel_url(),
+            'ltr'      => true,
+        ],
+        [
+            'variant'  => 'wa',
+            'icon'     => 'whatsapp',
+            'label'    => t('home.quick_wa_label'),
+            'value'    => COMPANY_PHONE,
+            'href'     => whatsapp_url(whatsapp_quote_message()),
+            'external' => true,
+            'ltr'      => true,
+        ],
+        [
+            'variant'  => 'mail',
+            'icon'     => 'mail',
+            'label'    => t('home.quick_mail_label'),
+            'value'    => COMPANY_EMAIL,
+            'href'     => mail_url(),
+            'ltr'      => true,
+        ],
+        [
+            'variant'  => 'hours',
+            'icon'     => 'clock',
+            'label'    => t('home.quick_hours_label'),
+            'value'    => COMPANY_WORKING_HOURS,
+        ],
+    ];
+
+    $html = '<div class="quick-contact">';
+    foreach ($items as $item) {
+        $tag     = empty($item['href']) ? 'div' : 'a';
+        $classes = 'quick-card quick-card--' . e((string) $item['variant']) . ' reveal';
+        $html .= '<' . $tag . ' class="' . e($classes) . '"';
+        if (!empty($item['href'])) {
+            $html .= ' href="' . e_url((string) $item['href']) . '"';
+        }
+        if (!empty($item['external'])) {
+            $html .= ' target="_blank" rel="noopener noreferrer"';
+        }
+        $html .= '>';
+        $html .= '<span class="quick-card__icon">' . icon((string) $item['icon'], 'icon', 22) . '</span>';
+        $html .= '<span class="quick-card__body">'
+            . '<span class="quick-card__label">' . e((string) $item['label']) . '</span>'
+            . '<span class="quick-card__value"' . (empty($item['ltr']) ? '' : ' dir="ltr"') . '>'
+            . e((string) $item['value']) . '</span>'
+            . '</span>'
+            . (!empty($item['href']) ? icon('arrow-right', 'quick-card__arrow', 18) : '')
+            . '</' . $tag . '>';
+    }
+
+    return $html . '</div>';
 }
 
 /** Service area card. */
@@ -483,36 +616,4 @@ function related_links(array $links, string $title = ''): string
     }
 
     return $html . '</ul></nav>';
-
-/**
- * Company statistics block (reuses COMPANY_STATS from config).
- *
- * Usage: echo stats_block('dark');   // dark background section
- *        echo stats_block('');       // light section
- */
-function stats_block(string $mode = ''): string
-{
-    $stats = COMPANY_STATS;
-    $showNote = defined('SHOW_PLACEHOLDER_NOTE_STATS') && SHOW_PLACEHOLDER_NOTE_STATS;
-
-    $html = '<div class="stats-grid">';
-    foreach ($stats as $i => $stat) {
-        $value = (int) ($stat['value'] ?? 0);
-        $suffix = $stat['suffix'] ?? '';
-        $label = lx($stat, 'label', '');
-        $placeholder = !empty($stat['placeholder']);
-        $html .= '<div class="stat-card">'
-            . '<span class="stat-card__icon">' . icon('sparkle', 'icon', 24) . '</span>'
-            . '<div class="stat-card__number" data-count>' . number_format($value) . ($suffix ?: '') . '</div>'
-            . '<div class="stat-card__label">' . e($label) . '</div>'
-            . ($placeholder && $showNote ? '<span class="stat-card__badge">' . e(t('note.placeholder_note')) . '</span>' : '')
-            . '</div>';
-    }
-    $html .= '</div>';
-    if ($showNote) {
-        $html .= '<p class="stats-note">' . icon('info', 'icon', 16) . ' ' . e(t('note.placeholder_stats')) . '</p>';
-    }
-    return $html;
-}
-
 }

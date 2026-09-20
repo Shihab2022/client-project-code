@@ -19,7 +19,7 @@ $page = [
     'title'       => ($legal['title'] ?? 'Terms &amp; Conditions') . ' | ' . COMPANY_NAME,
     'description' => 'Terms and conditions for using the ' . COMPANY_NAME . ' website and engaging our cleaning services in Kuwait. Covers website usage, services, quotes, communication, availability, cancellations, customer responsibilities and limitation of liability.',
     'keywords'    => 'terms conditions cleaning company Kuwait, terms of use cleaning Kuwait',
-    'image'       => '/assets/images/terms-cover.webp',
+    'image'       => '/assets/images/og-cover.webp',
     'image_alt'   => COMPANY_NAME . ' terms and conditions',
     'body_class'  => 'page-legal',
     'robots'      => 'index, follow',
@@ -35,7 +35,7 @@ $hero = [
     'eyebrow'   => $h1,
     'title'     => $h1,
     'text'      => $intro,
-    'image'     => '/assets/images/terms-cover.webp',
+    'image'     => '/assets/images/og-cover.webp',
     'image_alt' => COMPANY_NAME . ' terms and conditions',
     'whatsapp'  => whatsapp_quote_message(),
 ];

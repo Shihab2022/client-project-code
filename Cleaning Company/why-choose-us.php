@@ -11,7 +11,7 @@ $page = [
     'title'       => 'Why Choose Us — Professional Cleaning Services in Kuwait | ' . COMPANY_NAME,
     'description' => 'Discover why homes and businesses across Kuwait trust ' . COMPANY_NAME . ' for residential, commercial and specialised cleaning: trained teams, proper equipment, written checklists and quality checks.',
     'keywords'    => 'cleaning company Kuwait, why choose cleaning company Kuwait, professional cleaners Kuwait, trusted cleaning services Kuwait',
-    'image'       => '/assets/images/why-us.webp',
+    'image'       => '/assets/images/about-team.webp',
     'image_alt'   => 'Professional cleaning team at work in Kuwait',
     'body_class'  => 'page-why',
     'breadcrumbs' => [
@@ -26,7 +26,7 @@ $hero = [
     'eyebrow'   => t('why.hero_eyebrow'),
     'title'     => t('why.hero_title'),
     'text'      => t('why.hero_text'),
-    'image'     => '/assets/images/why-us.webp',
+    'image'     => '/assets/images/about-team.webp',
     'image_alt' => 'Professional cleaning team at work in Kuwait',
     'whatsapp'  => whatsapp_quote_message(),
 ];

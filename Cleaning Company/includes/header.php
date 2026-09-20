@@ -53,13 +53,31 @@ $bodyClass    = trim('site ' . (string) ($page['body_class'] ?? '') . (is_rtl() 
 <body class="<?= e($bodyClass) ?>">
 <a class="skip-link" href="#main"><?= e(t('common.skip_to_content')) ?></a>
 
+<!-- Top Golden Guarantee strip (EverClean SA inspired) -->
+<div class="guarantee-strip" aria-label="Quality Guarantee">
+    <div class="container guarantee-strip__inner">
+        <div class="guarantee-strip__badge">
+            <span class="guarantee-strip__dot" aria-hidden="true"></span>
+            <span><?= e(t('header.golden_guarantee_strip')) ?></span>
+        </div>
+        <div class="guarantee-strip__actions">
+            <a href="<?= e_url(whatsapp_url(whatsapp_quote_message())) ?>" target="_blank" rel="noopener noreferrer" class="guarantee-strip__link">
+                <?= icon('whatsapp', 'guarantee-strip__icon', 14) ?><span><?= e(t('cta.whatsapp_us')) ?></span>
+            </a>
+            <a href="<?= e_url(tel_url()) ?>" class="guarantee-strip__link guarantee-strip__link--phone">
+                <?= icon('phone', 'guarantee-strip__icon', 14) ?><span dir="ltr"><?= e(COMPANY_PHONE) ?></span>
+            </a>
+        </div>
+    </div>
+</div>
+
 <!-- Top contact bar -->
 <div class="topbar">
     <div class="container topbar__inner">
         <ul class="topbar__list">
             <li class="topbar__item">
                 <?= icon('phone', 'topbar__icon', 16) ?>
-                <a href="<?= e_url(tel_url()) ?>"><?= e(t('header.call_us')) ?>: <?= e(COMPANY_PHONE) ?></a>
+                <a href="<?= e_url(tel_url()) ?>"><?= e(t('header.call_us')) ?>: <span dir="ltr"><?= e(COMPANY_PHONE) ?></span></a>
             </li>
             <li class="topbar__item topbar__item--whatsapp">
                 <?= icon('whatsapp', 'topbar__icon', 16) ?>
@@ -94,10 +112,24 @@ $bodyClass    = trim('site ' . (string) ($page['body_class'] ?? '') . (is_rtl() 
         </nav>
 
         <div class="site-header__actions">
+            <!-- EverClean style phone pill with yellow icon box -->
+            <a href="<?= e_url(tel_url()) ?>" class="header-phone-pill" aria-label="<?= e(t('header.call_us')) ?> <?= e(COMPANY_PHONE) ?>">
+                <span class="header-phone-pill__text">
+                    <span class="header-phone-pill__sub"><?= e(t('header.book_now')) ?></span>
+                    <span class="header-phone-pill__num" dir="ltr"><?= e(COMPANY_PHONE) ?></span>
+                </span>
+                <span class="header-phone-pill__icon-box">
+                    <?= icon('phone', 'header-phone-pill__icon', 15) ?>
+                </span>
+            </a>
+
             <?= language_switcher('lang-switch--header') ?>
-            <?= wa_button(whatsapp_quote_message(), t('cta.whatsapp_us'), 'whatsapp', ['class' => 'btn--sm site-header__wa']) ?>
-            <?= call_button(t('cta.call_now'), 'outline', ['class' => 'btn--sm site-header__call']) ?>
-            <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="mobile-drawer">
+
+            <a href="<?= e_url(whatsapp_url(whatsapp_quote_message())) ?>" target="_blank" rel="noopener noreferrer" class="header-wa-btn" aria-label="<?= e(t('header.whatsapp')) ?>">
+                <?= icon('whatsapp', 'icon', 20) ?>
+            </a>
+
+            <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="mobile-drawer" aria-label="<?= e(t('nav.menu')) ?>">
                 <span class="visually-hidden"><?= e(t('nav.menu')) ?></span>
                 <?= icon('menu', 'nav-toggle__icon nav-toggle__icon--open', 24) ?>
                 <?= icon('close', 'nav-toggle__icon nav-toggle__icon--close', 24) ?>

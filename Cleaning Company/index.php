@@ -27,12 +27,21 @@ require __DIR__ . '/includes/header.php';
 
 $homeWaMessage = t('wa.quote_message');
 ?>
-<!-- 1. HERO -->
+<!-- 1. HERO (EverClean SA inspired) -->
 <section class="hero" aria-labelledby="home-hero-title">
     <div class="container hero__inner">
         <div class="hero__content">
-            <p class="eyebrow"><?= icon('sparkle', 'eyebrow__icon', 18) ?><?= e(t('home.hero_eyebrow')) ?></p>
-            <h1 class="hero__title" id="home-hero-title"><?= e(t('home.hero_title')) ?></h1>
+            <a href="#testimonials" class="hero__satisfaction-pill">
+                <span class="hero__pulse-dot" aria-hidden="true"></span>
+                <span><?= e(t('home.hero_satisfaction')) ?></span>
+                <span class="hero__satisfaction-arrow" aria-hidden="true"><?= is_rtl() ? '←' : '→' ?></span>
+            </a>
+
+            <h1 class="hero__title" id="home-hero-title">
+                <span class="hero__title-main"><?= e(t('home.hero_title')) ?></span>
+                <span class="hero__title-sub"><?= e(t('home.hero_title_highlight')) ?></span>
+            </h1>
+
             <p class="hero__text"><?= e(t('home.hero_text')) ?></p>
 
             <ul class="hero__points">
@@ -42,28 +51,45 @@ $homeWaMessage = t('wa.quote_message');
             </ul>
 
             <div class="hero__actions">
-                <?= wa_button($homeWaMessage, t('cta.whatsapp_us'), 'whatsapp', ['class' => 'btn--lg']) ?>
-                <?= call_button(t('cta.call_now'), 'accent', ['class' => 'btn--lg']) ?>
-                <?= btn(['label' => t('cta.explore_services'), 'href' => url('/services.php'), 'variant' => 'ghost', 'icon' => 'arrow-right', 'icon_pos' => 'right', 'class' => 'btn--lg']) ?>
+                <?= wa_button($homeWaMessage, t('cta.free_inspection'), 'whatsapp', ['class' => 'btn--lg hero__btn-wa']) ?>
+                <a class="btn btn--outline btn--lg hero__btn-call" href="<?= e_url(tel_url()) ?>">
+                    <?= icon('phone', 'btn__icon', 18) ?><span class="btn__label"><?= e(t('cta.call_us')) ?>: <span dir="ltr"><?= e(COMPANY_PHONE) ?></span></span>
+                </a>
+                <?= btn(['label' => t('cta.explore_services'), 'href' => '#services', 'variant' => 'ghost', 'icon' => 'arrow-right', 'icon_pos' => 'right', 'class' => 'btn--lg hero__btn-services']) ?>
             </div>
         </div>
 
         <div class="hero__aside">
-            <div class="hero__media reveal">
-                <?= img_tag([
-                    'src'        => '/assets/images/hero-cleaning.webp',
-                    'alt'        => 'Professional cleaning team working in a villa in Kuwait',
-                    'responsive' => true,
-                    'eager'      => true,
-                    'sizes'      => '(max-width: 899px) 92vw, 520px',
-                ]) ?>
+            <div class="hero__media-wrapper reveal">
+                <div class="hero__media">
+                    <?= img_tag([
+                        'src'        => '/assets/images/hero-cleaning.webp',
+                        'alt'        => 'Professional cleaning team working in a villa in Kuwait',
+                        'responsive' => true,
+                        'eager'      => true,
+                        'sizes'      => '(max-width: 899px) 92vw, 560px',
+                    ]) ?>
+                </div>
+
+                <!-- Floating EverClean style trust badges -->
+                <div class="hero__float-badge hero__float-badge--top">
+                    <span class="hero__float-badge-icon">⭐</span>
+                    <span class="hero__float-badge-text"><?= e(t('home.hero_badge_rating')) ?></span>
+                </div>
+                <div class="hero__float-badge hero__float-badge--bottom">
+                    <span class="hero__float-badge-icon">🛡️</span>
+                    <span class="hero__float-badge-text"><?= e(t('home.hero_badge_guarantee')) ?></span>
+                </div>
             </div>
+
             <div class="hero__card reveal">
                 <h2 class="hero__card-title"><?= icon('whatsapp', 'icon', 20) ?><?= e(t('home.hero_card_title')) ?></h2>
                 <p class="hero__card-text"><?= e(t('home.hero_card_text')) ?></p>
                 <div class="hero__card-actions">
                     <?= wa_button($homeWaMessage, t('cta.whatsapp_us'), 'whatsapp', ['class' => 'btn--sm']) ?>
-                    <?= call_button(t('cta.call_now'), 'outline', ['class' => 'btn--sm']) ?>
+                    <a class="btn btn--outline btn--sm" href="<?= e_url(tel_url()) ?>">
+                        <?= icon('phone', 'btn__icon', 16) ?><span class="btn__label"><?= e(t('cta.call_now')) ?></span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -71,7 +97,7 @@ $homeWaMessage = t('wa.quote_message');
 </section>
 
 <?php /* 2. TRUST / STATS */ ?>
-<section class="section section--tight section--dark" aria-labelledby="home-stats-title">
+<section class="section section--tight section--stats" aria-labelledby="home-stats-title">
     <div class="container">
         <?= section_head([
             'eyebrow' => t('home.stats_eyebrow'),
@@ -80,44 +106,73 @@ $homeWaMessage = t('wa.quote_message');
             'level'   => 2,
             'align'   => 'center',
         ]) ?>
-        <?php echo stats_block('dark'); ?>
+        <?php echo stats_block('light'); ?>
     </div>
 </section>
 
-<?php /* 3. ABOUT PREVIEW */ ?>
-<section class="section" aria-labelledby="home-about-title">
+<?php /* 3. ABOUT SHOWCASE (EverClean SA Dark Luxury Section) */ ?>
+<section class="section section--dark about-showcase" aria-labelledby="home-about-title">
+    <div class="about-showcase__gold-bar" aria-hidden="true"></div>
     <div class="container">
-        <div class="split">
-            <div class="split__body">
-                <?= section_head([
-                    'eyebrow' => t('home.about_eyebrow'),
-                    'title'   => t('home.about_title'),
-                    'lead'    => t('home.about_text'),
-                    'level'   => 2,
-                ]) ?>
-                <div class="media-duo reveal">
-                    <div class="media-card">
+        <div class="about-showcase__grid">
+            <div class="about-showcase__content reveal">
+                <span class="about-showcase__pill"><?= e(t('home.about_eyebrow')) ?></span>
+                <h2 class="about-showcase__title" id="home-about-title"><?= e(t('home.about_title')) ?></h2>
+                <div class="about-showcase__accent-line" aria-hidden="true"></div>
+                <p class="about-showcase__lead"><?= e(t('home.about_lead')) ?></p>
+                <p class="about-showcase__text"><?= e(t('home.about_text')) ?></p>
+
+                <ul class="about-showcase__list">
+                    <li><?= icon('check', 'about-showcase__check', 18) ?><span><?= e(t('home.about_point_1')) ?></span></li>
+                    <li><?= icon('check', 'about-showcase__check', 18) ?><span><?= e(t('home.about_point_2')) ?></span></li>
+                    <li><?= icon('check', 'about-showcase__check', 18) ?><span><?= e(t('home.about_point_3')) ?></span></li>
+                    <li><?= icon('check', 'about-showcase__check', 18) ?><span><?= e(t('home.about_point_4')) ?></span></li>
+                </ul>
+
+                <div class="about-showcase__cta">
+                    <a class="btn btn--gold-outline btn--lg" href="<?= e_url(url('/about.php')) ?>">
+                        <span class="btn__label"><?= e(t('cta.learn_more_about')) ?></span>
+                        <?= icon('arrow-right', 'btn__icon', 18) ?>
+                    </a>
+                </div>
+            </div>
+
+            <div class="about-showcase__gallery reveal">
+                <div class="about-gallery-grid">
+                    <div class="about-gallery-item about-gallery-item--1">
                         <?= img_tag([
                             'src'        => '/assets/images/about-team.webp',
-                            'alt'        => 'Cleaning team with professional equipment in Kuwait',
+                            'alt'        => 'Professional cleaning team in Kuwait',
                             'responsive' => true,
-                            'sizes'      => '(max-width: 899px) 92vw, 640px',
+                            'sizes'      => '(max-width: 899px) 46vw, 320px',
+                        ]) ?>
+                    </div>
+                    <div class="about-gallery-item about-gallery-item--2">
+                        <?= img_tag([
+                            'src'        => '/assets/images/services/villa-cleaning.webp',
+                            'alt'        => 'Villa cleaning service in Kuwait',
+                            'responsive' => true,
+                            'sizes'      => '(max-width: 899px) 46vw, 320px',
+                        ]) ?>
+                    </div>
+                    <div class="about-gallery-item about-gallery-item--3">
+                        <?= img_tag([
+                            'src'        => '/assets/images/services/sofa-cleaning.webp',
+                            'alt'        => 'Steam sofa cleaning in Kuwait',
+                            'responsive' => true,
+                            'sizes'      => '(max-width: 899px) 46vw, 320px',
+                        ]) ?>
+                    </div>
+                    <div class="about-gallery-item about-gallery-item--4">
+                        <?= img_tag([
+                            'src'        => '/assets/images/services/kitchen-cleaning.webp',
+                            'alt'        => 'Kitchen deep cleaning and degreasing in Kuwait',
+                            'responsive' => true,
+                            'sizes'      => '(max-width: 899px) 46vw, 320px',
                         ]) ?>
                     </div>
                 </div>
-                <?= check_list([
-                    'Experienced and trained cleaning staff',
-                    'Quality checked at the end of every visit',
-                    'Cleaning products suitable for each surface',
-                    'Direct communication in English and Arabic',
-                ]) ?>
-                <p class="section-cta">
-                    <?= btn(['label' => t('cta.learn_more_about'), 'href' => url('/about.php'), 'variant' => 'primary', 'icon' => 'arrow-right', 'icon_pos' => 'right', 'class' => 'btn--lg']) ?>
-                </p>
             </div>
-            <aside class="split__aside">
-                <?= feature_cards(array_slice(trust_points(), 0, 3), 'grid-1-stack') ?>
-            </aside>
         </div>
     </div>
 </section>
@@ -274,8 +329,22 @@ if ($homeFaq) :
 </section>
 <?php endif; ?>
 
+<?php /* 11. QUICK CONTACT — instant contact options (EverClean SA inspired) */ ?>
+<section class="section section--tight section--quick" aria-labelledby="home-quick-title">
+    <div class="container">
+        <?= section_head([
+            'eyebrow' => t('home.quick_eyebrow'),
+            'title'   => t('home.quick_title'),
+            'lead'    => t('home.quick_text'),
+            'level'   => 2,
+            'align'   => 'center',
+        ]) ?>
+        <?= quick_contact_cards() ?>
+    </div>
+</section>
+
 <?php
-/* 11. CONTACT CTA + inquiry form (no database) */
+/* 12. CONTACT CTA + inquiry form (no database) */
 $formOptions = ['source' => '/index.php'];
 require __DIR__ . '/includes/quote-form.php';
 

@@ -45,7 +45,7 @@ $page = [
     'title'       => 'Contact Us — Cleaning Services in Kuwait | ' . COMPANY_NAME,
     'description' => 'Contact ' . COMPANY_NAME . ' for residential, commercial or specialised cleaning in Kuwait. Call, WhatsApp or send an inquiry using our contact form. No booking system, no accounts, no database.',
     'keywords'    => 'contact cleaning company Kuwait, cleaning company phone Kuwait, WhatsApp cleaning Kuwait, cleaning quote Kuwait',
-    'image'       => '/assets/images/contact-cover.webp',
+    'image'       => '/assets/images/hero-cleaning.webp',
     'image_alt'   => 'Contact cleaning company in Kuwait',
     'body_class'  => 'page-contact',
     'breadcrumbs' => [
@@ -60,7 +60,7 @@ $hero = [
     'eyebrow'   => t('contact.hero_eyebrow'),
     'title'     => t('contact.hero_title'),
     'text'      => t('contact.hero_text'),
-    'image'     => '/assets/images/contact-cover.webp',
+    'image'     => '/assets/images/hero-cleaning.webp',
     'image_alt' => 'Contact cleaning company in Kuwait',
     'whatsapp'  => whatsapp_quote_message(),
 ];

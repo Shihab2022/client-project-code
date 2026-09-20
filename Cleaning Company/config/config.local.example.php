@@ -19,9 +19,9 @@ define('COMPANY_TAGLINE', 'Professional Cleaning Services in Kuwait');
 define('COMPANY_FOUNDED_YEAR', '');
 
 /* --- 2. Contact details --------------------------------------------- */
-define('COMPANY_PHONE', '+965 XXXX XXXX');
-define('COMPANY_PHONE_E164', '+965XXXXXXXX');      // digits only behind the + sign
-define('COMPANY_WHATSAPP', '965XXXXXXXX');         // digits only – used for wa.me links
+define('COMPANY_PHONE', '+965 9787 6711');
+define('COMPANY_PHONE_E164', '+96597876711');      // digits only behind the + sign
+define('COMPANY_WHATSAPP', '96597876711');         // digits only – used for wa.me links
 define('COMPANY_EMAIL', 'info@example.com');
 define('COMPANY_ADDRESS', 'Your street, Block X, Kuwait City, Kuwait');
 define('COMPANY_GOOGLE_MAPS_URL', 'https://maps.google.com/...');
