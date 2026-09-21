@@ -5,40 +5,6 @@
 
 require __DIR__ . '/includes/bootstrap.php';
 
-$formOptions = [
-    'title'  => t('contact.form_title'),
-    'source' => '/contact.php',
-];
-
-/* Post/redirect/get state. Nothing is stored in a database: the action
-   keeps the typed values and the error list in the session for exactly
-   one redirect, and they are consumed (and deleted) right here. */
-$formStatus = (string) ($_GET['status'] ?? '');
-if (!in_array($formStatus, ['sent', 'error'], true)) {
-    $formStatus = '';
-}
-
-$formOld    = [];
-$formErrors = [];
-
-if ($formStatus === 'error') {
-    $rawOld  = flash_get('contact_old');
-    $decoded = json_decode((string) $rawOld, true);
-    if (is_array($decoded)) {
-        $formOld = $decoded;
-    }
-    $decoded = json_decode((string) flash_get('contact_errors'), true);
-    if (is_array($decoded)) {
-        $formErrors = $decoded;
-    }
-    if (!$formErrors) {
-        $formErrors = ['form' => 'form.error_generic'];
-    }
-} elseif ($formStatus === 'sent') {
-    flash_get('contact_old');       // discard any stale values
-    flash_get('contact_errors');
-}
-
 $page = [
     'slug'        => 'contact',
     'path'        => '/contact.php',
@@ -67,87 +33,77 @@ $hero = [
 require __DIR__ . '/includes/page-hero.php';
 ?>
 
-<section class="section" aria-labelledby="contact-intro-title">
+<section class="section" aria-labelledby="contact-cards-title">
     <div class="container">
         <?= section_head([
-            'title' => t('contact.intro'),
-            'level' => 2,
-            'align' => 'center',
+            'eyebrow' => t('contact.hero_eyebrow'),
+            'title'   => t('contact.hero_title'),
+            'lead'    => t('contact.hero_text'),
+            'level'   => 2,
+            'align'   => 'center',
         ]) ?>
-    </div>
-</section>
 
-<section class="section" aria-labelledby="contact-info-title">
-    <div class="container">
-        <div class="contact-grid">
-            <div class="contact-info">
-                <h2 class="contact-info__title" id="contact-info-title"><?= e(t('contact.hero_eyebrow')) ?></h2>
+        <div class="contact-cards">
+            <a class="contact-card reveal" href="<?= e_url(tel_url()) ?>">
+                <span class="contact-card__icon"><?= icon('phone', 'icon', 26) ?></span>
+                <span class="contact-card__label"><?= e(t('contact.phone_label')) ?></span>
+                <span class="contact-card__value" dir="ltr"><?= e(COMPANY_PHONE) ?></span>
+                <span class="contact-card__hint"><?= e(t('cta.call_now')) ?><?= icon('arrow-right', 'icon', 16) ?></span>
+            </a>
 
-                <div class="contact-item">
-                    <span class="contact-item__icon"><?= icon('phone', 'icon', 22) ?></span>
-                    <div class="contact-item__body">
-                        <span class="contact-item__label"><?= e(t('contact.phone_label')) ?></span>
-                        <a class="contact-item__value" href="<?= e_url(tel_url()) ?>"><?= e(COMPANY_PHONE) ?></a>
-                    </div>
+            <a class="contact-card contact-card--wa reveal" href="<?= e_url(whatsapp_url(whatsapp_quote_message())) ?>" target="_blank" rel="noopener noreferrer">
+                <span class="contact-card__icon"><?= icon('whatsapp', 'icon', 26) ?></span>
+                <span class="contact-card__label"><?= e(t('common.whatsapp')) ?></span>
+                <span class="contact-card__value" dir="ltr"><?= e(COMPANY_WHATSAPP) ?></span>
+                <span class="contact-card__hint"><?= e(t('cta.whatsapp_now')) ?><?= icon('arrow-right', 'icon', 16) ?></span>
+            </a>
+
+            <a class="contact-card reveal" href="<?= e_url('mailto:' . COMPANY_EMAIL) ?>">
+                <span class="contact-card__icon"><?= icon('mail', 'icon', 26) ?></span>
+                <span class="contact-card__label"><?= e(t('contact.email_label')) ?></span>
+                <span class="contact-card__value"><?= e(COMPANY_EMAIL) ?></span>
+                <span class="contact-card__hint"><?= e(t('cta.email_us')) ?><?= icon('arrow-right', 'icon', 16) ?></span>
+            </a>
+        </div>
+
+        <div class="contact-details">
+            <div class="contact-detail reveal">
+                <span class="contact-detail__icon"><?= icon('map-pin', 'icon', 22) ?></span>
+                <div class="contact-detail__body">
+                    <span class="contact-detail__label"><?= e(t('contact.address_label')) ?></span>
+                    <span class="contact-detail__value"><?= e(COMPANY_ADDRESS) ?></span>
                 </div>
-
-                <div class="contact-item">
-                    <span class="contact-item__icon"><?= icon('whatsapp', 'icon', 22) ?></span>
-                    <div class="contact-item__body">
-                        <span class="contact-item__label"><?= e(t('common.whatsapp')) ?></span>
-                        <a class="contact-item__value" href="<?= e_url(whatsapp_url(whatsapp_quote_message())) ?>" target="_blank" rel="noopener noreferrer"><?= e(COMPANY_WHATSAPP) ?></a>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <span class="contact-item__icon"><?= icon('mail', 'icon', 22) ?></span>
-                    <div class="contact-item__body">
-                        <span class="contact-item__label"><?= e(t('contact.email_label')) ?></span>
-                        <a class="contact-item__value" href="<?= e_url('mailto:' . COMPANY_EMAIL) ?>"><?= e(COMPANY_EMAIL) ?></a>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <span class="contact-item__icon"><?= icon('map-pin', 'icon', 22) ?></span>
-                    <div class="contact-item__body">
-                        <span class="contact-item__label"><?= e(t('contact.address_label')) ?></span>
-                        <span class="contact-item__value"><?= e(COMPANY_ADDRESS) ?></span>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <span class="contact-item__icon"><?= icon('clock', 'icon', 22) ?></span>
-                    <div class="contact-item__body">
-                        <span class="contact-item__label"><?= e(t('contact.hours_label')) ?></span>
-                        <span class="contact-item__value"><?= e(COMPANY_WORKING_HOURS) ?></span>
-                    </div>
-                </div>
-
-                <?php if (COMPANY_GOOGLE_MAPS_URL !== '' && str_starts_with(COMPANY_GOOGLE_MAPS_URL, 'http')): ?>
-                <div class="contact-map">
-                    <h3 class="contact-map__title"><?= e(t('contact.google_maps')) ?></h3>
-                    <div class="contact-map__frame">
-                        <iframe loading="lazy"
-                                src="<?= e_url(COMPANY_GOOGLE_MAPS_URL) ?>"
-                                width="100%" height="320" style="border:0;"
-                                allowfullscreen
-                                referrerpolicy="no-referrer-when-downgrade"
-                                title="<?= e(COMPANY_NAME) ?> location on Google Maps">
-                        </iframe>
-                    </div>
-                </div>
-                <?php endif; ?>
             </div>
-
-            <div class="contact-form">
-                <?php
-                $formStatus  = (string) ($formStatus ?: ($_GET['status'] ?? ''));
-                $formOld     = is_array($formOld) ? $formOld : [];
-                $formErrors  = is_array($formErrors) ? $formErrors : [];
-                require __DIR__ . '/includes/quote-form.php';
-                ?>
+            <div class="contact-detail reveal">
+                <span class="contact-detail__icon"><?= icon('clock', 'icon', 22) ?></span>
+                <div class="contact-detail__body">
+                    <span class="contact-detail__label"><?= e(t('contact.hours_label')) ?></span>
+                    <span class="contact-detail__value"><?= e(COMPANY_WORKING_HOURS) ?></span>
+                </div>
             </div>
         </div>
+
+        <?php if (COMPANY_MAP_EMBED_URL !== '' && str_starts_with(COMPANY_MAP_EMBED_URL, 'https://')) : ?>
+        <div class="contact-map reveal">
+            <h3 class="contact-map__title"><?= icon('map-pin', 'icon', 20) ?> <?= e(t('contact.google_maps')) ?></h3>
+            <div class="contact-map__frame">
+                <iframe loading="lazy"
+                        src="<?= e_url(COMPANY_MAP_EMBED_URL) ?>"
+                        width="100%" height="360" style="border:0;"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="<?= e(COMPANY_NAME) ?> location on Google Maps">
+                </iframe>
+            </div>
+            <?php if (COMPANY_GOOGLE_MAPS_URL !== '' && str_starts_with(COMPANY_GOOGLE_MAPS_URL, 'http')) : ?>
+            <p class="contact-map__actions">
+                <a class="btn btn--outline btn--sm" href="<?= e_url(COMPANY_GOOGLE_MAPS_URL) ?>" target="_blank" rel="noopener noreferrer">
+                    <?= icon('map-pin', 'btn__icon', 16) ?><span class="btn__label"><?= e(t('contact.directions')) ?></span>
+                </a>
+            </p>
+            <?php endif; ?>
+        </div>
+        <?php endif; ?>
     </div>
 </section>
 

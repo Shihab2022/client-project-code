@@ -270,6 +270,30 @@
     .lang-switch__btn { min-height: 44px; }
 }
 
+/* --------------------------------------------- new card grids (2025) ---- */
+/* Reason cards (why-choose-us page) + reason panels (service pages) +
+   contact method cards (contact page). */
+@media (max-width: 899px) {
+    .reason-grid,
+    .reason-panels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 599px) {
+    .reason-grid,
+    .reason-panels,
+    .contact-cards { grid-template-columns: 1fr; }
+
+    .contact-details { grid-template-columns: 1fr; }
+
+    .steps__item { padding: 1.4rem 1.2rem 1.5rem; }
+    .steps__num { font-size: 2.4rem; }
+}
+
+@media (min-width: 720px) {
+    .contact-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .contact-details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 /* --------------------------------------------------------------- print */
 @media print {
     .topbar, .site-header, .drawer, .floating-cta, .action-bar,

@@ -6,7 +6,7 @@
 require __DIR__ . '/includes/bootstrap.php';
 
 $areasList = areas();
-$areaCount = count($areasList);
+$areaCount = count($areasList);   // kept for page copy / future use
 
 $page = [
     'slug'        => 'service-areas',
@@ -36,24 +36,15 @@ $hero = [
 require __DIR__ . '/includes/page-hero.php';
 ?>
 
-<section class="section" aria-labelledby="areas-grid-title">
+<section class="section" aria-labelledby="areas-map-title">
     <div class="container">
         <?= section_head([
-            'title' => t('areas.grid_title'),
-            'level' => 2,
+            'eyebrow' => t('areas.hero_eyebrow'),
+            'title'   => t('areas.grid_title'),
+            'lead'    => t('areas.map_lead'),
+            'level'   => 2,
         ]) ?>
-        <div class="areas-grid">
-            <?php foreach ($areasList as $slug => $area): ?>
-                <div class="area-card reveal">
-                    <a class="area-card__link" href="<?= e_url(area_url($slug)) ?>" aria-label="<?= e(lx($area, 'name', $slug)) ?> — <?= e(t('nav.areas')) ?>">
-                        <span class="area-card__icon"><?= icon('map-pin', 'icon', 22) ?></span>
-                        <span class="area-card__name"><?= e(lx($area, 'name', $slug)) ?></span>
-                        <span class="area-card__governorate"><?= e(lx($area, 'governorate', COMPANY_CITY)) ?></span>
-                        <span class="area-card__arrow"><?= icon('arrow-right', 'icon', 18) ?></span>
-                    </a>
-                </div>
-            <?php endforeach; ?>
-        </div>
+        <?= area_map(['title' => t('areas.map_title')]) ?>
         <p class="areas-note"><?= icon('info', 'icon', 18) ?> <?= e(t('areas.note')) ?></p>
         <div class="areas-cta">
             <p class="areas-cta__text"><?= e(t('areas.cta')) ?></p>

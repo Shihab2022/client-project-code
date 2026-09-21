@@ -204,7 +204,7 @@ if (!empty($service['problems'])) : ?>
             'level'   => 2,
             'align'   => 'center',
         ]) ?>
-        <?= feature_cards(array_slice($reasons, 0, 6)) ?>
+        <?= reason_panels(array_slice($reasons, 0, 6)) ?>
         <p class="section-cta">
             <?= btn(['label' => t('cta.learn_more'), 'href' => url('/why-choose-us.php'), 'variant' => 'ghost', 'icon' => 'arrow-right', 'icon_pos' => 'right']) ?>
         </p>
@@ -290,7 +290,7 @@ if (!empty($service['problems'])) : ?>
         ]) ?>
         <?= accordion($faqItems, 'service-faq-' . $serviceSlug, true) ?>
         <p class="section-cta">
-            <?= btn(['label' => t('cta.read_faqs'), 'href' => url('/faq.php'), 'variant' => 'ghost', 'icon' => 'arrow-right', 'icon_pos' => 'right']) ?>
+            <?= wa_button(whatsapp_service_message($serviceName), t('cta.whatsapp_us'), 'whatsapp', ['class' => 'btn--lg']) ?>
         </p>
     </div>
 </section>

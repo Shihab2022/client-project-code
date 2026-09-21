@@ -157,4 +157,61 @@
             }
         });
     }
+    /* --------------------------------- area coverage map search --------- */
+    var areaMap = $('[data-area-map]');
+    if (areaMap) {
+        var areaSearch = $('[data-area-search]', areaMap);
+        var areaClear  = $('[data-area-clear]', areaMap);
+        var areaStatus = $('[data-area-status]', areaMap);
+        var areaEmpty  = $('[data-area-empty]', areaMap);
+        var areaItems  = $all('[data-area-item]', areaMap);
+        var areaPins   = $all('[data-area-pin]', areaMap);
+        var countLabel = areaMap.getAttribute('data-count-label') || ':count areas shown';
+        var totalCount = areaItems.length;
+
+        function normalize(value) {
+            return (value || '').toLowerCase().replace(/[\u064B-\u065F\u0670]/g, '').trim();
+        }
+
+        function applyAreaFilter() {
+            var query   = normalize(areaSearch ? areaSearch.value : '');
+            var visible = 0;
+
+            areaItems.forEach(function (item) {
+                var haystack = normalize(item.getAttribute('data-search'));
+                var match    = query === '' || haystack.indexOf(query) !== -1;
+                item.classList.toggle('is-hidden', !match);
+                if (match) { visible++; }
+            });
+
+            areaPins.forEach(function (pin) {
+                var haystack = normalize(pin.getAttribute('data-search'));
+                var match    = query === '' || haystack.indexOf(query) !== -1;
+                pin.classList.toggle('is-hidden', !match);
+                pin.classList.toggle('is-match', query !== '' && match);
+            });
+
+            if (areaClear) { areaClear.hidden = query === ''; }
+            if (areaEmpty) { areaEmpty.hidden = visible > 0; }
+            if (areaStatus) { areaStatus.textContent = countLabel.replace(':count', String(visible || 0)); }
+
+            if (query !== '' && visible === 0 && totalCount === 0) {
+                areaMap.classList.add('is-empty');
+            } else {
+                areaMap.classList.remove('is-empty');
+            }
+        }
+
+        if (areaSearch) {
+            areaSearch.addEventListener('input', applyAreaFilter);
+            areaSearch.addEventListener('search', applyAreaFilter);
+        }
+        if (areaClear) {
+            areaClear.addEventListener('click', function () {
+                areaSearch.value = '';
+                applyAreaFilter();
+                areaSearch.focus();
+            });
+        }
+    }
 })();

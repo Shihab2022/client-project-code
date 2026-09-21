@@ -53,8 +53,6 @@ $urls = [
     ['/about.php',                     '0.8'],
     ['/why-choose-us.php',             '0.7'],
     ['/service-areas.php',             '0.8'],
-    ['/gallery.php',                   '0.7'],
-    ['/faq.php',                       '0.8'],
     ['/contact.php',                   '0.9'],
     ['/privacy-policy.php',            '0.4'],
     ['/terms.php',                     '0.4'],

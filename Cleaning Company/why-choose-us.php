@@ -46,12 +46,15 @@ require __DIR__ . '/includes/page-hero.php';
             'level'   => 2,
         ]) ?>
         <div class="reason-grid">
+            <?php $reasonIndex = 0; ?>
             <?php foreach (trust_points() as $point): ?>
-                <div class="reason-card reveal">
-                    <span class="reason-card__icon"><?= icon($point['icon'], 'icon', 28) ?></span>
+                <?php $reasonIndex++; ?>
+                <article class="reason-card reveal" style="--reason-index:<?= $reasonIndex ?>">
+                    <span class="reason-card__num" aria-hidden="true"><?= str_pad((string) $reasonIndex, 2, '0', STR_PAD_LEFT) ?></span>
+                    <span class="reason-card__icon"><?= icon($point['icon'], 'icon', 26) ?></span>
                     <h3 class="reason-card__title"><?= e(lx($point, 'title')) ?></h3>
                     <p class="reason-card__text"><?= e(lx($point, 'text')) ?></p>
-                </div>
+                </article>
             <?php endforeach; ?>
         </div>
     </div>

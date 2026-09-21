@@ -76,6 +76,9 @@ function area_map_rows(): array
         ];
     }
 
+    return $rows;
+}
+
 /**
  * Interactive coverage map + searchable district list.
  *
@@ -191,6 +194,3 @@ function area_map(array $options = []): string
     return $html . '</div>';
 }
 
-
-    return $rows;
-}

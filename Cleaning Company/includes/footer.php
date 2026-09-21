@@ -108,7 +108,6 @@ require __DIR__ . '/../data/site.php';
                     <li><a href="<?= e_url(url($link['url'])) ?>"><?= e(t($link['key'])) ?></a></li>
                 <?php endforeach; ?>
             </ul>
-            <p class="site-footer__note"><?= e(t('footer.note')) ?></p>
         </div>
     </div>
 </footer>

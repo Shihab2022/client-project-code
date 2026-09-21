@@ -20,7 +20,6 @@ return [
     'nav.areas'        => 'Service Areas',
     'nav.why'          => 'Why Choose Us',
     'nav.faq'          => 'FAQs',
-    'nav.gallery'      => 'Gallery',
     'nav.contact'      => 'Contact',
     'nav.company'      => 'Company',
     'nav.testimonials' => 'Testimonials',
@@ -57,9 +56,7 @@ return [
     'cta.view_all_services' => 'View All Services',
     'cta.view_all_in_category' => 'See all in this category',
     'cta.view_all_areas'    => 'View All Areas We Serve',
-    'cta.view_gallery'      => 'View Our Gallery',
     'cta.send_message'      => 'Send Message',
-    'cta.read_faqs'         => 'Read All FAQs',
     'cta.band_title'        => 'Need professional cleaning in Kuwait?',
     'cta.band_text'         => 'Tell us what you need on WhatsApp or by phone and we will explain the options, the process and the price range for your space.',
     'cta.band_commercial'   => 'Looking for a regular cleaning contract for your business in Kuwait?',
@@ -128,8 +125,6 @@ return [
     'home.areas_lead'      => 'We work in these areas of Kuwait. Contact us to confirm availability for your specific building or street.',
     'home.testimonials_eyebrow' => 'Testimonials',
     'home.testimonials_title'   => 'What our customers say',
-    'home.gallery_eyebrow' => 'Gallery',
-    'home.gallery_title'   => 'A look at our cleaning work',
     'home.faq_eyebrow'     => 'FAQs',
     'home.faq_title'       => 'Questions Kuwait customers ask us',
     'home.contact_eyebrow' => 'Contact',
@@ -339,7 +334,7 @@ return [
         /* ---------------- FAQ page ---------------- */
         'faq.hero_eyebrow'            => 'FAQs',
         'faq.hero_title'              => 'Frequently asked questions',
-        'faq.hero_text'               => 'Answers to common questions about our residential, commercial and specialised cleaning services in Kuwait. If your question is not here, send it on WhatsApp or use the contact form.',
+        'faq.hero_text'               => 'Answers to common questions about our residential, commercial and specialised cleaning services in Kuwait. If your question is not here, send it on WhatsApp or use the quick quote form on our home page.',
         'faq.tab_all'                 => 'All FAQs',
         'faq.answer_label'            => 'Show answer',
         'faq.answer_hidden'           => 'Hide answer',
@@ -357,6 +352,7 @@ return [
         'contact.form_text'           => 'Tell us about your space and the cleaning you need. We will reply on WhatsApp, by phone or by e-mail using the contact method you choose.',
         'contact.form_hint'           => 'Fields marked with an asterisk are required.',
         'contact.google_maps'         => 'Find us on the map',
+        'contact.directions'          => 'Get directions on Google Maps',
 
         /* ---------------- 404 ---------------- */
         'notfound.eyebrow'            => 'Error 404',

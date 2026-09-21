@@ -94,7 +94,7 @@ if (!defined('FORM_MIN_INTERVAL'))       define('FORM_MIN_INTERVAL', 30);
 if (!defined('PRODUCTION'))              define('PRODUCTION', false);
 
 /** Cache-busting version appended to CSS/JS URLs. Bump after editing assets. */
-if (!defined('ASSET_VERSION'))           define('ASSET_VERSION', '1.0.0');
+if (!defined('ASSET_VERSION'))           define('ASSET_VERSION', '1.1.0');
 
 /* ---------------------------------------------------------------------
  | 5. EMAIL DELIVERY (contact form)

@@ -24,6 +24,7 @@ require $__root . '/includes/functions.php';
 require $__root . '/includes/security.php';
 require $__root . '/includes/mailer.php';
 require $__root . '/includes/ui.php';
+require $__root . '/includes/area-map.php';
 
 /* 2. base path + current page --------------------------------------- */
 function normalized_uri_path(): string

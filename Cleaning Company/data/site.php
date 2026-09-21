@@ -55,7 +55,6 @@ $footer_quick_links = [
     ['key' => 'nav.about',        'url' => '/about.php'],
     ['key' => 'nav.why',          'url' => '/why-choose-us.php'],
     ['key' => 'nav.areas',        'url' => '/service-areas.php'],
-    ['key' => 'nav.gallery',      'url' => '/gallery.php'],
     ['key' => 'nav.testimonials', 'url' => '/index.php#testimonials'],
     ['key' => 'nav.faq',          'url' => '/index.php#faqs'],
 ];

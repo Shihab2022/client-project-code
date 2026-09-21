@@ -4,12 +4,24 @@
  *  HOME PAGE  —  conversion-focused landing page for a Kuwait audience
  * =====================================================================
  *  Sections: hero → stats → about preview → services grid (filterable) →
- *  process → why us → service areas → testimonials → gallery preview →
- *  FAQ preview → contact CTA.
+ *  process → why us → interactive service-area map → testimonials →
+ *  FAQ → contact CTA + inquiry form.
  * =====================================================================
  */
 
 require __DIR__ . '/includes/bootstrap.php';
+
+$homeFaqGroup = (array) (faq_groups()['general'] ?? []);
+$homeFaq      = array_slice(lxa($homeFaqGroup, 'items'), 0, 8);
+
+/* The same Q&A is visible on this page, so it is eligible for FAQPage
+   structured data (only Q&A pairs that are actually shown are sent). */
+$faqSchema = [];
+foreach ($homeFaq as $faqItem) {
+    if (!empty($faqItem['q']) && !empty($faqItem['a'])) {
+        $faqSchema[] = ['q' => (string) $faqItem['q'], 'a' => (string) $faqItem['a']];
+    }
+}
 
 $page = [
     'slug'        => 'home',
@@ -20,6 +32,7 @@ $page = [
     'image'       => '/assets/images/og-cover.webp',
     'image_alt'   => alt_text('Professional cleaning team in Kuwait', 'فريق تنظيف محترف في الكويت'),
     'body_class'  => 'page-home',
+    'faq'         => $faqSchema,
 ];
 
 require __DIR__ . '/includes/header.php';
@@ -138,9 +151,8 @@ $homeWaMessage = t('wa.quote_message');
                 <div class="about-gallery-grid">
                     <div class="about-gallery-item about-gallery-item--1">
                         <?= img_tag([
-                            'src'        => '/assets/images/about-team.webp',
-                            'alt'        => alt_text('Professional cleaning team in Kuwait', 'فريق تنظيف محترف في الكويت'),
-                            'responsive' => true,
+                            'src'        => '/assets/images/project-image/deep-cleaning.jpg',
+                            'alt'        => alt_text('Deep cleaning service in Kuwait — trained cleaning team at work', 'خدمة التنظيف العميق في الكويت — فريق تنظيف مدرب أثناء العمل'),
                             'sizes'      => '(max-width: 899px) 46vw, 320px',
                         ]) ?>
                     </div>
@@ -235,7 +247,7 @@ $featuredSlugs = [
     </div>
 </section>
 
-<?php /* 7. SERVICE AREAS */ ?>
+<?php /* 7. SERVICE AREAS — interactive map with one pin + link per district */ ?>
 <section class="section" aria-labelledby="home-areas-title">
     <div class="container">
         <?= section_head([
@@ -244,11 +256,7 @@ $featuredSlugs = [
             'lead'    => t('home.areas_lead'),
             'level'   => 2,
         ]) ?>
-        <div class="area-grid">
-            <?php foreach (array_keys(areas()) as $areaSlug) : ?>
-                <?php echo area_card($areaSlug); ?>
-            <?php endforeach; ?>
-        </div>
+        <?= area_map(['title' => t('areas.map_title')]) ?>
         <p class="section-cta">
             <?= btn(['label' => t('cta.view_all_areas'), 'href' => url('/service-areas.php'), 'variant' => 'primary', 'icon' => 'arrow-right', 'icon_pos' => 'right']) ?>
         </p>
@@ -279,39 +287,12 @@ if ($homeTestimonials) :
 </section>
 <?php endif; ?>
 
-<?php /* 9. GALLERY PREVIEW */ ?>
-<section class="section" aria-labelledby="home-gallery-title">
-    <div class="container">
-        <?= section_head([
-            'eyebrow' => t('home.gallery_eyebrow'),
-            'title'   => t('home.gallery_title'),
-            'lead'    => t('gallery.hero_text'),
-            'level'   => 2,
-        ]) ?>
-        <div class="gallery-grid">
-            <?php foreach (array_slice(gallery_items(), 0, 6) as $galleryItem) : ?>
-                <figure class="gallery-item" data-category="<?= e($galleryItem['category']) ?>">
-                    <?= img_tag([
-                        'src'        => $galleryItem['image'],
-                        'alt'        => $galleryItem['alt'],
-                        'responsive' => true,
-                        'sizes'      => '(max-width: 599px) 46vw, (max-width: 1199px) 31vw, 300px',
-                    ]) ?>
-                    <figcaption class="gallery-item__caption"><?= e($galleryItem['caption']) ?></figcaption>
-                </figure>
-            <?php endforeach; ?>
-        </div>
-        <p class="section-cta">
-            <?= btn(['label' => t('cta.view_gallery'), 'href' => url('/gallery.php'), 'variant' => 'primary', 'icon' => 'arrow-right', 'icon_pos' => 'right']) ?>
-        </p>
-    </div>
-</section>
+<?php /* Gallery section removed on request. */ ?>
 
-<?php /* 10. FAQ PREVIEW */
-$homeFaq = array_slice((array) (faq_groups()['general']['items'] ?? []), 0, 4);
+<?php /* 9. FAQ (id="faqs" is the anchor used by the footer quick links) */
 if ($homeFaq) :
 ?>
-<section class="section section--muted" aria-labelledby="home-faq-title">
+<section class="section section--muted" id="faqs" aria-labelledby="home-faq-title">
     <div class="container container--narrow">
         <?= section_head([
             'eyebrow' => t('home.faq_eyebrow'),
@@ -321,29 +302,18 @@ if ($homeFaq) :
         ]) ?>
         <?= accordion($homeFaq, 'home-faq') ?>
         <p class="section-cta">
-            <?= btn(['label' => t('cta.read_faqs'), 'href' => url('/faq.php'), 'variant' => 'ghost', 'icon' => 'arrow-right', 'icon_pos' => 'right']) ?>
+            <?= wa_button(whatsapp_quote_message(), t('cta.whatsapp_us'), 'whatsapp', ['class' => 'btn--lg']) ?>
         </p>
     </div>
 </section>
 <?php endif; ?>
 
-<?php /* 11. QUICK CONTACT — instant contact options (EverClean SA inspired) */ ?>
-<section class="section section--tight section--quick" aria-labelledby="home-quick-title">
-    <div class="container">
-        <?= section_head([
-            'eyebrow' => t('home.quick_eyebrow'),
-            'title'   => t('home.quick_title'),
-            'lead'    => t('home.quick_text'),
-            'level'   => 2,
-            'align'   => 'center',
-        ]) ?>
-        <?= quick_contact_cards() ?>
-    </div>
-</section>
-
 <?php
-/* 12. CONTACT CTA + inquiry form (no database) */
-$formOptions = ['source' => '/index.php'];
+/* 10. CONTACT CTA + inquiry form (no database) */
+$formOptions = [
+    'title'  => t('cta.get_quote'),
+    'source' => '/index.php',
+];
 require __DIR__ . '/includes/quote-form.php';
 
 echo cta_band();

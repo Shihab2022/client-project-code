@@ -324,6 +324,53 @@ function feature_cards(array $cards, string $class = 'grid-3'): string
     return $html . '</div>';
 }
 
+/**
+ * Numbered "reason" panels — used for the "Why choose us" section of the
+ * service pages, where the reasons are often plain sentences without a
+ * title. Every entry becomes a designed card with a step number, an icon
+ * (when available) and its text, so the section never looks empty.
+ *
+ * Accepts ['title' => …, 'text' => …, 'icon' => …] rows or plain strings.
+ */
+function reason_panels(array $reasons): string
+{
+    $fallbackIcons = ['users', 'tools', 'shield', 'clock', 'leaf', 'check-circle'];
+    $fallbackCount = count($fallbackIcons);
+
+    $html  = '<div class="reason-panels">';
+    $index = 0;
+    foreach ($reasons as $reason) {
+        if (is_string($reason)) {
+            $reason = ['text' => $reason];
+        }
+        if (!is_array($reason)) {
+            continue;
+        }
+
+        $title = trim((string) ($reason['title'] ?? ''));
+        $text  = trim((string) ($reason['text'] ?? ''));
+        if ($title === '' && $text === '') {
+            continue;
+        }
+
+        $index++;
+        $iconName = (string) ($reason['icon'] ?? $fallbackIcons[($index - 1) % $fallbackCount]);
+
+        $html .= '<article class="reason-panel reveal" style="--reason-index:' . $index . '">'
+            . '<span class="reason-panel__num" aria-hidden="true">' . str_pad((string) $index, 2, '0', STR_PAD_LEFT) . '</span>'
+            . '<span class="reason-panel__icon">' . icon($iconName, 'icon', 24) . '</span>'
+            . ($title !== '' ? '<h3 class="reason-panel__title">' . e($title) . '</h3>' : '')
+            . '<p class="reason-panel__text">' . e($text) . '</p>'
+            . '</article>';
+    }
+
+    if ($index === 0) {
+        return '';
+    }
+
+    return $html . '</div>';
+}
+
 /** Accessible accordion from an array of ['q' => '', 'a' => ''] items. */
 function accordion(array $items, string $idPrefix, bool $openFirst = false): string
 {

@@ -22,7 +22,7 @@ return [
                 ],
                 [
                     'q' => 'How can I contact you?',
-                    'a' => 'The fastest way is WhatsApp or a phone call using the number shown at the top and bottom of every page. You can also send the contact form on our contact page and your inquiry will be delivered to our e-mail inbox.',
+                    'a' => 'The fastest way is WhatsApp or a phone call using the number shown at the top and bottom of every page. You can also use the quick quote form on our home page and your inquiry will be delivered to our e-mail inbox.',
                 ],
                 [
                     'q' => 'Do I need to create an account or book online?',
@@ -35,6 +35,26 @@ return [
                 [
                     'q' => 'Do you work with homes and businesses?',
                     'a' => 'Yes. We clean private homes as well as offices, shops, restaurants and other business premises. For businesses we can agree a one-time visit or a recurring schedule that fits your opening hours.',
+                ],
+                [
+                    'q' => 'How much does a cleaning service cost?',
+                    'a' => 'The price depends on the size of the space, its condition and the type of service. Send us the details on WhatsApp (or use the quick quote form on our home page) and we will give you a clear estimate. The final price is always agreed with you before the team starts.',
+                ],
+                [
+                    'q' => 'Do you bring your own cleaning equipment and products?',
+                    'a' => 'Yes. The team arrives with professional equipment and cleaning products matched to the surfaces being cleaned. You only need to provide water and electricity on site.',
+                ],
+                [
+                    'q' => 'Which areas of Kuwait do you cover?',
+                    'a' => 'We serve the districts listed on our service areas page, including Kuwait City, Salmiya, Hawally, Farwaniya, Ahmadi and Jahra. The interactive map on that page shows each area, and you can confirm availability for your address on WhatsApp.',
+                ],
+                [
+                    'q' => 'Do I need to be at home during the cleaning?',
+                    'a' => 'Not necessarily. Many customers are present for the first visit and then arrange access with a family member, building security or a key handover. You decide the access arrangement with us when booking.',
+                ],
+                [
+                    'q' => 'Can I book a regular weekly or monthly cleaning?',
+                    'a' => 'Yes. Recurring visits (weekly, every two weeks or monthly) can be agreed on WhatsApp, and we do our best to send the same team each time so the routine stays familiar.',
                 ],
             ],
         ],

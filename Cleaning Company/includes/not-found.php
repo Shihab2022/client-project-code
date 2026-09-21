@@ -29,8 +29,6 @@ if (!function_exists('not_found')) {
                     <li><a class="chip" href="<?= e_url(url('/about.php')) ?>"><?= e(t('nav.about')) ?></a></li>
                     <li><a class="chip" href="<?= e_url(url('/why-choose-us.php')) ?>"><?= e(t('nav.why')) ?></a></li>
                     <li><a class="chip" href="<?= e_url(url('/service-areas.php')) ?>"><?= e(t('nav.areas')) ?></a></li>
-                    <li><a class="chip" href="<?= e_url(url('/gallery.php')) ?>"><?= e(t('nav.gallery')) ?></a></li>
-                    <li><a class="chip" href="<?= e_url(url('/faq.php')) ?>"><?= e(t('nav.faq')) ?></a></li>
                     <li><a class="chip" href="<?= e_url(url('/contact.php')) ?>"><?= e(t('nav.contact')) ?></a></li>
                 </ul>
             </div>
