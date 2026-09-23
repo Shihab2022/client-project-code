@@ -41,8 +41,7 @@ function inquiry_body(array $fields): string
         'New inquiry received from the website contact form.',
         '',
         'Name ............ ' . $fields['name'],
-        'Phone ........... ' . $fields['phone'],
-        'Email ........... ' . $fields['email'],
+                'Phone ........... ' . $fields['phone'],
         'Service ......... ' . ($fields['service'] !== '' ? $fields['service'] : '-'),
         'Area in Kuwait .. ' . ($fields['area'] !== '' ? $fields['area'] : '-'),
         'Preferred contact ' . ($fields['contact_method'] !== '' ? $fields['contact_method'] : '-'),
@@ -166,10 +165,7 @@ function send_inquiry_smtp(array $fields): array
             'MIME-Version: 1.0',
             'Content-Type: text/plain; charset=UTF-8',
             'Content-Transfer-Encoding: 8bit',
-        ];
-        if (is_valid_email($fields['email'])) {
-            $headers[] = 'Reply-To: <' . mail_header_value($fields['email']) . '>';
-        }
+                ];
 
         // Dot-stuffing keeps the message body intact inside the DATA block.
         $body = preg_replace('/^\./m', '..', inquiry_body($fields)) ?? inquiry_body($fields);

@@ -51,15 +51,21 @@ return [
     'cta.learn_more_about'  => 'Learn More About Us',
     'cta.explore_services'  => 'Explore Services',
     'cta.get_quote'         => 'Get a Free Quote',
+    'cta.request_service'   => 'Request this service',
     'cta.ask_about'         => 'Ask About This Service',
     'cta.discuss'           => 'Discuss Your Cleaning Requirements',
     'cta.view_all_services' => 'View All Services',
     'cta.view_all_in_category' => 'See all in this category',
     'cta.view_all_areas'    => 'View All Areas We Serve',
     'cta.send_message'      => 'Send Message',
-    'cta.band_title'        => 'Need professional cleaning in Kuwait?',
-    'cta.band_text'         => 'Tell us what you need on WhatsApp or by phone and we will explain the options, the process and the price range for your space.',
+    'cta.band_title'        => 'Professional cleaning you can count on in Kuwait',
+    'cta.band_text'         => 'Whether it\'s your home, office, or commercial space, <strong class="alt-highlight">Al-Safwa</strong> delivers reliable, thorough cleaning across every area of Kuwait. Get a clear plan and transparent price.',
     'cta.band_commercial'   => 'Looking for a regular cleaning contract for your business in Kuwait?',
+    'cta.band_eyebrow'      => 'Trusted Kuwait cleaning since 2024',
+    'cta.band_point_1'      => 'Trained, uniformed cleaning teams',
+    'cta.band_point_2'      => 'Every job finished with a quality check',
+    'cta.band_point_3'      => 'Transparent, up-front pricing',
+    'cta.band_hours'        => 'Open :hours',
     /* ---------------- Common labels ---------------- */
     'common.rating_of'       => 'Rating :rating out of 5',
     'common.related_pages'   => 'Related pages',
@@ -284,10 +290,6 @@ return [
     'form.area_other'      => 'Other area in Kuwait',
 
         /* ---------------- Notes / disclaimers ---------------- */
-        'note.placeholder_testimonials' => 'The reviews below are example placeholders. Replace them with real customer reviews before publishing.',
-        'note.placeholder_stats'        => 'These figures are placeholders — replace them with your real company data before publishing.',
-        'note.placeholder_note'         => 'Placeholder content — replace before publishing.',
-        'note.privacy_short'           => 'No database is used. Your message is sent by e-mail and not stored online.',
         'note.no_database'             => 'This website does not use a database. The form sends your message directly to our inbox by e-mail.',
 
         /* ---------------- Stats / reason labels ---------------- */
@@ -427,10 +429,6 @@ return [
     'wa.gallery_message'     => 'Hello, I saw your cleaning work and would like a quote for my place in Kuwait.',
 
     /* ---------------- Honesty notes ---------------- */
-    'note.stats_placeholder'        => 'Placeholder figures: replace them with your verified company statistics in config/config.php before launch.',
-    'note.testimonials_placeholder' => 'The reviews below are clearly marked sample placeholders. Replace them with real customer reviews in /data/testimonials.php before publishing.',
-    'note.sample_badge'             => 'Sample',
-    'note.images_placeholder'       => 'The photos on this website are original placeholder graphics created for the template. Replace them with real photos of your own cleaning work before launch.',
     'note.legal_review'             => 'This text is a starting point written for this website. Have it reviewed by a qualified professional before publishing.',
 
     /* ---------------- Footer ---------------- */

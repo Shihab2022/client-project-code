@@ -263,7 +263,8 @@ $featuredSlugs = [
     </div>
 </section>
 
-<?php /* 8. TESTIMONIALS (clearly marked placeholders until real reviews exist) */
+<?php /* 8. TESTIMONIALS */ ?>
+<?php
 $homeTestimonials = array_slice(testimonials(), 0, 4);
 if ($homeTestimonials) :
 ?>
@@ -280,14 +281,9 @@ if ($homeTestimonials) :
                 <?php echo testimonial_card($testimonial); ?>
             <?php endforeach; ?>
         </div>
-        <?php if (SHOW_PLACEHOLDER_NOTE_TESTIMONIALS) : ?>
-            <p class="placeholder-note"><?= icon('info', 'placeholder-note__icon', 16) ?><span><?= e(t('note.testimonials_placeholder')) ?></span></p>
-        <?php endif; ?>
     </div>
 </section>
 <?php endif; ?>
-
-<?php /* Gallery section removed on request. */ ?>
 
 <?php /* 9. FAQ (id="faqs" is the anchor used by the footer quick links) */
 if ($homeFaq) :
@@ -309,13 +305,7 @@ if ($homeFaq) :
 <?php endif; ?>
 
 <?php
-/* 10. CONTACT CTA + inquiry form (no database) */
-$formOptions = [
-    'title'  => t('cta.get_quote'),
-    'source' => '/index.php',
-];
-require __DIR__ . '/includes/quote-form.php';
-
+/* 10. Closing call-to-action band */
 echo cta_band();
 
 require __DIR__ . '/includes/footer.php';

@@ -58,16 +58,15 @@ if (!in_array($formLang, SUPPORTED_LANGS, true)) {
 
 /* 3. Raw -> sanitized input ----------------------------------------- */
 $input = [
-    'name'           => sanitize_line($_POST['name'] ?? '', 80),
+        'name'           => sanitize_line($_POST['name'] ?? '', 80),
     'phone'          => sanitize_line($_POST['phone'] ?? '', 24),
-    'email'          => sanitize_line($_POST['email'] ?? '', 120),
     'service'        => sanitize_line($_POST['service'] ?? '', 120),
     'area'           => sanitize_line($_POST['area'] ?? '', 120),
     'contact_method' => sanitize_line($_POST['contact_method'] ?? '', 20),
     'message'        => sanitize_multiline($_POST['message'] ?? '', 1500),
 ];
 
-if (!in_array($input['contact_method'], ['whatsapp', 'phone', 'email'], true)) {
+if (!in_array($input['contact_method'], ['whatsapp', 'phone'], true)) {
     $input['contact_method'] = 'whatsapp';
 }
 
@@ -99,9 +98,6 @@ if (mb_strlen($input['name']) < 2) {
 if ($input['phone'] === '' || !is_valid_phone($input['phone'])) {
     $errors['phone'] = 'form.error_phone';
 }
-if ($input['email'] !== '' && !is_valid_email($input['email'])) {
-    $errors['email'] = 'form.error_email';
-}
 if ($input['service'] === '') {
     $errors['service'] = 'form.error_service';
 }
@@ -127,8 +123,7 @@ if ($errors) {
 /* 7. Delivery – e-mail only, no database write ---------------------- */
 $fields = [
     'name'           => $input['name'],
-    'phone'          => normalize_phone($input['phone']),
-    'email'          => $input['email'],
+        'phone'          => normalize_phone($input['phone']),
     'service'        => $input['service'],
     'area'           => $input['area'],
     'contact_method' => $input['contact_method'],

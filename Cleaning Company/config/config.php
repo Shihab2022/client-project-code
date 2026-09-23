@@ -23,10 +23,10 @@
 /* ---------------------------------------------------------------------
  | 1. COMPANY IDENTITY
  * -------------------------------------------------------------------*/
-if (!defined('COMPANY_NAME'))            define('COMPANY_NAME', 'BrightCare Cleaning Services');
-if (!defined('COMPANY_NAME_AR'))         define('COMPANY_NAME_AR', 'برايت كير لخدمات التنظيف المحدودة ذات المسؤولية');
-if (!defined('COMPANY_LEGAL_NAME'))      define('COMPANY_LEGAL_NAME', 'BrightCare Cleaning Services W.L.L.');
-if (!defined('COMPANY_SHORT_NAME'))      define('COMPANY_SHORT_NAME', 'BrightCare');
+if (!defined('COMPANY_NAME'))            define('COMPANY_NAME', 'Al-Safwa Cleaning Service');
+if (!defined('COMPANY_NAME_AR'))         define('COMPANY_NAME_AR', 'الصفوة لخدمات التنظيف');
+if (!defined('COMPANY_LEGAL_NAME'))      define('COMPANY_LEGAL_NAME', 'Al-Safwa Cleaning Service W.L.L.');
+if (!defined('COMPANY_SHORT_NAME'))      define('COMPANY_SHORT_NAME', 'Al-Safwa');
 if (!defined('COMPANY_TAGLINE'))         define('COMPANY_TAGLINE', 'Professional Cleaning Services in Kuwait');
 if (!defined('COMPANY_TAGLINE_AR'))      define('COMPANY_TAGLINE_AR', 'خدمات تنظيف احترافية في الكويت');
 if (!defined('COMPANY_FOUNDED_YEAR'))    define('COMPANY_FOUNDED_YEAR', '2024');
@@ -37,13 +37,14 @@ if (!defined('COMPANY_FOUNDED_YEAR'))    define('COMPANY_FOUNDED_YEAR', '2024');
 if (!defined('COMPANY_PHONE'))           define('COMPANY_PHONE', '+965 9787 6711');
 if (!defined('COMPANY_PHONE_E164'))      define('COMPANY_PHONE_E164', '+96597876711');
 if (!defined('COMPANY_WHATSAPP'))        define('COMPANY_WHATSAPP', '96597876711');
-if (!defined('COMPANY_EMAIL'))           define('COMPANY_EMAIL', 'info@brightcare.com.kw');
+if (!defined('COMPANY_EMAIL'))           define('COMPANY_EMAIL', 'info@alsafwa.com.kw');   // contact-form recipient – never printed on the website
 if (!defined('COMPANY_ADDRESS'))         define('COMPANY_ADDRESS', 'Shop 12, Al-Hamra Tower, Kuwait City, Kuwait');
 if (!defined('COMPANY_CITY'))            define('COMPANY_CITY', 'Kuwait City');
 if (!defined('COMPANY_COUNTRY'))         define('COMPANY_COUNTRY', 'Kuwait');
 if (!defined('COMPANY_POSTAL_CODE'))     define('COMPANY_POSTAL_CODE', '');
-if (!defined('COMPANY_GOOGLE_MAPS_URL')) define('COMPANY_GOOGLE_MAPS_URL', 'https://maps.google.com/?q=BrightCare+Cleaning+Services+Kuwait+City');
-if (!defined('COMPANY_MAP_EMBED_URL'))   define('COMPANY_MAP_EMBED_URL', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d106359.08972291078!2d46.6599!3d29.3755!5m2!1sar!2skw!25003.1f&amp');
+if (!defined('COMPANY_GOOGLE_MAPS_URL')) define('COMPANY_GOOGLE_MAPS_URL', 'https://maps.google.com/?q=' . rawurlencode(COMPANY_NAME . ' ' . COMPANY_ADDRESS));
+/* Key-less Google Maps embed (the map is centred on COMPANY_ADDRESS). */
+if (!defined('COMPANY_MAP_EMBED_URL'))   define('COMPANY_MAP_EMBED_URL', 'https://www.google.com/maps?q=' . rawurlencode(COMPANY_ADDRESS) . '&z=15&hl=en&output=embed');
 if (!defined('COMPANY_WORKING_HOURS'))   define('COMPANY_WORKING_HOURS', 'Saturday – Thursday: 7:00 AM – 10:00 PM | Friday: 2:00 PM – 10:00 PM');
 
 /* Machine readable working hours used for Schema.org + the contact page.
@@ -61,18 +62,15 @@ if (!defined('COMPANY_OPENING_HOURS')) {
 }
 
 /* ---------------------------------------------------------------------
- | 3. SOCIAL PROFILES and SERVICE GEOGRAPHY
+ | 3. SERVICE GEOGRAPHY
  * -------------------------------------------------------------------*/
-if (!defined('COMPANY_INSTAGRAM'))       define('COMPANY_INSTAGRAM', 'https://instagram.com/brightcarekw');
-if (!defined('COMPANY_FACEBOOK'))        define('COMPANY_FACEBOOK', 'https://facebook.com/brightcarekw');
-if (!defined('COMPANY_TIKTOK'))          define('COMPANY_TIKTOK', 'https://tiktok.com/@brightcarekw');
 if (!defined('COMPANY_SERVICE_COUNTRY')) define('COMPANY_SERVICE_COUNTRY', 'Kuwait');
 if (!defined('COMPANY_LANGUAGES'))       define('COMPANY_LANGUAGES', 'English, Arabic');
 
 /* ---------------------------------------------------------------------
  | 4. WEBSITE / URL CONFIGURATION
  * -------------------------------------------------------------------*/
-if (!defined('SITE_URL'))                define('SITE_URL', 'https://brightcarekw.com');   // no trailing slash
+if (!defined('SITE_URL'))                define('SITE_URL', 'https://www.alsafwacleaning.com');   // no trailing slash
 if (!defined('DEFAULT_LANG'))            define('DEFAULT_LANG', 'en');
 if (!defined('SUPPORTED_LANGS'))         define('SUPPORTED_LANGS', ['en', 'ar']);
 
@@ -100,8 +98,8 @@ if (!defined('ASSET_VERSION'))           define('ASSET_VERSION', '1.1.0');
  | 5. EMAIL DELIVERY (contact form)
  * -------------------------------------------------------------------*/
 if (!defined('MAIL_METHOD'))             define('MAIL_METHOD', 'mail');      // 'mail' or 'smtp'
-if (!defined('CONTACT_RECIPIENT'))       define('CONTACT_RECIPIENT', 'info@brightcare.com.kw');
-if (!defined('MAIL_FROM'))               define('MAIL_FROM', 'info@brightcare.com.kw');
+if (!defined('CONTACT_RECIPIENT'))       define('CONTACT_RECIPIENT', COMPANY_EMAIL);
+if (!defined('MAIL_FROM'))               define('MAIL_FROM', COMPANY_EMAIL);
 if (!defined('MAIL_FROM_NAME'))          define('MAIL_FROM_NAME', COMPANY_NAME);
 
 /* SMTP – credentials come from the environment, never from the codebase. */
@@ -119,24 +117,14 @@ if (!defined('GOOGLE_ANALYTICS_ID'))      define('GOOGLE_ANALYTICS_ID', '');
 if (!defined('GOOGLE_SEARCH_CONSOLE_ID')) define('GOOGLE_SEARCH_CONSOLE_ID', '');
 
 /* ---------------------------------------------------------------------
- | 7. CONTENT HONESTY FLAGS
+ | 7. COMPANY STATISTICS  (replace with your own verified figures)
  * -------------------------------------------------------------------*/
-/**
- * COMPANY_STATS and the testimonials in /data are shipped as clearly
- * marked placeholders. While the flags below are true the website shows
- * a visible note, so no placeholder figure or sample review is ever
- * presented publicly as a verified fact.
- * Set a flag to false once the real figures / real reviews exist.
- */
-if (!defined('SHOW_PLACEHOLDER_NOTE_STATS'))        define('SHOW_PLACEHOLDER_NOTE_STATS', true);
-if (!defined('SHOW_PLACEHOLDER_NOTE_TESTIMONIALS')) define('SHOW_PLACEHOLDER_NOTE_TESTIMONIALS', true);
-
 /** Statistics shown on the website. Replace with verified company data. */
 if (!defined('COMPANY_STATS')) {
     define('COMPANY_STATS', [
-        ['value' => 10,   'suffix' => '+', 'label' => 'Years of experience',     'placeholder' => true],
-        ['value' => 5000, 'suffix' => '+', 'label' => 'Completed cleaning jobs', 'placeholder' => true],
-        ['value' => 100,  'suffix' => '+', 'label' => 'Trained cleaning staff',  'placeholder' => true],
-        ['value' => 100,  'suffix' => '%', 'label' => 'Kuwait coverage areas',   'placeholder' => true],
+        ['value' => 10,   'suffix' => '+', 'label' => 'Years of experience'],
+        ['value' => 5000, 'suffix' => '+', 'label' => 'Completed cleaning jobs'],
+        ['value' => 100,  'suffix' => '+', 'label' => 'Trained cleaning staff'],
+        ['value' => 100,  'suffix' => '%', 'label' => 'Kuwait coverage areas'],
     ]);
 }

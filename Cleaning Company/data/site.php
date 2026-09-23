@@ -73,10 +73,3 @@ $footer_service_slugs = [
 
 /** Footer column: featured areas (slugs from /data/areas.php). */
 $footer_area_slugs = ['kuwait-city', 'salmiya', 'hawally', 'farwaniya', 'ahmadi', 'jahra'];
-
-/** Social profiles (empty strings are skipped automatically). */
-$social_profiles = [
-    ['key' => 'instagram', 'label' => 'Instagram', 'url' => COMPANY_INSTAGRAM, 'icon' => 'instagram'],
-    ['key' => 'facebook',  'label' => 'Facebook',  'url' => COMPANY_FACEBOOK,  'icon' => 'facebook'],
-    ['key' => 'tiktok',    'label' => 'TikTok',    'url' => COMPANY_TIKTOK,    'icon' => 'tiktok'],
-];

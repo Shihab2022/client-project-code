@@ -8,6 +8,7 @@
 require __DIR__ . '/includes/bootstrap.php';
 
 $whyTeamAlt = alt_text('Professional cleaning team at work in Kuwait', 'فريق تنظيف محترف أثناء العمل في الكويت');
+$whyImage   = project_image('why-choose-us');
 
 $page = [
     'slug'        => 'why-choose-us',
@@ -15,7 +16,7 @@ $page = [
     'title'       => 'Why Choose Us — Professional Cleaning Services in Kuwait | ' . COMPANY_NAME,
     'description' => 'Discover why homes and businesses across Kuwait trust ' . COMPANY_NAME . ' for residential, commercial and specialised cleaning: trained teams, proper equipment, written checklists and quality checks.',
     'keywords'    => 'cleaning company Kuwait, why choose cleaning company Kuwait, professional cleaners Kuwait, trusted cleaning services Kuwait',
-    'image'       => '/assets/images/about-team.webp',
+    'image'       => $whyImage,
     'image_alt'   => $whyTeamAlt,
     'body_class'  => 'page-why',
     'breadcrumbs' => [
@@ -30,9 +31,10 @@ $hero = [
     'eyebrow'   => t('why.hero_eyebrow'),
     'title'     => t('why.hero_title'),
     'text'      => t('why.hero_text'),
-    'image'     => '/assets/images/about-team.webp',
+    'image'     => $whyImage,
     'image_alt' => $whyTeamAlt,
     'whatsapp'  => whatsapp_quote_message(),
+    'eager'     => true,
 ];
 require __DIR__ . '/includes/page-hero.php';
 ?>

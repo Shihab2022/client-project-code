@@ -256,14 +256,6 @@ function apply_ar_overlay(string $name, array $data): array
             }
             break;
 
-        case 'gallery':
-            foreach ((array) ($overlay['gallery_items'] ?? []) as $i => $row) {
-                if (isset($data['items'][$i]) && is_array($row)) {
-                    merge_overlay_row($data['items'][$i], $row);
-                }
-            }
-            break;
-
         case 'before-after':
             foreach ((array) ($overlay['before_after'] ?? []) as $i => $row) {
                 if (isset($data['items'][$i]) && is_array($row)) {
@@ -408,17 +400,6 @@ function media(string $path): string
     return base_path() . '/' . ltrim($path, '/');
 }
 
-/** Image URL that falls back to the neutral placeholder graphic when missing. */
-function img(string $path): string
-{
-    $path = '/' . ltrim($path, '/');
-    if (!is_file(__DIR__ . '/..' . $path)) {
-        $path = '/assets/images/placeholder.webp';
-    }
-
-    return base_path() . $path;
-}
-
 /** Pixel size of an image file, used to print CLS-free <img> tags. */
 function image_size(string $path): array
 {
@@ -433,6 +414,54 @@ function image_size(string $path): array
     }
 
     return $cache[$fs] = [(int) $size[0], (int) $size[1]];
+}
+
+/**
+ * Photos of real cleaning work, taken from /assets/images/project-image.
+ *
+ * Only files that are light enough for a hero image (default: under 400 KB)
+ * are returned, because a slow LCP image hurts both the visitor and the
+ * Core Web Vitals score. The list is cached per request.
+ */
+function project_images(int $maxBytes = 400000): array
+{
+    static $cache = [];
+    if (isset($cache[$maxBytes])) {
+        return $cache[$maxBytes];
+    }
+
+    $images = [];
+    $dir    = __DIR__ . '/../assets/images/project-image';
+    foreach (glob($dir . '/*.{jpg,jpeg,png,avif,webp}', GLOB_BRACE) ?: [] as $file) {
+        $size = @filesize($file);
+        if ($size === false || $size > $maxBytes) {
+            continue;
+        }
+        $images[] = '/assets/images/project-image/' . basename($file);
+    }
+    sort($images);
+
+    return $cache[$maxBytes] = $images;
+}
+
+/**
+ * One photo from the project gallery.
+ *
+ * $seed  keeps the choice stable for a page (every area page, the about
+ *        page and the why-choose-us page keep their own photo), while an
+ *        empty seed picks a different photo on every request.
+ */
+function project_image(string $seed = '', string $fallback = '/assets/images/og-cover.webp'): string
+{
+    $images = project_images();
+    if (!$images) {
+        return $fallback;
+    }
+    $index = $seed !== ''
+        ? (int) (crc32($seed) % count($images))
+        : random_int(0, count($images) - 1);
+
+    return $images[$index];
 }
 
 /* ---------------------------------------------------------------------
@@ -468,12 +497,6 @@ function whatsapp_service_message(string $serviceName, string $area = ''): strin
 function tel_url(): string
 {
     return 'tel:' . preg_replace('/[^0-9+]/', '', COMPANY_PHONE_E164);
-}
-
-/** mailto: link with an optional prefilled subject. */
-function mail_url(string $subject = ''): string
-{
-    return 'mailto:' . COMPANY_EMAIL . ($subject !== '' ? '?subject=' . rawurlencode($subject) : '');
 }
 
 /** True when a real phone number has been configured (placeholders contain "X"). */
@@ -630,16 +653,10 @@ function faq_groups(): array
     return data('faqs')['groups'] ?? [];
 }
 
-/** Placeholder-marked testimonials. */
+/** Customer testimonials (see /data/testimonials.php). */
 function testimonials(): array
 {
     return data('testimonials')['testimonials'] ?? [];
-}
-
-/** Gallery items. */
-function gallery_items(): array
-{
-    return data('gallery')['items'] ?? [];
 }
 
 /** Legal page content (privacy-policy | terms). */

@@ -92,17 +92,6 @@ $fieldError = static fn(string $key): string => (string) ($formErrors[$key] ?? '
             </div>
 
             <div class="form__row">
-                <div class="form__field<?= $fieldError('email') !== '' ? ' has-error' : '' ?>">
-                    <label class="form__label" for="cf-email"><?= e(t('form.email')) ?>
-                        <span class="form__optional">(<?= e(t('form.optional')) ?>)</span></label>
-                    <input class="form__input" type="email" id="cf-email" name="email" maxlength="120"
-                           autocomplete="email" placeholder="<?= e(t('form.email_ph')) ?>"
-                           value="<?= e($fieldValue('email')) ?>"<?= $fieldError('email') !== '' ? ' aria-invalid="true" aria-describedby="cf-email-error"' : '' ?>>
-                    <?php if ($fieldError('email') !== '') : ?>
-                        <p class="form__error" id="cf-email-error"><?= e(t($fieldError('email'))) ?></p>
-                    <?php endif; ?>
-                </div>
-
                 <div class="form__field<?= $fieldError('service') !== '' ? ' has-error' : '' ?>">
                     <label class="form__label" for="cf-service"><?= e(t('form.service')) ?> <span aria-hidden="true">*</span></label>
                     <select class="form__select" id="cf-service" name="service" required<?= $fieldError('service') !== '' ? ' aria-invalid="true" aria-describedby="cf-service-error"' : '' ?>>
@@ -145,10 +134,9 @@ $fieldError = static fn(string $key): string => (string) ($formErrors[$key] ?? '
                     <legend class="form__label"><?= e(t('form.contact_method')) ?> <span aria-hidden="true">*</span></legend>
                     <div class="choice-group">
                         <?php
-                        $methods = [
+                                                $methods = [
                             'whatsapp' => t('form.contact_whatsapp'),
                             'phone'    => t('form.contact_phone'),
-                            'email'    => t('form.contact_email'),
                         ];
                         $selectedMethod = $fieldValue('contact_method', 'whatsapp');
                         foreach ($methods as $value => $label) :

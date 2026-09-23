@@ -79,8 +79,21 @@ function schema_opening_hours(): array
 /** Social profile URLs that are actually configured. */
 function schema_social_profiles(): array
 {
+        // Read social URLs from site config if defined; fall back to constants.
+    $candidates = [];
+    if (defined('COMPANY_INSTAGRAM')) { $candidates[] = COMPANY_INSTAGRAM; }
+    if (defined('COMPANY_FACEBOOK'))  { $candidates[] = COMPANY_FACEBOOK; }
+    if (defined('COMPANY_TIKTOK'))   { $candidates[] = COMPANY_TIKTOK; }
+    // Also pick up any profile list that data/site.php may have registered.
+    global $social_profiles;
+    foreach ((array) ($social_profiles ?? []) as $profile) {
+        if (is_array($profile) && isset($profile['url'])) {
+            $candidates[] = $profile['url'];
+        }
+    }
+
     $urls = [];
-    foreach ([COMPANY_INSTAGRAM, COMPANY_FACEBOOK, COMPANY_TIKTOK] as $url) {
+    foreach ($candidates as $url) {
         if (is_string($url) && str_starts_with($url, 'http')) {
             $urls[] = $url;
         }

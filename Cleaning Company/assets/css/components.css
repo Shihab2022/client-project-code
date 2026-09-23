@@ -1058,18 +1058,75 @@ body.site--rtl .area-map__list-link:hover { transform: translateX(-3px); }
 /* ------------------------------------------------------------ CTA BAND */
 .cta-band {
     background: linear-gradient(140deg, var(--primary-deep), var(--secondary));
-    padding-block: clamp(2.25rem, 5vw, 4rem);
+    padding-block: clamp(1.5rem, 3vw, 2.25rem);
 }
-.cta-band__inner {
+.cta-band__card {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem 2.5rem;
+    max-width: var(--max-width, 1200px);
+    margin-inline: auto;
 }
-.cta-band__title { margin: 0 0 .4rem; color: #ffffff; font-size: clamp(1.5rem, 3vw, 2.05rem); }
-.cta-band__text { margin: 0; max-width: 62ch; color: rgba(255, 255, 255, .82); }
-.cta-band__actions { display: flex; flex-wrap: wrap; gap: .8rem; }
+.cta-band__content {
+    flex: 1 1 400px;
+    min-width: 0;
+}
+.cta-band__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: rgba(255, 255, 255, .85);
+}
+.cta-band__eyebrow-icon { flex: none; }
+.cta-band__title {
+    margin: .5rem 0 .75rem;
+    color: #ffffff;
+    font-size: clamp(1.5rem, 3vw, 2.05rem);
+    line-height: 1.2;
+}
+.cta-band__text {
+    margin: 0 0 1rem;
+    max-width: 62ch;
+    color: rgba(255, 255, 255, .82);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+.cta-band__points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.cta-band__points li {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    color: rgba(255, 255, 255, .88);
+    font-size: .92rem;
+}
+.cta-band__check { fill: var(--accent, #ffd22d); }
+.cta-band__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .8rem 1.25rem;
+}
+.cta-band__btn { min-width: 180px; }
+.cta-band__hours {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    color: rgba(255, 255, 255, .75);
+    font-size: .85rem;
+}
 
 /* --------------------------------------------------------- ALERTS / MISC */
 .alert {

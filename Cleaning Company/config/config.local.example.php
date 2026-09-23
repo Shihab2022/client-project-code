@@ -28,10 +28,7 @@ define('COMPANY_GOOGLE_MAPS_URL', 'https://maps.google.com/...');
 define('COMPANY_MAP_EMBED_URL', 'https://www.google.com/maps/embed?pb=...');
 define('COMPANY_WORKING_HOURS', 'Saturday – Thursday: 7:00 AM – 10:00 PM | Friday: 2:00 PM – 10:00 PM');
 
-/* --- 3. Social + website ------------------------------------------- */
-define('COMPANY_INSTAGRAM', 'https://instagram.com/your-account');
-define('COMPANY_FACEBOOK', 'https://facebook.com/your-page');
-define('COMPANY_TIKTOK', 'https://tiktok.com/@your-account');
+/* --- 3. Website ----------------------------------------------------- */
 define('SITE_URL', 'https://your-domain.com');     // no trailing slash
 
 /* --- 4. Optional: analytics + email -------------------------------- */

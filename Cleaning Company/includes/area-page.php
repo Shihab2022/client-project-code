@@ -24,6 +24,8 @@ if (!$area) {
 $areaFullName = lx($area, 'name', $areaSlug);
 $governorate  = lx($area, 'governorate', COMPANY_CITY);
 $waMessage    = t('wa.area_page_message', ['area' => $areaFullName]);
+$areaImage    = project_image('area-' . $areaSlug);
+$areaImageAlt = lx($area, 'image_alt', 'Cleaning services in ' . $areaFullName . ', Kuwait');
 
 $areaFaq = [];
 foreach ((array) ($area['faq'] ?? []) as $item) {
@@ -41,8 +43,8 @@ $page = [
     'path'        => '/areas/' . $areaSlug . '.php',
     'title'       => lx($area, 'meta_title', t('areas.local_title', ['area' => $areaFullName])),
     'description' => lx($area, 'meta_description', ''),
-    'image'       => (string) ($area['image'] ?? '/assets/images/og-cover.webp'),
-    'image_alt'   => lx($area, 'image_alt', 'Cleaning services in ' . $areaFullName . ', Kuwait'),
+    'image'       => $areaImage,
+    'image_alt'   => $areaImageAlt,
     'og_type'     => 'article',
     'body_class'  => 'page-area page-area--' . $areaSlug,
     'faq'         => $areaFaq,
@@ -59,8 +61,8 @@ $hero = [
     'eyebrow'   => t('areas.governorate') . ': ' . $governorate,
     'title'     => t('areas.local_title', ['area' => $areaFullName]),
     'text'      => lx($area, 'intro', t('areas.hero_text')),
-    'image'     => (string) ($area['image'] ?? ''),
-    'image_alt' => lx($area, 'image_alt', 'Cleaning services in ' . $areaFullName . ', Kuwait'),
+    'image'     => $areaImage,
+    'image_alt' => $areaImageAlt,
     'whatsapp'  => $waMessage,
     'eager'     => true,
     'points'    => array_slice((array) ($area['features'] ?? []), 0, 3),
@@ -85,7 +87,7 @@ if (!empty($area['about'])) : ?>
             </div>
             <aside class="split__aside reveal">
                 <div class="aside-card">
-                    <h3 class="aside-card__title"><?= e(t('cta.get_quote')) ?></h3>
+                    <h3 class="aside-card__title"><?= e(t('cta.whatsapp_us')) ?></h3>
                     <p class="aside-card__text"><?= e(t('home.hero_card_text')) ?></p>
                     <?= wa_button($waMessage, t('cta.whatsapp_us'), 'whatsapp') ?>
                     <?= call_button(t('cta.call_now'), 'outline') ?>

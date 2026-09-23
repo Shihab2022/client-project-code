@@ -12,6 +12,7 @@ $aboutTeamAlt = alt_text(
     'Cleaning team of ' . COMPANY_NAME . ' in Kuwait',
     'فريق التنظيف التابع لـ ' . COMPANY_NAME . ' في الكويت'
 );
+$aboutImage = project_image('about-page');
 
 $page = [
     'slug'        => 'about',
@@ -19,7 +20,7 @@ $page = [
     'title'       => 'About Us | ' . COMPANY_NAME . ' – Cleaning Services in Kuwait',
     'description' => 'Learn about ' . COMPANY_NAME . ': our story, trained cleaning teams, equipment, quality checks and how we work with homes and businesses across Kuwait.',
     'keywords'    => 'about cleaning company Kuwait, cleaning company Kuwait, professional cleaners Kuwait',
-    'image'       => '/assets/images/about-team.webp',
+    'image'       => $aboutImage,
     'image_alt'   => $aboutTeamAlt,
     'body_class'  => 'page-about',
     'breadcrumbs' => [
@@ -34,9 +35,10 @@ $hero = [
     'eyebrow'   => t('about.hero_eyebrow'),
     'title'     => t('about.hero_title'),
     'text'      => t('about.hero_text'),
-    'image'     => '/assets/images/about-team.webp',
+    'image'     => $aboutImage,
     'image_alt' => $aboutTeamAlt,
     'whatsapp'  => whatsapp_quote_message(),
+    'eager'     => true,
 ];
 require __DIR__ . '/includes/page-hero.php';
 ?>
@@ -52,16 +54,12 @@ require __DIR__ . '/includes/page-hero.php';
                 ]) ?>
                 <p><?= e(t('about.story_p1')) ?></p>
                 <p><?= e(t('about.story_p2')) ?></p>
-                <div class="timeline-note reveal">
-                    <p><?= icon('info', 'icon', 18) ?> <?= e(t('note.legal_review')) ?></p>
-                </div>
             </div>
             <div class="split__aside">
                 <div class="media-card reveal">
                     <?= img_tag([
-                        'src'        => '/assets/images/about-team.webp',
+                        'src'        => project_image('about-story'),
                         'alt'        => $aboutTeamAlt,
-                        'responsive' => true,
                         'sizes'      => '(max-width: 899px) 92vw, 460px',
                     ]) ?>
                 </div>
