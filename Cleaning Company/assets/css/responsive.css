@@ -154,16 +154,32 @@
     .floating-cta { display: none; }
     body { padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px)); }
 
-    .hero__inner, .page-hero__inner { grid-template-columns: 1fr; }
+    .hero__inner, .page-hero__inner,
+    .page-hero--media .page-hero__inner { grid-template-columns: 1fr; }
+    .page-hero__media { aspect-ratio: 16 / 10; }
     .split, .split--wide { grid-template-columns: 1fr; }
     .about-showcase__grid { grid-template-columns: 1fr; }
     .contact-grid { grid-template-columns: 1fr; }
+
+    /* Two action buttons (WhatsApp + Call) are too wide for the narrow
+       card body on tablet/mobile — stack them so no button overflows. */
+    .service-card__actions { grid-template-columns: 1fr; }
+    /* Constrain the contact-map card to its grid cell and shrink the
+       button flex-basis so both buttons fit side-by-side or wrap cleanly. */
+    .contact-map__card { max-width: 100%; }
+    .contact-map__actions .btn { flex: 1 1 120px; }
 
     .site-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.25rem; }
     .site-footer__col--brand { grid-column: 1 / -1; }
     .site-footer__bottom { flex-direction: column; align-items: flex-start; }
 
     .cta-band__card { flex-direction: column; align-items: flex-start; }
+
+    /* .cta-band__content carries `flex: 1 1 460px` so it wins the wide row on
+       desktop. Once the card stacks, that 460px basis applies to the *height*
+       and punches a ~460px hole between the copy and the buttons — reset it
+       so the band hugs its content on every stacked tier. */
+    .cta-band__content { flex: 0 1 auto; }
 
     .form__actions .btn { flex: 1 1 100%; }
 
@@ -193,6 +209,8 @@
     .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .quick-contact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .contact-map { grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); }
+    .contact-map__frame { min-height: 460px; }
     .site-footer__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .site-footer__col--brand { grid-column: 1 / -1; }
 
@@ -276,6 +294,10 @@
 @media (max-width: 899px) {
     .reason-grid,
     .reason-panels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    /* Stack the coverage map above its searchable district list. */
+    .area-map__body { grid-template-columns: 1fr; }
+    .area-map__list { max-height: 420px; }
 }
 
 @media (max-width: 599px) {
@@ -296,7 +318,7 @@
 
 /* --------------------------------------------------------------- print */
 @media print {
-    .topbar, .site-header, .drawer, .floating-cta, .action-bar,
+    .topbar, .site-header, .drawer, .floating-cta, .action-bar, .site-loader,
     .cta-band, .site-footer, .breadcrumbs, .filter-tabs, .quick-contact { display: none !important; }
     body { color: #000; background: #fff; }
     a { color: #000; text-decoration: underline; }

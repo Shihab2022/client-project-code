@@ -36,7 +36,12 @@ $bodyClass    = trim('site ' . (string) ($page['body_class'] ?? '') . (is_rtl() 
     <meta name="theme-color" content="#0e7c86">
     <meta name="application-name" content="<?= e(COMPANY_SHORT_NAME) ?>">
     <meta name="apple-mobile-web-app-title" content="<?= e(COMPANY_SHORT_NAME) ?>">
-    <script>document.documentElement.classList.remove('no-js');</script>
+    <?php /* Page-loader gate — must run before the first paint, so it is a
+             plain (non-deferred) script tag. It is an external file on
+             purpose: the site CSP is script-src 'self', which blocks
+             inline <script> blocks. main.js releases the overlay on
+             window "load"; the file itself has an 8s safety timeout. */ ?>
+    <script src="<?= e_url(asset('/assets/js/loader-gate.js')) ?>"></script>
     <?= seo_head($page) ?>
     <link rel="icon" href="<?= e_url(media('/assets/images/favicon.svg')) ?>" type="image/svg+xml">
     <link rel="apple-touch-icon" href="<?= e_url(media('/assets/images/favicon.svg')) ?>">
@@ -53,6 +58,15 @@ $bodyClass    = trim('site ' . (string) ($page['body_class'] ?? '') . (is_rtl() 
     <?= analytics_snippet() ?>
 </head>
 <body class="<?= e($bodyClass) ?>">
+<!-- Page loader — released once images/video are ready (main.js) -->
+<div class="site-loader" data-site-loader role="status" aria-label="<?= e(t('common.loading')) ?>">
+    <div class="site-loader__inner" aria-hidden="true">
+        <span class="site-loader__mark"><?= icon('sparkle', 'site-loader__mark-icon', 28) ?></span>
+        <span class="site-loader__name"><?= e(COMPANY_NAME) ?></span>
+        <span class="site-loader__bar"><span class="site-loader__bar-fill"></span></span>
+    </div>
+</div>
+
 <a class="skip-link" href="#main"><?= e(t('common.skip_to_content')) ?></a>
 
 <!-- Top contact bar -->

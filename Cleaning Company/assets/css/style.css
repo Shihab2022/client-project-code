@@ -1262,12 +1262,27 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
 .about-gallery-item--1 { transform: translateY(-10px); }
 .about-gallery-item--4 { transform: translateY(10px); }
 
-/* 8. ----------------------------------------------------------------- FOOTER */
+/* 8. ----------------------------------------------------------------- FOOTER
+   Three layers: brand block + link columns, a strip of tappable contact
+   cards, then the legal bar. The footer paints its own dark background and
+   .site-footer--flush closes the white gap when a CTA band sits above it. */
 .site-footer {
-    background: var(--dark);
+    position: relative;
+    background:
+        radial-gradient(120% 100% at 12% 0%, rgba(0, 67, 236, .28), transparent 55%),
+        linear-gradient(180deg, var(--dark-surface), var(--dark) 62%);
     color: rgba(255, 255, 255, .78);
     padding-block: clamp(2.5rem, 5vw, 4rem) 1.5rem;
     margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+.site-footer--flush { margin-top: 0; }
+.site-footer::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(241, 209, 21, .5), transparent);
 }
 
 /* Four balanced columns: brand + quick links + services + areas. */
@@ -1279,41 +1294,47 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
 }
 .site-footer__about { margin: .9rem 0 1.1rem; font-size: .92rem; max-width: 46ch; }
 
-/* Social profiles as compact pills instead of a vertical list. */
-.site-footer__social {
+/* Working hours + address as compact icon rows under the brand block. */
+.site-footer__meta { display: grid; gap: .5rem; margin: 0 0 1.2rem; }
+.site-footer__meta li {
     display: flex;
-    flex-wrap: wrap;
-    gap: .45rem;
-    margin-bottom: 1.15rem;
+    align-items: flex-start;
+    gap: .55rem;
+    font-size: .86rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, .72);
 }
-.site-footer__social a {
-    display: inline-flex;
-    align-items: center;
-    gap: .4rem;
-    padding: .4rem .8rem;
-    border: 1px solid rgba(255, 255, 255, .16);
-    border-radius: var(--radius-pill);
-    color: rgba(255, 255, 255, .84);
-    font-size: .82rem;
-    font-weight: 600;
-    transition: border-color var(--dur), color var(--dur), background-color var(--dur), transform var(--dur);
-}
-.site-footer__social a:hover {
-    border-color: var(--accent);
-    background: rgba(241, 209, 21, .12);
+.site-footer__meta-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 26px; height: 26px;
+    border-radius: 9px;
+    background: rgba(0, 67, 236, .25);
     color: var(--accent);
-    transform: translateY(-2px);
 }
+.site-footer__meta-icon .icon { width: 15px; height: 15px; }
+
 .site-footer__actions { display: flex; flex-wrap: wrap; gap: .55rem; }
 .site-footer__actions .btn { flex: 1 1 auto; }
 
+/* Column headings with a fading golden rule for a tidier rhythm. */
 .site-footer__title {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
     margin: 0 0 .9rem;
     color: #ffffff;
-    font-size: .82rem;
+    font-size: .84rem;
     font-weight: 800;
     letter-spacing: .1em;
     text-transform: uppercase;
+}
+.site-footer__title::after {
+    content: "";
+    flex: 1 1 auto;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(241, 209, 21, .45), transparent);
 }
 .site-footer__list { display: grid; gap: .5rem; }
 .site-footer__list a {
@@ -1328,24 +1349,59 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
 body.site--rtl .site-footer__list a:hover { transform: translateX(-3px); }
 .site-footer__list .site-footer__more { color: var(--accent); font-weight: 700; }
 
-/* Contact strip: one readable row above the legal line. */
-.site-footer__contact {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .55rem 1.75rem;
-    padding-block: 1.35rem;
+/* Contact strip: three tappable cards above the legal line. auto-fit keeps
+   the layout responsive without extra breakpoints. */
+.site-footer__info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: .85rem;
+    padding-block: clamp(1.25rem, 2.5vw, 1.85rem);
     border-top: 1px solid rgba(255, 255, 255, .14);
 }
-.site-footer__contact li {
-    display: inline-flex;
+.site-footer__info-card {
+    display: flex;
     align-items: center;
-    gap: .5rem;
-    font-size: .9rem;
-    color: rgba(255, 255, 255, .8);
+    gap: .8rem;
+    min-width: 0;
+    padding: .95rem 1.05rem;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, .05);
+    color: rgba(255, 255, 255, .9);
+    transition: border-color var(--dur), background-color var(--dur), transform var(--dur);
 }
-.site-footer__contact a { color: rgba(255, 255, 255, .88); }
-.site-footer__contact a:hover { color: var(--accent); }
-.site-footer__contact .icon { flex: none; color: var(--accent); }
+.site-footer__info-card:hover {
+    border-color: rgba(241, 209, 21, .5);
+    background: rgba(241, 209, 21, .1);
+    transform: translateY(-2px);
+}
+.site-footer__info-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    background: rgba(0, 67, 236, .3);
+    color: #ffffff;
+}
+.site-footer__info-card--wa .site-footer__info-icon { background: rgba(37, 211, 102, .22); color: #7ff0b0; }
+.site-footer__info-body { display: grid; gap: .15rem; min-width: 0; }
+.site-footer__info-label {
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, .6);
+}
+.site-footer__info-value { font-size: .95rem; font-weight: 700; color: #ffffff; overflow-wrap: anywhere; }
+.site-footer__info-arrow {
+    margin-inline-start: auto;
+    flex: none;
+    color: rgba(255, 255, 255, .45);
+    transition: color var(--dur), transform var(--dur);
+}
+.site-footer__info-card:hover .site-footer__info-arrow { color: var(--accent); transform: translate(2px, -2px); }
+body.site--rtl .site-footer__info-card:hover .site-footer__info-arrow { transform: translate(-2px, -2px); }
 
 .site-footer__bottom {
     display: flex;
@@ -1432,3 +1488,87 @@ body.site--rtl .site-footer__list a:hover { transform: translateX(-3px); }
 .action-bar__btn--wa { background: #1faa59; color: #ffffff; }
 .action-bar__btn--call { background: var(--primary); color: #ffffff; }
 .action-bar__btn--wa:hover, .action-bar__btn--call:hover { color: #ffffff; opacity: .92; }
+
+/* 10. ----------------------------------------------------------- PAGE LOADER
+   Full-screen overlay shown while images/fonts/video finish loading.
+   It is display:grid at all times but only painted from the moment
+   /assets/js/loader-gate.js adds "has-js" to <html>; main.js adds
+   "has-loaded" (window load + a short minimum) to fade it out. With
+   JavaScript disabled the overlay simply never appears. */
+.site-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    background:
+        radial-gradient(70% 60% at 50% 30%, rgba(0, 67, 236, .35), transparent 62%),
+        linear-gradient(160deg, var(--primary-deep), var(--secondary) 70%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .5s var(--ease), visibility .5s var(--ease);
+}
+html.has-js:not(.has-loaded) { overflow: hidden; }
+html.has-js:not(.has-loaded) .site-loader {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+.site-loader__inner {
+    display: grid;
+    justify-items: center;
+    gap: .85rem;
+    text-align: center;
+}
+.site-loader__mark {
+    display: grid;
+    place-items: center;
+    width: 68px; height: 68px;
+    border-radius: 22px;
+    background: linear-gradient(140deg, var(--primary), var(--primary-deep));
+    box-shadow: 0 20px 45px -18px rgba(0, 67, 236, .9), inset 0 1px 0 rgba(255, 255, 255, .25);
+    color: var(--accent);
+}
+.site-loader__mark-icon { animation: site-loader-spin 2.6s linear infinite; }
+.site-loader__name {
+    color: #ffffff;
+    font-size: .92rem;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+.site-loader__bar {
+    display: block;
+    width: min(220px, 62vw);
+    height: 4px;
+    overflow: hidden;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, .18);
+}
+.site-loader__bar-fill {
+    display: block;
+    width: 42%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--accent), #ffffff);
+    animation: site-loader-slide 1.25s ease-in-out infinite;
+}
+@keyframes site-loader-slide {
+    0%   { transform: translateX(-105%); }
+    100% { transform: translateX(240%); }
+}
+@keyframes site-loader-spin {
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(180deg) scale(1.12); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Motion-sensitive visitors get the same loader without the animation. */
+@media (prefers-reduced-motion: reduce) {
+    .site-loader { transition-duration: .01ms; }
+    .site-loader__mark-icon,
+    .site-loader__bar-fill { animation: none; }
+    .site-loader__bar-fill { width: 100%; }
+}

@@ -517,17 +517,21 @@ function area_card(string $slug): string
         . icon('arrow-right', 'area-card__arrow', 18) . '</a>';
 }
 
-/** Closing call-to-action band used at the end of most pages. */
+/** Closing call-to-action band used at the end of most pages.
+ *
+ *  The band is intentionally short: one badge, one headline, one line of
+ *  copy and the two direct actions (WhatsApp + call). Long bullet lists
+ *  and the working-hours line were removed so the band reads at a glance.
+ *  Setting $GLOBALS['CTA_BAND_RENDERED'] lets footer.php close the white
+ *  gap that used to appear between the band and the footer.
+ */
 function cta_band(array $o = []): string
 {
-    $title  = (string) ($o['title'] ?? t('cta.band_title'));
-    $text   = (string) ($o['text'] ?? t('cta.band_text'));
-    $waMsg  = (string) ($o['whatsapp_message'] ?? whatsapp_quote_message());
-    $points = (array) ($o['points'] ?? [
-        t('cta.band_point_1'),
-        t('cta.band_point_2'),
-        t('cta.band_point_3'),
-    ]);
+    $GLOBALS['CTA_BAND_RENDERED'] = true;
+
+    $title = (string) ($o['title'] ?? t('cta.band_title'));
+    $text  = (string) ($o['text'] ?? t('cta.band_text'));
+    $waMsg = (string) ($o['whatsapp_message'] ?? whatsapp_quote_message());
 
     $html = '<section class="cta-band" aria-labelledby="cta-band-title">'
         . '<div class="container">'
@@ -536,23 +540,11 @@ function cta_band(array $o = []): string
         . '<p class="cta-band__eyebrow">' . icon('sparkle', 'cta-band__eyebrow-icon', 16)
         . '<span>' . e(t('cta.band_eyebrow')) . '</span></p>'
         . '<h2 class="cta-band__title" id="cta-band-title">' . e($title) . '</h2>'
-        . '<p class="cta-band__text">' . e($text) . '</p>';
-
-    if ($points) {
-        $html .= '<ul class="cta-band__points">';
-        foreach ($points as $point) {
-            $html .= '<li>' . icon('check', 'cta-band__check', 15)
-                . '<span>' . e((string) $point) . '</span></li>';
-        }
-        $html .= '</ul>';
-    }
-
-    $html .= '</div>'
+        . '<p class="cta-band__text">' . e($text) . '</p>'
+        . '</div>'
         . '<div class="cta-band__actions reveal">'
         . wa_button($waMsg, t('cta.whatsapp_now'), 'whatsapp', ['class' => 'btn--lg cta-band__btn'])
         . call_button(t('cta.call_now'), 'light', ['class' => 'btn--lg cta-band__btn'])
-        . '<p class="cta-band__hours">' . icon('clock', 'cta-band__hours-icon', 15)
-        . '<span>' . e(t('cta.band_hours', ['hours' => COMPANY_WORKING_HOURS])) . '</span></p>'
         . '</div>'
         . '</div></div></section>';
 

@@ -83,9 +83,14 @@ function area_map_rows(): array
  * Interactive coverage map + searchable district list.
  *
  * Options
- *   'title'  Accessible name of the svg (string)
+ *   'title'  Accessible name of the base map (string)
  *   'list'   Print the searchable district list next to the map (bool)
  *   'class'  Extra class on the wrapper
+ *   'base'   'google' → embedded Google base map (same embed as the
+ *                       contact page, centred on the business address)
+ *            'svg'    → inline SVG outline of Kuwait with one pin per area
+ *            Default: 'google' whenever COMPANY_MAP_EMBED_URL is set,
+ *            otherwise the SVG (the map still works without an API key).
  */
 function area_map(array $options = []): string
 {
@@ -98,6 +103,15 @@ function area_map(array $options = []): string
     $listOn   = $options['list'] ?? true;
     $class    = trim('area-map reveal ' . (string) ($options['class'] ?? ''));
     $searchId = 'area-map-search';
+
+    /* ---- base map: embedded Google map or the inline SVG ------------- */
+    $base = (string) ($options['base'] ?? '');
+    if ($base !== 'google' && $base !== 'svg') {
+        $base = map_embed_url() !== '' ? 'google' : 'svg';
+    }
+    if ($base === 'google' && map_embed_url() === '') {
+        $base = 'svg';   /* no embed configured: keep the crawlable SVG map */
+    }
 
     /* ---- land outline (Natural Earth base map) ----------------------- */
     $path = area_map_path();
@@ -169,19 +183,41 @@ function area_map(array $options = []): string
 
     /* ---- map + list -------------------------------------------------- */
     $html .= '<div class="area-map__body' . ($listOn ? '' : ' area-map__body--single') . '">';
-    $html .= '<div class="area-map__canvas">'
-        . '<svg class="area-map__svg" viewBox="0 0 1000 960" role="group"'
-        . ' aria-label="' . e((string) ($options['title'] ?? t('areas.map_title'))) . '"'
-        . ' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'
-        . '<g class="area-map__grid" aria-hidden="true">' . $grid . '</g>'
-        . '<path class="area-map__land" d="' . $path . '"/>'
-        . '<path class="area-map__coast" d="' . $path . '"/>'
-        . '<text class="area-map__name" x="300" y="520" aria-hidden="true">' . e(t('areas.map_label')) . '</text>'
-        . '<g class="area-map__pins">' . $pins . '</g>'
-        . '</svg>'
-        . '<p class="area-map__hint">' . icon('info', 'area-map__hint-icon', 16)
-        . '<span>' . e(t('areas.map_hint')) . '</span></p>'
-        . '<p class="area-map__empty" data-area-empty hidden>' . e(t('areas.search_empty')) . '</p>'
+    $html .= '<div class="area-map__canvas' . ($base === 'google' ? ' area-map__canvas--embed' : '') . '">';
+
+    if ($base === 'google') {
+        /* The very same key-less embed that the contact page uses: a real,
+           zoomable Google base map centred on the business address. The
+           districts stay reachable through the searchable list beside it. */
+        $html .= '<div class="area-map__frame">'
+            . '<iframe loading="lazy"'
+            . ' src="' . e_url(map_embed_url()) . '"'
+            . ' width="100%" height="100%" style="border:0;"'
+            . ' allowfullscreen referrerpolicy="no-referrer-when-downgrade"'
+            . ' title="' . e((string) ($options['title'] ?? t('areas.map_title'))) . '">'
+            . '</iframe>'
+            . '<a class="area-map__frame-btn" href="' . e_url(COMPANY_GOOGLE_MAPS_URL) . '"'
+            . ' target="_blank" rel="noopener noreferrer">'
+            . icon('arrow-up-right', 'area-map__frame-btn-icon', 16)
+            . '<span>' . e(t('contact.directions')) . '</span></a>'
+            . '</div>'
+            . '<p class="area-map__hint">' . icon('info', 'area-map__hint-icon', 16)
+            . '<span>' . e(t('areas.map_hint_google')) . '</span></p>';
+    } else {
+        $html .= '<svg class="area-map__svg" viewBox="0 0 1000 960" role="group"'
+            . ' aria-label="' . e((string) ($options['title'] ?? t('areas.map_title'))) . '"'
+            . ' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'
+            . '<g class="area-map__grid" aria-hidden="true">' . $grid . '</g>'
+            . '<path class="area-map__land" d="' . $path . '"/>'
+            . '<path class="area-map__coast" d="' . $path . '"/>'
+            . '<text class="area-map__name" x="300" y="520" aria-hidden="true">' . e(t('areas.map_label')) . '</text>'
+            . '<g class="area-map__pins">' . $pins . '</g>'
+            . '</svg>'
+            . '<p class="area-map__hint">' . icon('info', 'area-map__hint-icon', 16)
+            . '<span>' . e(t('areas.map_hint')) . '</span></p>';
+    }
+
+    $html .= '<p class="area-map__empty" data-area-empty hidden>' . e(t('areas.search_empty')) . '</p>'
         . '</div>';
     $html .= $list;
     $html .= '</div>';

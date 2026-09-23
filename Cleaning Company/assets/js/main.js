@@ -1,6 +1,7 @@
 /* =====================================================================
    MAIN.JS — navigation drawer, sticky header, accordion, tabs, counters,
-   reveal-on-scroll, contact form UX. Vanilla ES2017, no dependencies.
+   reveal-on-scroll, contact form UX, area-map search, page loader.
+   Vanilla ES2017, no dependencies.
    ===================================================================== */
 (function () {
     'use strict';
@@ -212,6 +213,56 @@
                 applyAreaFilter();
                 areaSearch.focus();
             });
+        }
+    }
+
+    /* -------------------------------------------------- page loader ----- */
+    /* The overlay is painted by /assets/js/loader-gate.js (loaded in
+       includes/header.php before the first paint — an external file
+       because the site CSP is script-src 'self') and released here: once
+       every image, stylesheet and video is ready, plus a short minimum so
+       the loader never flickers. loader-gate.js also sets an 8s safety
+       timeout, so the page can never stay hidden. */
+    var loader = $('[data-site-loader]');
+    var rootEl = document.documentElement;
+    var loaderReleased = false;
+
+    function releaseLoader() {
+        if (loaderReleased) { return; }
+        loaderReleased = true;
+        rootEl.classList.add('has-loaded');
+        if (loader) {
+            window.setTimeout(function () { loader.style.display = 'none'; }, 600);
+        }
+    }
+
+    function releaseLoaderSoon() {
+        var minVisible = prefersReduced ? 0 : 450;
+        var remaining  = Math.max(0, minVisible - (Date.now() - loaderStartedAt));
+        window.setTimeout(releaseLoader, remaining);
+    }
+
+    var loaderStartedAt = Date.now();
+
+    if (loader) {
+        /* Videos do not block window "load": wait for their first frame. */
+        var pendingVideos = $all('video').filter(function (video) {
+            return video.readyState < 2;
+        });
+
+        if (pendingVideos.length) {
+            var settled = 0;
+            var onVideoSettled = function () {
+                settled++;
+                if (settled >= pendingVideos.length) { releaseLoaderSoon(); }
+            };
+            pendingVideos.forEach(function (video) {
+                video.addEventListener('loadeddata', onVideoSettled, { once: true });
+                video.addEventListener('error', onVideoSettled, { once: true });
+            });
+            window.addEventListener('load', releaseLoaderSoon);
+        } else {
+            window.addEventListener('load', releaseLoaderSoon);
         }
     }
 })();

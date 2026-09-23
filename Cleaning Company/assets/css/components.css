@@ -664,6 +664,40 @@ body.site--rtl .service-card__btn-details:hover .service-card__arrow { transform
     filter: drop-shadow(0 12px 18px rgba(0, 67, 236, .12));
 }
 
+/* Embedded Google base map — the same key-less embed as the contact page,
+   so the section shows a real, zoomable map of Kuwait. */
+.area-map__canvas--embed {
+    padding: clamp(.5rem, 1.2vw, .9rem);
+    background: var(--white);
+}
+.area-map__frame {
+    position: relative;
+    overflow: hidden;
+    height: clamp(340px, 46vw, 520px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--light-2);
+}
+.area-map__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.area-map__frame-btn {
+    position: absolute;
+    inset-block-end: .85rem;
+    inset-inline-start: .85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .5rem .9rem;
+    border-radius: var(--radius-pill);
+    background: rgba(7, 21, 47, .88);
+    color: #ffffff;
+    font-size: .8rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-md);
+    transition: background-color var(--dur), transform var(--dur);
+}
+.area-map__frame-btn:hover { background: var(--primary-deep); color: #ffffff; transform: translateY(-2px); }
+.area-map__frame-btn-icon { flex: none; color: var(--accent); }
+
 /* Pins: a golden dot with a soft blue halo, plus a label that appears on
    hover, focus or when the pin matches the search query. */
 .area-map__pin { cursor: pointer; text-decoration: none; }
@@ -1055,78 +1089,84 @@ body.site--rtl .area-map__list-link:hover { transform: translateX(-3px); }
 .ba__caption--right { inset-inline-end: .8rem; }
 .ba__label { margin: 0; text-align: center; font-size: .88rem; color: var(--muted); }
 
-/* ------------------------------------------------------------ CTA BAND */
+/* ------------------------------------------------------------ CTA BAND
+   Closing conversion band: one badge, one headline, one line of copy and
+   the two direct actions. The band paints its own full-bleed background
+   (dark gradient + gold/blue glows) so no white strip shows behind it —
+   footer.php sits flush against it (see .site-footer--flush). */
 .cta-band {
-    background: linear-gradient(140deg, var(--primary-deep), var(--secondary));
-    padding-block: clamp(1.5rem, 3vw, 2.25rem);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: clamp(2.1rem, 4.2vw, 3.1rem);
+    background:
+        radial-gradient(115% 135% at 92% 8%, rgba(241, 209, 21, .22), transparent 52%),
+        radial-gradient(95% 120% at 0% 100%, rgba(0, 67, 236, .42), transparent 58%),
+        linear-gradient(135deg, var(--primary-deep) 0%, var(--secondary) 58%, #0a2a5e 100%);
+    color: #ffffff;
+}
+.cta-band::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--primary), var(--accent));
+    opacity: .9;
 }
 .cta-band__card {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem 2.5rem;
+    gap: 1.35rem 2.5rem;
     max-width: var(--max-width, 1200px);
     margin-inline: auto;
 }
 .cta-band__content {
-    flex: 1 1 400px;
+    flex: 1 1 460px;
     min-width: 0;
 }
+
+/* "Trusted Kuwait cleaning since 2024" keeps its own badge background
+   instead of sitting directly on the gradient. */
 .cta-band__eyebrow {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: .4rem;
-    font-size: .8rem;
-    font-weight: 700;
+    gap: .45rem;
+    width: fit-content;
+    margin: 0;
+    padding: .42rem .9rem;
+    border: 1px solid rgba(241, 209, 21, .38);
+    border-radius: var(--radius-pill);
+    background: rgba(241, 209, 21, .16);
+    color: var(--accent);
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .09em;
     text-transform: uppercase;
-    letter-spacing: .03em;
-    color: rgba(255, 255, 255, .85);
 }
 .cta-band__eyebrow-icon { flex: none; }
 .cta-band__title {
-    margin: .5rem 0 .75rem;
+    margin: .9rem 0 .55rem;
     color: #ffffff;
-    font-size: clamp(1.5rem, 3vw, 2.05rem);
-    line-height: 1.2;
+    font-size: clamp(1.5rem, 3vw, 2.15rem);
+    line-height: 1.16;
 }
 .cta-band__text {
-    margin: 0 0 1rem;
-    max-width: 62ch;
-    color: rgba(255, 255, 255, .82);
-    font-size: 1rem;
-    line-height: 1.6;
-}
-.cta-band__points {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .75rem 1.25rem;
-    list-style: none;
     margin: 0;
-    padding: 0;
+    max-width: 60ch;
+    color: rgba(255, 255, 255, .86);
+    font-size: clamp(.98rem, 1.5vw, 1.08rem);
+    line-height: 1.65;
 }
-.cta-band__points li {
-    display: flex;
-    align-items: center;
-    gap: .4rem;
-    color: rgba(255, 255, 255, .88);
-    font-size: .92rem;
-}
-.cta-band__check { fill: var(--accent, #ffd22d); }
 .cta-band__actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: .8rem 1.25rem;
+    gap: .75rem 1rem;
 }
-.cta-band__btn { min-width: 180px; }
-.cta-band__hours {
-    display: flex;
-    align-items: center;
-    gap: .4rem;
-    color: rgba(255, 255, 255, .75);
-    font-size: .85rem;
-}
+.cta-band__btn { min-width: 200px; justify-content: center; }
 
 /* --------------------------------------------------------- ALERTS / MISC */
 .alert {
@@ -1389,16 +1429,89 @@ body.site--rtl .contact-card:hover .contact-card__hint .icon { transform: scaleX
 }
 .contact-detail__value { font-size: .96rem; font-weight: 600; color: var(--ink); line-height: 1.55; overflow-wrap: anywhere; }
 
-.contact-map { margin-top: clamp(1.1rem, 2.2vw, 1.75rem); }
-.contact-map__frame {
-    overflow: hidden;
+/* -------------------------------------------- "FIND US ON THE MAP" BLOCK
+   An information card (address, hours, phone + direct actions) sitting
+   next to the embedded Google map. Mobile-first: one column, two columns
+   from 900px up (see responsive.css). */
+.contact-map {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 2.4vw, 1.75rem);
+    align-items: stretch;
+    margin-top: clamp(1.1rem, 2.2vw, 1.75rem);
+}
+.contact-map__card {
+    display: grid;
+    align-content: start;
+    gap: .6rem;
+    padding: clamp(1.35rem, 2.8vw, 2rem);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg, 20px);
-    box-shadow: var(--shadow-sm);
     background: var(--white);
+    box-shadow: var(--shadow-card, var(--shadow-sm));
 }
-.contact-map__frame iframe { display: block; width: 100%; }
-.contact-map__actions { display: flex; margin: .8rem .2rem 0; }
+.contact-map__title { margin: 0; font-size: clamp(1.35rem, 2.6vw, 1.85rem); }
+.contact-map__lead { margin: 0 0 .35rem; color: var(--muted); font-size: .96rem; line-height: 1.6; }
+.contact-map__facts { display: grid; gap: .6rem; margin: 0; padding: 0; list-style: none; }
+.contact-map__facts li {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .8rem .9rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--primary-tint);
+}
+.contact-map__fact-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 38px; height: 38px;
+    border-radius: 12px;
+    background: var(--white);
+    color: var(--primary);
+    box-shadow: var(--shadow-xs);
+}
+.contact-map__fact-body { display: grid; gap: .15rem; min-width: 0; }
+.contact-map__fact-label {
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.contact-map__fact-value { font-size: .94rem; font-weight: 600; color: var(--ink); line-height: 1.5; overflow-wrap: anywhere; }
+.contact-map__actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .35rem; }
+.contact-map__actions .btn { flex: 1 1 190px; justify-content: center; }
+
+.contact-map__frame {
+    position: relative;
+    overflow: hidden;
+    min-height: 340px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg, 20px);
+    background: var(--white);
+    box-shadow: var(--shadow-card, var(--shadow-sm));
+}
+.contact-map__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.contact-map__badge {
+    position: absolute;
+    inset-block-end: .9rem;
+    inset-inline-start: .9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .5rem .9rem;
+    border-radius: var(--radius-pill);
+    background: rgba(7, 21, 47, .88);
+    color: #ffffff;
+    font-size: .82rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-md);
+    transition: background-color var(--dur), transform var(--dur);
+}
+.contact-map__badge:hover { background: var(--primary-deep); color: #ffffff; transform: translateY(-2px); }
+.contact-map__badge-icon { flex: none; color: var(--accent); }
 
 /* -------------------------------------------- CONTACT PAGE PANELS & TILES
    The contact page is built from two panels: the company details as a

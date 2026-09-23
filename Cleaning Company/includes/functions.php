@@ -290,6 +290,38 @@ function e_url(?string $value): string
 }
 
 /* ---------------------------------------------------------------------
+ | B2. Google Maps embed URL
+ * -------------------------------------------------------------------*/
+
+/**
+ * Key-less Google Maps embed URL for the active language.
+ *
+ * The embed in config.php carries an `hl=` parameter, so the labels of the
+ * embedded map follow the page language instead of always being English.
+ * A hand-picked /maps/embed?pb=... URL from config.local.php is returned
+ * untouched — its locale is baked into the pb payload.
+ */
+function map_embed_url(): string
+{
+    $url = trim((string) (defined('COMPANY_MAP_EMBED_URL') ? COMPANY_MAP_EMBED_URL : ''));
+    if ($url === '' || !str_starts_with($url, 'https://')) {
+        return '';
+    }
+    if (strpos($url, 'output=embed') === false) {
+        return $url;                       /* custom embed URL: leave as it is */
+    }
+
+    $hl = lang() === 'ar' ? 'ar' : 'en';
+    if (preg_match('/([?&])hl=[A-Za-z-]+/', $url) === 1) {
+        return (string) preg_replace('/([?&])hl=[A-Za-z-]+/', '${1}hl=' . $hl, $url, 1);
+    }
+
+    return $url . (strpos($url, '?') === false ? '?' : '&') . 'hl=' . $hl;
+}
+
+
+
+/* ---------------------------------------------------------------------
  | C. URLs  (language aware, works with and without mod_rewrite)
  * -------------------------------------------------------------------*/
 

@@ -1,8 +1,10 @@
 <?php
 /**
  * CONTACT PAGE
- * Phone / WhatsApp cards, the inquiry form and a map section centred on
- * the configured business address. No e-mail address is published.
+ * Phone / WhatsApp cards plus a map section centred on the configured
+ * business address. There is deliberately no contact form on this page:
+ * visitors reach the team directly on WhatsApp or by phone. No e-mail
+ * address is published. No booking system, no accounts, no database.
  */
 
 require __DIR__ . '/includes/bootstrap.php';
@@ -17,7 +19,7 @@ $page = [
     'slug'        => 'contact',
     'path'        => '/contact.php',
     'title'       => 'Contact Us — Cleaning Services in Kuwait | ' . COMPANY_NAME,
-    'description' => 'Contact ' . COMPANY_NAME . ' for residential, commercial or specialised cleaning in Kuwait. Call, WhatsApp or send an inquiry using our contact form. No booking system, no accounts, no database.',
+    'description' => 'Contact ' . COMPANY_NAME . ' for residential, commercial or specialised cleaning in Kuwait. Call us or send a WhatsApp message for a quote and free inspection. No booking system, no accounts, no database.',
     'keywords'    => 'contact cleaning company Kuwait, cleaning company phone Kuwait, WhatsApp cleaning Kuwait, cleaning quote Kuwait',
     'image'       => $contactImage,
     'image_alt'   => $contactImageAlt,
@@ -87,19 +89,37 @@ require __DIR__ . '/includes/page-hero.php';
     </div>
 </section>
 
-<?php if (COMPANY_MAP_EMBED_URL !== '' && str_starts_with(COMPANY_MAP_EMBED_URL, 'https://')) : ?>
+<?php if (map_embed_url() !== '') : ?>
 <section class="section section--muted" aria-labelledby="contact-map-title">
     <div class="container">
         <div class="contact-map reveal">
-            <div class="contact-map__intro">
+            <div class="contact-map__card">
                 <p class="eyebrow"><?= icon('map-pin', 'eyebrow__icon', 18) ?><?= e(t('contact.hero_eyebrow')) ?></p>
                 <h2 class="contact-map__title" id="contact-map-title"><?= e(t('contact.google_maps')) ?></h2>
                 <p class="contact-map__lead"><?= e(t('contact.map_lead')) ?></p>
 
                 <ul class="contact-map__facts">
-                    <li><?= icon('map-pin', 'icon', 18) ?><span><?= e(COMPANY_ADDRESS) ?></span></li>
-                    <li><?= icon('clock', 'icon', 18) ?><span><?= e(COMPANY_WORKING_HOURS) ?></span></li>
-                    <li><?= icon('phone', 'icon', 18) ?><span dir="ltr"><?= e(COMPANY_PHONE) ?></span></li>
+                    <li>
+                        <span class="contact-map__fact-icon"><?= icon('map-pin', 'icon', 20) ?></span>
+                        <span class="contact-map__fact-body">
+                            <span class="contact-map__fact-label"><?= e(t('contact.address_label')) ?></span>
+                            <span class="contact-map__fact-value"><?= e(COMPANY_ADDRESS) ?></span>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="contact-map__fact-icon"><?= icon('clock', 'icon', 20) ?></span>
+                        <span class="contact-map__fact-body">
+                            <span class="contact-map__fact-label"><?= e(t('contact.hours_label')) ?></span>
+                            <span class="contact-map__fact-value"><?= e(COMPANY_WORKING_HOURS) ?></span>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="contact-map__fact-icon"><?= icon('phone', 'icon', 20) ?></span>
+                        <span class="contact-map__fact-body">
+                            <span class="contact-map__fact-label"><?= e(t('contact.phone_label')) ?></span>
+                            <span class="contact-map__fact-value" dir="ltr"><?= e(COMPANY_PHONE) ?></span>
+                        </span>
+                    </li>
                 </ul>
 
                 <div class="contact-map__actions">
@@ -112,25 +132,20 @@ require __DIR__ . '/includes/page-hero.php';
 
             <div class="contact-map__frame">
                 <iframe loading="lazy"
-                        src="<?= e_url(COMPANY_MAP_EMBED_URL) ?>"
+                        src="<?= e_url(map_embed_url()) ?>"
                         width="100%" height="100%" style="border:0;"
                         allowfullscreen
                         referrerpolicy="no-referrer-when-downgrade"
                         title="<?= e(COMPANY_NAME) ?> — <?= e(COMPANY_ADDRESS) ?>">
                 </iframe>
+                <a class="contact-map__badge" href="<?= e_url(COMPANY_GOOGLE_MAPS_URL) ?>" target="_blank" rel="noopener noreferrer">
+                    <?= icon('map-pin', 'contact-map__badge-icon', 16) ?><span><?= e(COMPANY_CITY) ?></span>
+                </a>
             </div>
         </div>
     </div>
 </section>
 <?php endif; ?>
-
-<?php
-/* Inquiry form (posts to /actions/contact.php — nothing is stored). */
-$formOptions = [
-    'source' => '/contact.php',
-];
-require __DIR__ . '/includes/quote-form.php';
-?>
 
 <?php
 echo cta_band();

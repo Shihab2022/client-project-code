@@ -17,6 +17,15 @@ $uri  = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
 $uri  = '/' . ltrim(rawurldecode($uri), '/');
 $path = ltrim($uri, '/');
 
+/* Apache matches an *optional single* trailing slash — `^(en|ar)/(.+?)/?$`
+   and `^([^/]+?)/?$` in .htaccess — so /en/contact/ resolves exactly like
+   /en/contact. Do the same here (one slash only, so `//` still 404s the way
+   it does in production). REQUEST_URI keeps the slash, so the application's
+   canonical-redirect logic still sees the address the visitor typed. */
+if ($path !== '' && str_ends_with($path, '/') && !str_ends_with($path, '//')) {
+    $path = substr($path, 0, -1);
+}
+
 /** Serve a resolved .php file the way Apache would after a rewrite. */
 $serve = static function (string $file, string $urlPath) use ($root): bool {
     if (!is_file($file) || !str_ends_with($file, '.php')) {

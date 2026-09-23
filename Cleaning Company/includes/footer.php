@@ -19,7 +19,12 @@ require __DIR__ . '/../data/site.php';
 
 <?php require __DIR__ . '/floating-actions.php'; ?>
 
-<footer class="site-footer" role="contentinfo" aria-labelledby="site-footer-title">
+<?php
+/* A CTA band directly above the footer paints its own background, so the
+   footer is rendered flush against it and no white strip shows in between. */
+$footerClass = 'site-footer' . (!empty($GLOBALS['CTA_BAND_RENDERED']) ? ' site-footer--flush' : '');
+?>
+<footer class="<?= e($footerClass) ?>" role="contentinfo" aria-labelledby="site-footer-title">
     <h2 class="visually-hidden" id="site-footer-title"><?= e(t('footer.quick_links')) ?></h2>
     <div class="container">
         <div class="site-footer__grid">
@@ -27,14 +32,21 @@ require __DIR__ . '/../data/site.php';
                 <?= brand_logo('brand--footer') ?>
                 <p class="site-footer__about"><?= e(t('footer.about_text')) ?></p>
 
+                <ul class="site-footer__meta">
+                    <li>
+                        <span class="site-footer__meta-icon"><?= icon('clock', 'icon', 16) ?></span>
+                        <span><?= e(COMPANY_WORKING_HOURS) ?></span>
+                    </li>
+                    <li>
+                        <span class="site-footer__meta-icon"><?= icon('map-pin', 'icon', 16) ?></span>
+                        <span><?= e(COMPANY_ADDRESS) ?></span>
+                    </li>
+                </ul>
+
                 <div class="site-footer__actions">
                     <?= wa_button(whatsapp_quote_message(), t('cta.whatsapp_us'), 'whatsapp', ['class' => 'btn--sm']) ?>
                     <?= call_button(t('cta.call_now'), 'light', ['class' => 'btn--sm']) ?>
                 </div>
-
-                <p class="site-footer__hours">
-                    <?= icon('clock', 'icon', 16) ?><span><?= e(COMPANY_WORKING_HOURS) ?></span>
-                </p>
             </div>
 
             <nav class="site-footer__col" aria-label="<?= e(t('footer.quick_links')) ?>">
@@ -71,20 +83,34 @@ require __DIR__ . '/../data/site.php';
             </nav>
         </div>
 
-        <ul class="site-footer__info" aria-label="<?= e(t('footer.contact')) ?>">
-            <li>
-                <?= icon('phone', 'icon', 17) ?>
-                <a href="<?= e_url(tel_url()) ?>" dir="ltr"><?= e(COMPANY_PHONE) ?></a>
-            </li>
-            <li>
-                <?= icon('whatsapp', 'icon', 17) ?>
-                <a href="<?= e_url(whatsapp_url(whatsapp_quote_message())) ?>" target="_blank" rel="noopener noreferrer"><?= e(t('common.whatsapp')) ?></a>
-            </li>
-            <li>
-                <?= icon('map-pin', 'icon', 17) ?>
-                <span><?= e(COMPANY_ADDRESS) ?></span>
-            </li>
-        </ul>
+        <div class="site-footer__info">
+            <a class="site-footer__info-card site-footer__info-card--wa" href="<?= e_url(whatsapp_url(whatsapp_quote_message())) ?>" target="_blank" rel="noopener noreferrer">
+                <span class="site-footer__info-icon"><?= icon('whatsapp', 'icon', 22) ?></span>
+                <span class="site-footer__info-body">
+                    <span class="site-footer__info-label"><?= e(t('common.whatsapp')) ?></span>
+                    <span class="site-footer__info-value" dir="ltr"><?= e(COMPANY_PHONE) ?></span>
+                </span>
+                <span class="site-footer__info-arrow" aria-hidden="true"><?= icon('arrow-up-right', 'icon', 16) ?></span>
+            </a>
+
+            <a class="site-footer__info-card" href="<?= e_url(tel_url()) ?>">
+                <span class="site-footer__info-icon"><?= icon('phone', 'icon', 22) ?></span>
+                <span class="site-footer__info-body">
+                    <span class="site-footer__info-label"><?= e(t('common.phone')) ?></span>
+                    <span class="site-footer__info-value" dir="ltr"><?= e(COMPANY_PHONE) ?></span>
+                </span>
+                <span class="site-footer__info-arrow" aria-hidden="true"><?= icon('arrow-up-right', 'icon', 16) ?></span>
+            </a>
+
+            <a class="site-footer__info-card" href="<?= e_url(COMPANY_GOOGLE_MAPS_URL) ?>" target="_blank" rel="noopener noreferrer">
+                <span class="site-footer__info-icon"><?= icon('map-pin', 'icon', 22) ?></span>
+                <span class="site-footer__info-body">
+                    <span class="site-footer__info-label"><?= e(t('common.address')) ?></span>
+                    <span class="site-footer__info-value"><?= e(COMPANY_ADDRESS) ?></span>
+                </span>
+                <span class="site-footer__info-arrow" aria-hidden="true"><?= icon('arrow-up-right', 'icon', 16) ?></span>
+            </a>
+        </div>
 
         <div class="site-footer__bottom">
             <p class="site-footer__copy"><?= e(t('footer.copyright', ['year' => date('Y'), 'company' => COMPANY_NAME])) ?></p>
